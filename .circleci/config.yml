@@ -27,11 +27,11 @@ jobs:
           - v1-dependencies-
 
       - run:
-          name: "Install dependencies"
+          name: "Installing dependencies"
           command: yarn install
 
       - run:
-          name: "Build package"
+          name: "Building package"
           command: yarn build
 
       - save_cache:
@@ -41,7 +41,7 @@ jobs:
 
       # run tests!
       - run:
-          name: Run tests
-          command: yarn test --runInBand
+          name: Running tests
+          command: yarn test --ci --reporters=default --reporters=jest-junit --runInBand
           environment:
             JEST_JUNIT_OUTPUT: "reports/junit/js-test-results.xml"
