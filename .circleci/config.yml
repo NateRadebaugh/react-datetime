@@ -39,3 +39,9 @@ jobs:
       - run:
           name: Running tests
           command: yarn circleci-test
+
+      - store_test_results:
+          path: ~/reports
+
+      - store_artifacts:
+          path: ./reports
