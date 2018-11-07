@@ -1,0 +1,7 @@
+component_depth: 1
+languages:
+  - typescript
+  - javascript
+exclude:
+  - /test
+  - /example
