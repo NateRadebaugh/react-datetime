@@ -3,5 +3,5 @@ languages:
   - typescript
   - javascript
 exclude:
-  - /test
-  - /example
+  - /test/.*
+  - /example/src/.*
