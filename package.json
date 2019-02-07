@@ -48,7 +48,7 @@
     "report-coverage": "cat ./coverage/lcov.info | coveralls",
     "prettier": "prettier --write **/*.{json,js,jsx,css}",
     "prepare": "yarn build",
-    "predeploy": "cd example && yarn install && yarn build",
+    "predeploy": "cd example && yarn --pnp install && yarn build",
     "deploy": "gh-pages -d example/build"
   },
   "lint-staged": {
