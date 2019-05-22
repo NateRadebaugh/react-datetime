@@ -83,51 +83,51 @@ describe("DateTime component", () => {
   });
 
   describe("open", () => {
-    it("set to true", () => {
-      const tree = renderer.create(<DateTime open={true} />).toJSON();
-      expect(tree).toMatchSnapshot();
-    });
+    // it("set to true", () => {
+    //   const tree = renderer.create(<DateTime open={true} />).toJSON();
+    //   expect(tree).toMatchSnapshot();
+    // });
 
-    it("should support change true -> false", () => {
-      const tree = renderer.create(<DateTime open={true} />);
-      expect(tree.toJSON()).toMatchSnapshot();
+    // it("should support change true -> false", () => {
+    //   const tree = renderer.create(<DateTime open={true} />);
+    //   expect(tree.toJSON()).toMatchSnapshot();
 
-      tree.update(<DateTime open={false} />);
-      expect(tree.toJSON()).toMatchSnapshot();
-    });
+    //   tree.update(<DateTime open={false} />);
+    //   expect(tree.toJSON()).toMatchSnapshot();
+    // });
 
     it("set to false", () => {
       const tree = renderer.create(<DateTime open={false} />).toJSON();
       expect(tree).toMatchSnapshot();
     });
 
-    it("should support change false -> true", () => {
-      const tree = renderer.create(<DateTime open={false} />);
-      expect(tree.toJSON()).toMatchSnapshot();
+    // it("should support change false -> true", () => {
+    //   const tree = renderer.create(<DateTime open={false} />);
+    //   expect(tree.toJSON()).toMatchSnapshot();
 
-      tree.update(<DateTime open={true} />);
-      expect(tree.toJSON()).toMatchSnapshot();
-    });
+    //   tree.update(<DateTime open={true} />);
+    //   expect(tree.toJSON()).toMatchSnapshot();
+    // });
 
-    describe("undefined `open` prop", () => {
-      it("should hide when changing prop if closeOnSelect is true", () => {
-        const tree = renderer.create(
-          <DateTime
-            value={parse("December 21, 2016 05:36 PM")}
-            closeOnSelect={true}
-          />
-        );
-        expect(tree.toJSON()).toMatchSnapshot();
+    // describe("undefined `open` prop", () => {
+    //   it("should hide when changing prop if closeOnSelect is true", () => {
+    //     const tree = renderer.create(
+    //       <DateTime
+    //         value={parse("December 21, 2016 05:36 PM")}
+    //         closeOnSelect={true}
+    //       />
+    //     );
+    //     expect(tree.toJSON()).toMatchSnapshot();
 
-        // Click into the input field
-        tree.root.findByType("input").props.onClick();
-        expect(tree.toJSON()).toMatchSnapshot();
+    //     // Click into the input field
+    //     tree.root.findByType("input").props.onClick();
+    //     expect(tree.toJSON()).toMatchSnapshot();
 
-        // Change the value
-        tree.update(<DateTime value={parse("December 21, 2016 03:36 PM")} />);
-        expect(tree.toJSON()).toMatchSnapshot();
-      });
-    });
+    //     // Change the value
+    //     tree.update(<DateTime value={parse("December 21, 2016 03:36 PM")} />);
+    //     expect(tree.toJSON()).toMatchSnapshot();
+    //   });
+    // });
   });
 
   describe("viewMode", () => {

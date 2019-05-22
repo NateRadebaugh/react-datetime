@@ -299,6 +299,7 @@ exports[`DateTime component className: set to arbitrary value 1`] = `
   className="rdt arbitrary-value"
 >
   <input
+    aria-describedby="picker:null"
     className="form-control"
     onChange={[Function]}
     onClick={[Function]}
@@ -315,6 +316,7 @@ exports[`DateTime component dateFormat set to false 1`] = `
   className="rdt"
 >
   <input
+    aria-describedby="picker:null"
     className="form-control"
     onChange={[Function]}
     onClick={[Function]}
@@ -331,6 +333,7 @@ exports[`DateTime component dateFormat set to true 1`] = `
   className="rdt"
 >
   <input
+    aria-describedby="picker:null"
     className="form-control"
     onChange={[Function]}
     onClick={[Function]}
@@ -347,6 +350,7 @@ exports[`DateTime component defaultValue: set to arbitrary value 1`] = `
   className="rdt"
 >
   <input
+    aria-describedby="picker:null"
     className="form-control"
     onChange={[Function]}
     onClick={[Function]}
@@ -363,6 +367,7 @@ exports[`DateTime component everything default: renders correctly 1`] = `
   className="rdt"
 >
   <input
+    aria-describedby="picker:null"
     className="form-control"
     onChange={[Function]}
     onClick={[Function]}
@@ -737,6 +742,7 @@ exports[`DateTime component input input: set to true 1`] = `
   className="rdt"
 >
   <input
+    aria-describedby="picker:null"
     className="form-control"
     onChange={[Function]}
     onClick={[Function]}
@@ -753,6 +759,7 @@ exports[`DateTime component inputProps with className specified 1`] = `
   className="rdt"
 >
   <input
+    aria-describedby="picker:null"
     className="arbitrary-className"
     onChange={[Function]}
     onClick={[Function]}
@@ -769,6 +776,7 @@ exports[`DateTime component inputProps with disabled specified 1`] = `
   className="rdt"
 >
   <input
+    aria-describedby="picker:null"
     className="form-control"
     disabled={true}
     onChange={[Function]}
@@ -786,6 +794,7 @@ exports[`DateTime component inputProps with name specified 1`] = `
   className="rdt"
 >
   <input
+    aria-describedby="picker:null"
     className="form-control"
     name="arbitrary-name"
     onChange={[Function]}
@@ -803,6 +812,7 @@ exports[`DateTime component inputProps with placeholder specified 1`] = `
   className="rdt"
 >
   <input
+    aria-describedby="picker:null"
     className="form-control"
     onChange={[Function]}
     onClick={[Function]}
@@ -820,6 +830,7 @@ exports[`DateTime component inputProps with required specified 1`] = `
   className="rdt"
 >
   <input
+    aria-describedby="picker:null"
     className="form-control"
     onChange={[Function]}
     onClick={[Function]}
@@ -837,6 +848,7 @@ exports[`DateTime component isValidDate: only valid if after yesterday 1`] = `
   className="rdt"
 >
   <input
+    aria-describedby="picker:null"
     className="form-control"
     onChange={[Function]}
     onClick={[Function]}
@@ -853,6 +865,7 @@ exports[`DateTime component open set to false 1`] = `
   className="rdt"
 >
   <input
+    aria-describedby="picker:null"
     className="form-control"
     onChange={[Function]}
     onClick={[Function]}
@@ -860,1574 +873,6 @@ exports[`DateTime component open set to false 1`] = `
     onKeyDown={[Function]}
     type="text"
     value=""
-  />
-</div>
-`;
-
-exports[`DateTime component open set to true 1`] = `
-<div
-  className="rdt rdtOpen"
->
-  <input
-    className="form-control"
-    onChange={[Function]}
-    onClick={[Function]}
-    onFocus={[Function]}
-    onKeyDown={[Function]}
-    type="text"
-    value=""
-  />
-  <div
-    className="rdtPicker"
-    style={
-      Object {
-        "left": 0,
-        "opacity": 0,
-        "pointerEvents": "none",
-        "position": "absolute",
-        "top": 0,
-      }
-    }
-  >
-    <div
-      className="rdtDays"
-    >
-      <table>
-        <thead>
-          <tr>
-            <th
-              className="rdtPrev"
-              onClick={[Function]}
-            >
-              <span>
-                ‹
-              </span>
-            </th>
-            <th
-              className="rdtSwitch"
-              colSpan={5}
-              onClick={[Function]}
-            >
-              September 2018
-            </th>
-            <th
-              className="rdtNext"
-              onClick={[Function]}
-            >
-              <span>
-                ›
-              </span>
-            </th>
-          </tr>
-          <tr>
-            <th
-              className="dow"
-            >
-              Su
-            </th>
-            <th
-              className="dow"
-            >
-              Mo
-            </th>
-            <th
-              className="dow"
-            >
-              Tu
-            </th>
-            <th
-              className="dow"
-            >
-              We
-            </th>
-            <th
-              className="dow"
-            >
-              Th
-            </th>
-            <th
-              className="dow"
-            >
-              Fr
-            </th>
-            <th
-              className="dow"
-            >
-              Sa
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td
-              className="rdtDay rdtOld"
-              onClick={[Function]}
-            >
-              26
-            </td>
-            <td
-              className="rdtDay rdtOld"
-              onClick={[Function]}
-            >
-              27
-            </td>
-            <td
-              className="rdtDay rdtOld"
-              onClick={[Function]}
-            >
-              28
-            </td>
-            <td
-              className="rdtDay rdtOld"
-              onClick={[Function]}
-            >
-              29
-            </td>
-            <td
-              className="rdtDay rdtOld"
-              onClick={[Function]}
-            >
-              30
-            </td>
-            <td
-              className="rdtDay rdtOld"
-              onClick={[Function]}
-            >
-              31
-            </td>
-            <td
-              className="rdtDay"
-              onClick={[Function]}
-            >
-              1
-            </td>
-          </tr>
-          <tr>
-            <td
-              className="rdtDay rdtToday"
-              onClick={[Function]}
-            >
-              2
-            </td>
-            <td
-              className="rdtDay"
-              onClick={[Function]}
-            >
-              3
-            </td>
-            <td
-              className="rdtDay"
-              onClick={[Function]}
-            >
-              4
-            </td>
-            <td
-              className="rdtDay"
-              onClick={[Function]}
-            >
-              5
-            </td>
-            <td
-              className="rdtDay"
-              onClick={[Function]}
-            >
-              6
-            </td>
-            <td
-              className="rdtDay"
-              onClick={[Function]}
-            >
-              7
-            </td>
-            <td
-              className="rdtDay"
-              onClick={[Function]}
-            >
-              8
-            </td>
-          </tr>
-          <tr>
-            <td
-              className="rdtDay"
-              onClick={[Function]}
-            >
-              9
-            </td>
-            <td
-              className="rdtDay"
-              onClick={[Function]}
-            >
-              10
-            </td>
-            <td
-              className="rdtDay"
-              onClick={[Function]}
-            >
-              11
-            </td>
-            <td
-              className="rdtDay"
-              onClick={[Function]}
-            >
-              12
-            </td>
-            <td
-              className="rdtDay"
-              onClick={[Function]}
-            >
-              13
-            </td>
-            <td
-              className="rdtDay"
-              onClick={[Function]}
-            >
-              14
-            </td>
-            <td
-              className="rdtDay"
-              onClick={[Function]}
-            >
-              15
-            </td>
-          </tr>
-          <tr>
-            <td
-              className="rdtDay"
-              onClick={[Function]}
-            >
-              16
-            </td>
-            <td
-              className="rdtDay"
-              onClick={[Function]}
-            >
-              17
-            </td>
-            <td
-              className="rdtDay"
-              onClick={[Function]}
-            >
-              18
-            </td>
-            <td
-              className="rdtDay"
-              onClick={[Function]}
-            >
-              19
-            </td>
-            <td
-              className="rdtDay"
-              onClick={[Function]}
-            >
-              20
-            </td>
-            <td
-              className="rdtDay"
-              onClick={[Function]}
-            >
-              21
-            </td>
-            <td
-              className="rdtDay"
-              onClick={[Function]}
-            >
-              22
-            </td>
-          </tr>
-          <tr>
-            <td
-              className="rdtDay"
-              onClick={[Function]}
-            >
-              23
-            </td>
-            <td
-              className="rdtDay"
-              onClick={[Function]}
-            >
-              24
-            </td>
-            <td
-              className="rdtDay"
-              onClick={[Function]}
-            >
-              25
-            </td>
-            <td
-              className="rdtDay"
-              onClick={[Function]}
-            >
-              26
-            </td>
-            <td
-              className="rdtDay"
-              onClick={[Function]}
-            >
-              27
-            </td>
-            <td
-              className="rdtDay"
-              onClick={[Function]}
-            >
-              28
-            </td>
-            <td
-              className="rdtDay"
-              onClick={[Function]}
-            >
-              29
-            </td>
-          </tr>
-          <tr>
-            <td
-              className="rdtDay"
-              onClick={[Function]}
-            >
-              30
-            </td>
-            <td
-              className="rdtDay rdtNew"
-              onClick={[Function]}
-            >
-              1
-            </td>
-            <td
-              className="rdtDay rdtNew"
-              onClick={[Function]}
-            >
-              2
-            </td>
-            <td
-              className="rdtDay rdtNew"
-              onClick={[Function]}
-            >
-              3
-            </td>
-            <td
-              className="rdtDay rdtNew"
-              onClick={[Function]}
-            >
-              4
-            </td>
-            <td
-              className="rdtDay rdtNew"
-              onClick={[Function]}
-            >
-              5
-            </td>
-            <td
-              className="rdtDay rdtNew"
-              onClick={[Function]}
-            >
-              6
-            </td>
-          </tr>
-        </tbody>
-        <tfoot>
-          <tr>
-            <td
-              className="rdtTimeToggle"
-              colSpan={7}
-              onClick={[Function]}
-            >
-              12:00 AM
-            </td>
-          </tr>
-        </tfoot>
-      </table>
-    </div>
-  </div>
-</div>
-`;
-
-exports[`DateTime component open should support change false -> true 1`] = `
-<div
-  className="rdt"
->
-  <input
-    className="form-control"
-    onChange={[Function]}
-    onClick={[Function]}
-    onFocus={[Function]}
-    onKeyDown={[Function]}
-    type="text"
-    value=""
-  />
-</div>
-`;
-
-exports[`DateTime component open should support change false -> true 2`] = `
-<div
-  className="rdt rdtOpen"
->
-  <input
-    className="form-control"
-    onChange={[Function]}
-    onClick={[Function]}
-    onFocus={[Function]}
-    onKeyDown={[Function]}
-    type="text"
-    value=""
-  />
-  <div
-    className="rdtPicker"
-    style={
-      Object {
-        "left": 0,
-        "opacity": 0,
-        "pointerEvents": "none",
-        "position": "absolute",
-        "top": 0,
-      }
-    }
-  >
-    <div
-      className="rdtDays"
-    >
-      <table>
-        <thead>
-          <tr>
-            <th
-              className="rdtPrev"
-              onClick={[Function]}
-            >
-              <span>
-                ‹
-              </span>
-            </th>
-            <th
-              className="rdtSwitch"
-              colSpan={5}
-              onClick={[Function]}
-            >
-              September 2018
-            </th>
-            <th
-              className="rdtNext"
-              onClick={[Function]}
-            >
-              <span>
-                ›
-              </span>
-            </th>
-          </tr>
-          <tr>
-            <th
-              className="dow"
-            >
-              Su
-            </th>
-            <th
-              className="dow"
-            >
-              Mo
-            </th>
-            <th
-              className="dow"
-            >
-              Tu
-            </th>
-            <th
-              className="dow"
-            >
-              We
-            </th>
-            <th
-              className="dow"
-            >
-              Th
-            </th>
-            <th
-              className="dow"
-            >
-              Fr
-            </th>
-            <th
-              className="dow"
-            >
-              Sa
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td
-              className="rdtDay rdtOld"
-              onClick={[Function]}
-            >
-              26
-            </td>
-            <td
-              className="rdtDay rdtOld"
-              onClick={[Function]}
-            >
-              27
-            </td>
-            <td
-              className="rdtDay rdtOld"
-              onClick={[Function]}
-            >
-              28
-            </td>
-            <td
-              className="rdtDay rdtOld"
-              onClick={[Function]}
-            >
-              29
-            </td>
-            <td
-              className="rdtDay rdtOld"
-              onClick={[Function]}
-            >
-              30
-            </td>
-            <td
-              className="rdtDay rdtOld"
-              onClick={[Function]}
-            >
-              31
-            </td>
-            <td
-              className="rdtDay"
-              onClick={[Function]}
-            >
-              1
-            </td>
-          </tr>
-          <tr>
-            <td
-              className="rdtDay rdtToday"
-              onClick={[Function]}
-            >
-              2
-            </td>
-            <td
-              className="rdtDay"
-              onClick={[Function]}
-            >
-              3
-            </td>
-            <td
-              className="rdtDay"
-              onClick={[Function]}
-            >
-              4
-            </td>
-            <td
-              className="rdtDay"
-              onClick={[Function]}
-            >
-              5
-            </td>
-            <td
-              className="rdtDay"
-              onClick={[Function]}
-            >
-              6
-            </td>
-            <td
-              className="rdtDay"
-              onClick={[Function]}
-            >
-              7
-            </td>
-            <td
-              className="rdtDay"
-              onClick={[Function]}
-            >
-              8
-            </td>
-          </tr>
-          <tr>
-            <td
-              className="rdtDay"
-              onClick={[Function]}
-            >
-              9
-            </td>
-            <td
-              className="rdtDay"
-              onClick={[Function]}
-            >
-              10
-            </td>
-            <td
-              className="rdtDay"
-              onClick={[Function]}
-            >
-              11
-            </td>
-            <td
-              className="rdtDay"
-              onClick={[Function]}
-            >
-              12
-            </td>
-            <td
-              className="rdtDay"
-              onClick={[Function]}
-            >
-              13
-            </td>
-            <td
-              className="rdtDay"
-              onClick={[Function]}
-            >
-              14
-            </td>
-            <td
-              className="rdtDay"
-              onClick={[Function]}
-            >
-              15
-            </td>
-          </tr>
-          <tr>
-            <td
-              className="rdtDay"
-              onClick={[Function]}
-            >
-              16
-            </td>
-            <td
-              className="rdtDay"
-              onClick={[Function]}
-            >
-              17
-            </td>
-            <td
-              className="rdtDay"
-              onClick={[Function]}
-            >
-              18
-            </td>
-            <td
-              className="rdtDay"
-              onClick={[Function]}
-            >
-              19
-            </td>
-            <td
-              className="rdtDay"
-              onClick={[Function]}
-            >
-              20
-            </td>
-            <td
-              className="rdtDay"
-              onClick={[Function]}
-            >
-              21
-            </td>
-            <td
-              className="rdtDay"
-              onClick={[Function]}
-            >
-              22
-            </td>
-          </tr>
-          <tr>
-            <td
-              className="rdtDay"
-              onClick={[Function]}
-            >
-              23
-            </td>
-            <td
-              className="rdtDay"
-              onClick={[Function]}
-            >
-              24
-            </td>
-            <td
-              className="rdtDay"
-              onClick={[Function]}
-            >
-              25
-            </td>
-            <td
-              className="rdtDay"
-              onClick={[Function]}
-            >
-              26
-            </td>
-            <td
-              className="rdtDay"
-              onClick={[Function]}
-            >
-              27
-            </td>
-            <td
-              className="rdtDay"
-              onClick={[Function]}
-            >
-              28
-            </td>
-            <td
-              className="rdtDay"
-              onClick={[Function]}
-            >
-              29
-            </td>
-          </tr>
-          <tr>
-            <td
-              className="rdtDay"
-              onClick={[Function]}
-            >
-              30
-            </td>
-            <td
-              className="rdtDay rdtNew"
-              onClick={[Function]}
-            >
-              1
-            </td>
-            <td
-              className="rdtDay rdtNew"
-              onClick={[Function]}
-            >
-              2
-            </td>
-            <td
-              className="rdtDay rdtNew"
-              onClick={[Function]}
-            >
-              3
-            </td>
-            <td
-              className="rdtDay rdtNew"
-              onClick={[Function]}
-            >
-              4
-            </td>
-            <td
-              className="rdtDay rdtNew"
-              onClick={[Function]}
-            >
-              5
-            </td>
-            <td
-              className="rdtDay rdtNew"
-              onClick={[Function]}
-            >
-              6
-            </td>
-          </tr>
-        </tbody>
-        <tfoot>
-          <tr>
-            <td
-              className="rdtTimeToggle"
-              colSpan={7}
-              onClick={[Function]}
-            >
-              12:00 AM
-            </td>
-          </tr>
-        </tfoot>
-      </table>
-    </div>
-  </div>
-</div>
-`;
-
-exports[`DateTime component open should support change true -> false 1`] = `
-<div
-  className="rdt rdtOpen"
->
-  <input
-    className="form-control"
-    onChange={[Function]}
-    onClick={[Function]}
-    onFocus={[Function]}
-    onKeyDown={[Function]}
-    type="text"
-    value=""
-  />
-  <div
-    className="rdtPicker"
-    style={
-      Object {
-        "left": 0,
-        "opacity": 0,
-        "pointerEvents": "none",
-        "position": "absolute",
-        "top": 0,
-      }
-    }
-  >
-    <div
-      className="rdtDays"
-    >
-      <table>
-        <thead>
-          <tr>
-            <th
-              className="rdtPrev"
-              onClick={[Function]}
-            >
-              <span>
-                ‹
-              </span>
-            </th>
-            <th
-              className="rdtSwitch"
-              colSpan={5}
-              onClick={[Function]}
-            >
-              September 2018
-            </th>
-            <th
-              className="rdtNext"
-              onClick={[Function]}
-            >
-              <span>
-                ›
-              </span>
-            </th>
-          </tr>
-          <tr>
-            <th
-              className="dow"
-            >
-              Su
-            </th>
-            <th
-              className="dow"
-            >
-              Mo
-            </th>
-            <th
-              className="dow"
-            >
-              Tu
-            </th>
-            <th
-              className="dow"
-            >
-              We
-            </th>
-            <th
-              className="dow"
-            >
-              Th
-            </th>
-            <th
-              className="dow"
-            >
-              Fr
-            </th>
-            <th
-              className="dow"
-            >
-              Sa
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td
-              className="rdtDay rdtOld"
-              onClick={[Function]}
-            >
-              26
-            </td>
-            <td
-              className="rdtDay rdtOld"
-              onClick={[Function]}
-            >
-              27
-            </td>
-            <td
-              className="rdtDay rdtOld"
-              onClick={[Function]}
-            >
-              28
-            </td>
-            <td
-              className="rdtDay rdtOld"
-              onClick={[Function]}
-            >
-              29
-            </td>
-            <td
-              className="rdtDay rdtOld"
-              onClick={[Function]}
-            >
-              30
-            </td>
-            <td
-              className="rdtDay rdtOld"
-              onClick={[Function]}
-            >
-              31
-            </td>
-            <td
-              className="rdtDay"
-              onClick={[Function]}
-            >
-              1
-            </td>
-          </tr>
-          <tr>
-            <td
-              className="rdtDay rdtToday"
-              onClick={[Function]}
-            >
-              2
-            </td>
-            <td
-              className="rdtDay"
-              onClick={[Function]}
-            >
-              3
-            </td>
-            <td
-              className="rdtDay"
-              onClick={[Function]}
-            >
-              4
-            </td>
-            <td
-              className="rdtDay"
-              onClick={[Function]}
-            >
-              5
-            </td>
-            <td
-              className="rdtDay"
-              onClick={[Function]}
-            >
-              6
-            </td>
-            <td
-              className="rdtDay"
-              onClick={[Function]}
-            >
-              7
-            </td>
-            <td
-              className="rdtDay"
-              onClick={[Function]}
-            >
-              8
-            </td>
-          </tr>
-          <tr>
-            <td
-              className="rdtDay"
-              onClick={[Function]}
-            >
-              9
-            </td>
-            <td
-              className="rdtDay"
-              onClick={[Function]}
-            >
-              10
-            </td>
-            <td
-              className="rdtDay"
-              onClick={[Function]}
-            >
-              11
-            </td>
-            <td
-              className="rdtDay"
-              onClick={[Function]}
-            >
-              12
-            </td>
-            <td
-              className="rdtDay"
-              onClick={[Function]}
-            >
-              13
-            </td>
-            <td
-              className="rdtDay"
-              onClick={[Function]}
-            >
-              14
-            </td>
-            <td
-              className="rdtDay"
-              onClick={[Function]}
-            >
-              15
-            </td>
-          </tr>
-          <tr>
-            <td
-              className="rdtDay"
-              onClick={[Function]}
-            >
-              16
-            </td>
-            <td
-              className="rdtDay"
-              onClick={[Function]}
-            >
-              17
-            </td>
-            <td
-              className="rdtDay"
-              onClick={[Function]}
-            >
-              18
-            </td>
-            <td
-              className="rdtDay"
-              onClick={[Function]}
-            >
-              19
-            </td>
-            <td
-              className="rdtDay"
-              onClick={[Function]}
-            >
-              20
-            </td>
-            <td
-              className="rdtDay"
-              onClick={[Function]}
-            >
-              21
-            </td>
-            <td
-              className="rdtDay"
-              onClick={[Function]}
-            >
-              22
-            </td>
-          </tr>
-          <tr>
-            <td
-              className="rdtDay"
-              onClick={[Function]}
-            >
-              23
-            </td>
-            <td
-              className="rdtDay"
-              onClick={[Function]}
-            >
-              24
-            </td>
-            <td
-              className="rdtDay"
-              onClick={[Function]}
-            >
-              25
-            </td>
-            <td
-              className="rdtDay"
-              onClick={[Function]}
-            >
-              26
-            </td>
-            <td
-              className="rdtDay"
-              onClick={[Function]}
-            >
-              27
-            </td>
-            <td
-              className="rdtDay"
-              onClick={[Function]}
-            >
-              28
-            </td>
-            <td
-              className="rdtDay"
-              onClick={[Function]}
-            >
-              29
-            </td>
-          </tr>
-          <tr>
-            <td
-              className="rdtDay"
-              onClick={[Function]}
-            >
-              30
-            </td>
-            <td
-              className="rdtDay rdtNew"
-              onClick={[Function]}
-            >
-              1
-            </td>
-            <td
-              className="rdtDay rdtNew"
-              onClick={[Function]}
-            >
-              2
-            </td>
-            <td
-              className="rdtDay rdtNew"
-              onClick={[Function]}
-            >
-              3
-            </td>
-            <td
-              className="rdtDay rdtNew"
-              onClick={[Function]}
-            >
-              4
-            </td>
-            <td
-              className="rdtDay rdtNew"
-              onClick={[Function]}
-            >
-              5
-            </td>
-            <td
-              className="rdtDay rdtNew"
-              onClick={[Function]}
-            >
-              6
-            </td>
-          </tr>
-        </tbody>
-        <tfoot>
-          <tr>
-            <td
-              className="rdtTimeToggle"
-              colSpan={7}
-              onClick={[Function]}
-            >
-              12:00 AM
-            </td>
-          </tr>
-        </tfoot>
-      </table>
-    </div>
-  </div>
-</div>
-`;
-
-exports[`DateTime component open should support change true -> false 2`] = `
-<div
-  className="rdt"
->
-  <input
-    className="form-control"
-    onChange={[Function]}
-    onClick={[Function]}
-    onFocus={[Function]}
-    onKeyDown={[Function]}
-    type="text"
-    value=""
-  />
-</div>
-`;
-
-exports[`DateTime component open undefined \`open\` prop should hide when changing prop if closeOnSelect is true 1`] = `
-<div
-  className="rdt"
->
-  <input
-    className="form-control"
-    onChange={[Function]}
-    onClick={[Function]}
-    onFocus={[Function]}
-    onKeyDown={[Function]}
-    type="text"
-    value="12/21/2016 5:36 PM"
-  />
-</div>
-`;
-
-exports[`DateTime component open undefined \`open\` prop should hide when changing prop if closeOnSelect is true 2`] = `
-<div
-  className="rdt rdtOpen"
->
-  <input
-    className="form-control"
-    onChange={[Function]}
-    onClick={[Function]}
-    onFocus={[Function]}
-    onKeyDown={[Function]}
-    type="text"
-    value="12/21/2016 5:36 PM"
-  />
-  <div
-    className="rdtPicker"
-    style={
-      Object {
-        "left": 0,
-        "opacity": 0,
-        "pointerEvents": "none",
-        "position": "absolute",
-        "top": 0,
-      }
-    }
-  >
-    <div
-      className="rdtDays"
-    >
-      <table>
-        <thead>
-          <tr>
-            <th
-              className="rdtPrev"
-              onClick={[Function]}
-            >
-              <span>
-                ‹
-              </span>
-            </th>
-            <th
-              className="rdtSwitch"
-              colSpan={5}
-              onClick={[Function]}
-            >
-              December 2016
-            </th>
-            <th
-              className="rdtNext"
-              onClick={[Function]}
-            >
-              <span>
-                ›
-              </span>
-            </th>
-          </tr>
-          <tr>
-            <th
-              className="dow"
-            >
-              Su
-            </th>
-            <th
-              className="dow"
-            >
-              Mo
-            </th>
-            <th
-              className="dow"
-            >
-              Tu
-            </th>
-            <th
-              className="dow"
-            >
-              We
-            </th>
-            <th
-              className="dow"
-            >
-              Th
-            </th>
-            <th
-              className="dow"
-            >
-              Fr
-            </th>
-            <th
-              className="dow"
-            >
-              Sa
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td
-              className="rdtDay rdtOld"
-              onClick={[Function]}
-            >
-              27
-            </td>
-            <td
-              className="rdtDay rdtOld"
-              onClick={[Function]}
-            >
-              28
-            </td>
-            <td
-              className="rdtDay rdtOld"
-              onClick={[Function]}
-            >
-              29
-            </td>
-            <td
-              className="rdtDay rdtOld"
-              onClick={[Function]}
-            >
-              30
-            </td>
-            <td
-              className="rdtDay"
-              onClick={[Function]}
-            >
-              1
-            </td>
-            <td
-              className="rdtDay"
-              onClick={[Function]}
-            >
-              2
-            </td>
-            <td
-              className="rdtDay"
-              onClick={[Function]}
-            >
-              3
-            </td>
-          </tr>
-          <tr>
-            <td
-              className="rdtDay"
-              onClick={[Function]}
-            >
-              4
-            </td>
-            <td
-              className="rdtDay"
-              onClick={[Function]}
-            >
-              5
-            </td>
-            <td
-              className="rdtDay"
-              onClick={[Function]}
-            >
-              6
-            </td>
-            <td
-              className="rdtDay"
-              onClick={[Function]}
-            >
-              7
-            </td>
-            <td
-              className="rdtDay"
-              onClick={[Function]}
-            >
-              8
-            </td>
-            <td
-              className="rdtDay"
-              onClick={[Function]}
-            >
-              9
-            </td>
-            <td
-              className="rdtDay"
-              onClick={[Function]}
-            >
-              10
-            </td>
-          </tr>
-          <tr>
-            <td
-              className="rdtDay"
-              onClick={[Function]}
-            >
-              11
-            </td>
-            <td
-              className="rdtDay"
-              onClick={[Function]}
-            >
-              12
-            </td>
-            <td
-              className="rdtDay"
-              onClick={[Function]}
-            >
-              13
-            </td>
-            <td
-              className="rdtDay"
-              onClick={[Function]}
-            >
-              14
-            </td>
-            <td
-              className="rdtDay"
-              onClick={[Function]}
-            >
-              15
-            </td>
-            <td
-              className="rdtDay"
-              onClick={[Function]}
-            >
-              16
-            </td>
-            <td
-              className="rdtDay"
-              onClick={[Function]}
-            >
-              17
-            </td>
-          </tr>
-          <tr>
-            <td
-              className="rdtDay"
-              onClick={[Function]}
-            >
-              18
-            </td>
-            <td
-              className="rdtDay"
-              onClick={[Function]}
-            >
-              19
-            </td>
-            <td
-              className="rdtDay"
-              onClick={[Function]}
-            >
-              20
-            </td>
-            <td
-              className="rdtDay rdtActive"
-              onClick={[Function]}
-            >
-              21
-            </td>
-            <td
-              className="rdtDay"
-              onClick={[Function]}
-            >
-              22
-            </td>
-            <td
-              className="rdtDay"
-              onClick={[Function]}
-            >
-              23
-            </td>
-            <td
-              className="rdtDay"
-              onClick={[Function]}
-            >
-              24
-            </td>
-          </tr>
-          <tr>
-            <td
-              className="rdtDay"
-              onClick={[Function]}
-            >
-              25
-            </td>
-            <td
-              className="rdtDay"
-              onClick={[Function]}
-            >
-              26
-            </td>
-            <td
-              className="rdtDay"
-              onClick={[Function]}
-            >
-              27
-            </td>
-            <td
-              className="rdtDay"
-              onClick={[Function]}
-            >
-              28
-            </td>
-            <td
-              className="rdtDay"
-              onClick={[Function]}
-            >
-              29
-            </td>
-            <td
-              className="rdtDay"
-              onClick={[Function]}
-            >
-              30
-            </td>
-            <td
-              className="rdtDay"
-              onClick={[Function]}
-            >
-              31
-            </td>
-          </tr>
-          <tr>
-            <td
-              className="rdtDay rdtNew"
-              onClick={[Function]}
-            >
-              1
-            </td>
-            <td
-              className="rdtDay rdtNew"
-              onClick={[Function]}
-            >
-              2
-            </td>
-            <td
-              className="rdtDay rdtNew"
-              onClick={[Function]}
-            >
-              3
-            </td>
-            <td
-              className="rdtDay rdtNew"
-              onClick={[Function]}
-            >
-              4
-            </td>
-            <td
-              className="rdtDay rdtNew"
-              onClick={[Function]}
-            >
-              5
-            </td>
-            <td
-              className="rdtDay rdtNew"
-              onClick={[Function]}
-            >
-              6
-            </td>
-            <td
-              className="rdtDay rdtNew"
-              onClick={[Function]}
-            >
-              7
-            </td>
-          </tr>
-        </tbody>
-        <tfoot>
-          <tr>
-            <td
-              className="rdtTimeToggle"
-              colSpan={7}
-              onClick={[Function]}
-            >
-              5:36 PM
-            </td>
-          </tr>
-        </tfoot>
-      </table>
-    </div>
-  </div>
-</div>
-`;
-
-exports[`DateTime component open undefined \`open\` prop should hide when changing prop if closeOnSelect is true 3`] = `
-<div
-  className="rdt"
->
-  <input
-    className="form-control"
-    onChange={[Function]}
-    onClick={[Function]}
-    onFocus={[Function]}
-    onKeyDown={[Function]}
-    type="text"
-    value="12/21/2016 3:36 PM"
   />
 </div>
 `;
@@ -2437,6 +882,7 @@ exports[`DateTime component renderDay: specified 1`] = `
   className="rdt"
 >
   <input
+    aria-describedby="picker:null"
     className="form-control"
     onChange={[Function]}
     onClick={[Function]}
@@ -2453,6 +899,7 @@ exports[`DateTime component renderMonth: specified 1`] = `
   className="rdt"
 >
   <input
+    aria-describedby="picker:null"
     className="form-control"
     onChange={[Function]}
     onClick={[Function]}
@@ -2469,6 +916,7 @@ exports[`DateTime component renderYear: specified 1`] = `
   className="rdt"
 >
   <input
+    aria-describedby="picker:null"
     className="form-control"
     onChange={[Function]}
     onClick={[Function]}
@@ -2485,6 +933,7 @@ exports[`DateTime component timeFormat set to false 1`] = `
   className="rdt"
 >
   <input
+    aria-describedby="picker:null"
     className="form-control"
     onChange={[Function]}
     onClick={[Function]}
@@ -2501,6 +950,7 @@ exports[`DateTime component timeFormat set to true 1`] = `
   className="rdt"
 >
   <input
+    aria-describedby="picker:null"
     className="form-control"
     onChange={[Function]}
     onClick={[Function]}
@@ -2517,6 +967,7 @@ exports[`DateTime component value: set to arbitrary value 1`] = `
   className="rdt"
 >
   <input
+    aria-describedby="picker:null"
     className="form-control"
     onChange={[Function]}
     onClick={[Function]}
@@ -2533,6 +984,7 @@ exports[`DateTime component viewMode set to days 1`] = `
   className="rdt"
 >
   <input
+    aria-describedby="picker:null"
     className="form-control"
     onChange={[Function]}
     onClick={[Function]}
@@ -2549,6 +1001,7 @@ exports[`DateTime component viewMode set to months 1`] = `
   className="rdt"
 >
   <input
+    aria-describedby="picker:null"
     className="form-control"
     onChange={[Function]}
     onClick={[Function]}
@@ -2565,6 +1018,7 @@ exports[`DateTime component viewMode set to time 1`] = `
   className="rdt"
 >
   <input
+    aria-describedby="picker:null"
     className="form-control"
     onChange={[Function]}
     onClick={[Function]}
@@ -2581,6 +1035,7 @@ exports[`DateTime component viewMode set to years 1`] = `
   className="rdt"
 >
   <input
+    aria-describedby="picker:null"
     className="form-control"
     onChange={[Function]}
     onClick={[Function]}
@@ -2597,6 +1052,7 @@ exports[`DateTime component viewMode should support changing dynamically 1`] = `
   className="rdt"
 >
   <input
+    aria-describedby="picker:null"
     className="form-control"
     onChange={[Function]}
     onClick={[Function]}
@@ -2613,6 +1069,7 @@ exports[`DateTime component viewMode should support changing dynamically 2`] = `
   className="rdt"
 >
   <input
+    aria-describedby="picker:14"
     className="form-control"
     onChange={[Function]}
     onClick={[Function]}
