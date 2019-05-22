@@ -23,7 +23,7 @@
   "bundlesize": [
     {
       "path": "dist/index.js",
-      "maxSize": "4.2 kB"
+      "maxSize": "4.75 kB"
     }
   ],
   "keywords": [
