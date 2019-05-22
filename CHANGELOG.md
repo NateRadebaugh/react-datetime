@@ -1,5 +1,10 @@
 # Changelog
 
+## 4.0.0
+
+- Breaking: Require peer dependency of React 18.6+ to allow for hooks.
+- Automatically position the picker to remain in view.
+
 ## 3.3.3
 
 - Updated Days/Months/Years views to be functional components. Should have perf/size improvements.

@@ -144,6 +144,7 @@
     "@reach/rect": "^0.2.1",
     "@reach/visually-hidden": "^0.1.4",
     "classcat": "^3.2.5",
-    "react-onclickoutside": "^6.8.0"
+    "react-onclickoutside": "^6.8.0",
+    "use-onclickoutside": "^0.3.1"
   }
 }

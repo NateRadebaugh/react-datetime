@@ -10,6 +10,8 @@ import { IsValidDateFunc, SetDateFunc, ShiftFunc, ShowFunc } from ".";
 import returnTrue from "./returnTrue";
 
 interface MonthsViewProps {
+  forwardRef?: any;
+
   viewDate?: Date;
   shift?: ShiftFunc;
   show?: ShowFunc;
@@ -51,6 +53,7 @@ function defaultRenderMonth(
 }
 
 function MonthsView({
+  forwardRef,
   selectedDate,
   viewDate = new Date(),
   renderMonth,
@@ -65,7 +68,7 @@ function MonthsView({
   const isValid = isValidDate || returnTrue;
 
   return (
-    <div className="rdtMonths">
+    <div ref={forwardRef} className="rdtMonths">
       <table>
         <thead>
           <tr>

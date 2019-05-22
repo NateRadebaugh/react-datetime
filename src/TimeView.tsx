@@ -87,6 +87,8 @@ interface AlwaysTimeConstraints {
 }
 
 interface TimeViewProps {
+  forwardRef?: any;
+
   readonly?: boolean;
 
   timeConstraints?: TimeConstraints;
@@ -243,6 +245,7 @@ function onStartClicking(
 
 function TimeView(props: TimeViewProps) {
   const {
+    forwardRef,
     viewTimestamp = new Date(),
     dateFormat,
     show,
@@ -250,11 +253,10 @@ function TimeView(props: TimeViewProps) {
     formatOptions,
     setTime
   } = props;
-
   let numCounters = 0;
 
   return (
-    <div className="rdtTime">
+    <div ref={forwardRef} className="rdtTime">
       <table>
         {dateFormat ? (
           <thead>

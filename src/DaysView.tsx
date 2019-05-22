@@ -14,6 +14,8 @@ import { IsValidDateFunc, SetDateFunc, ShiftFunc, ShowFunc } from ".";
 import returnTrue from "./returnTrue";
 
 interface DaysViewProps {
+  forwardRef?: any;
+
   /*
   Represents the month which is viewed on opening the calendar when there is no selected date.
   This prop is parsed by date-fns, so it is possible to use a date `string` or a `Date` object.
@@ -62,6 +64,7 @@ function defaultRenderDay(
 }
 
 function DaysView({
+  forwardRef,
   viewDate = new Date(),
   selectedDate,
   renderDay,
@@ -81,7 +84,7 @@ function DaysView({
   const prevMonthLastWeekStart = startOfWeek(endOfMonth(prevMonth));
 
   return (
-    <div className="rdtDays">
+    <div ref={forwardRef} className="rdtDays">
       <table>
         <thead>
           <tr>

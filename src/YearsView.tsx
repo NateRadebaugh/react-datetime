@@ -8,6 +8,8 @@ import { IsValidDateFunc, SetDateFunc, ShiftFunc, ShowFunc } from ".";
 import returnTrue from "./returnTrue";
 
 interface YearsViewProps {
+  forwardRef?: any;
+
   viewDate?: Date;
   shift?: ShiftFunc;
   show?: ShowFunc;
@@ -35,6 +37,7 @@ function defaultRenderYear(yearProps: any, year: number): JSX.Element {
 }
 
 function YearsView({
+  forwardRef,
   selectedDate,
   viewDate = new Date(),
   renderYear,
@@ -49,7 +52,7 @@ function YearsView({
   const startYear = Math.floor(getYear(viewDate) / 10) * 10;
 
   return (
-    <div className="rdtYears">
+    <div ref={forwardRef} className="rdtYears">
       <table>
         <thead>
           <tr>

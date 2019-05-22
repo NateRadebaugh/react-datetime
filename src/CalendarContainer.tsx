@@ -1,10 +1,12 @@
 import * as React from "react";
-import onClickOutside from "react-onclickoutside";
+import useOnClickOutside from "use-onclickoutside";
 import Days from "./DaysView";
 import Months from "./MonthsView";
 import Years from "./YearsView";
 import Time from "./TimeView";
 import noop from "./noop";
+
+const { useRef } = React;
 
 const views = {
   days: Days,
@@ -14,28 +16,21 @@ const views = {
 };
 
 interface CalendarContainerProps {
-  view: "years" | "months" | "days" | "time";
-  viewProps: any;
-  onClickOutside: any;
+  view?: "years" | "months" | "days" | "time";
+  viewProps?: any;
+  onClickOutside?: any;
 }
 
-class CalendarContainer extends React.Component<CalendarContainerProps, never> {
-  static defaultProps = {
-    view: "days",
-    onClickOutside: noop,
-    viewProps: {}
-  };
+function CalendarContainer(props: CalendarContainerProps) {
+  const { view = "days", onClickOutside = noop, viewProps = {} } = props;
 
-  handleClickOutside() {
-    this.props.onClickOutside();
-  }
+  const ref = useRef(null);
+  useOnClickOutside(ref, onClickOutside);
 
-  render() {
-    const { view, viewProps } = this.props;
-    const Component = views[view];
-
-    return <Component {...viewProps} readonly={!!viewProps.value} />;
-  }
+  const Component = views[view];
+  return (
+    <Component forwardRef={ref} {...viewProps} readonly={!!viewProps.value} />
+  );
 }
 
-export default onClickOutside(CalendarContainer);
+export default CalendarContainer;
