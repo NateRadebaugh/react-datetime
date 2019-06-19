@@ -108,7 +108,7 @@
     "prettier": "^1.18.2",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
-    "tsdx": "^0.6.1",
+    "tsdx": "^0.7.1",
     "tslib": "^1.10.0",
     "tslint": "^5.17.0",
     "tslint-config-prettier": "^1.18.0",
