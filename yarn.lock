@@ -1957,10 +1957,10 @@ class-utils@^0.3.5:
     isobject "^3.0.0"
     static-extend "^0.1.1"
 
-classcat@^3.2.5:
-  version "3.2.5"
-  resolved "https://registry.yarnpkg.com/classcat/-/classcat-3.2.5.tgz#bf4271dee0c93fdf132bc127f5d0432d35245888"
-  integrity sha512-exme+Vc60aBW3KbPcVg+t7P2qsA5EXxYjD4ivpB2i+bAclFqtbchE4z7/Wj5A2eoKKi4jO+T+Da5zwS/Jw55Kw==
+classcat@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/classcat/-/classcat-4.0.0.tgz#9742444b118e66b564368503a789c3ef11162918"
+  integrity sha512-DQg9bcqowNTgHRwhZLtkYfSaj5YC/y5vYxIWuD6OFuznSrrGR9wHyVon7VE/XTcsFliTj8npAN4CVuUKX51vyw==
 
 cli-cursor@^2.0.0, cli-cursor@^2.1.0:
   version "2.1.0"
