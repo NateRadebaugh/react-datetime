@@ -1,30 +1,27 @@
 import * as React from "react";
 import cc from "classcat";
 
-import dayjs from "dayjs";
+import dayjs, { Dayjs } from "dayjs";
 import { ViewMode } from "./.";
 
 export interface MonthsViewProps {
-  viewDate: Date;
-  setViewDate: (newSelectedDate: Date) => void;
-  selectedDate: Date | undefined;
-  setSelectedDate: (newDate: Date) => void;
+  viewDate: Dayjs;
+  setViewDate: (newSelectedDate: Dayjs) => void;
+  selectedDate: Dayjs | undefined;
+  setSelectedDate: (newDate: Dayjs) => void;
   setViewMode: (newViewMode: ViewMode) => void;
-  isValidDate?: (date: Date) => boolean;
+  isValidDate: (date: Dayjs) => boolean;
 }
 
 function MonthsView(props: MonthsViewProps) {
   const {
-    viewDate = new Date(),
+    viewDate = dayjs(),
     setViewDate,
     selectedDate,
     setSelectedDate,
     setViewMode,
     isValidDate
   } = props;
-
-  const viewDayJs = dayjs(viewDate);
-  const selectedDayJs = dayjs(selectedDate);
 
   return (
     <div className="rdtMonths">
@@ -34,7 +31,7 @@ function MonthsView(props: MonthsViewProps) {
             <th
               className="rdtPrev"
               onClick={() => {
-                setViewDate(viewDayJs.add(-1, "year").toDate());
+                setViewDate(viewDate.add(-1, "year"));
               }}
             >
               <span>‹</span>
@@ -44,12 +41,12 @@ function MonthsView(props: MonthsViewProps) {
               onClick={() => setViewMode("years")}
               colSpan={2}
             >
-              {viewDayJs.format("YYYY")}
+              {viewDate.format("YYYY")}
             </th>
             <th
               className="rdtNext"
               onClick={() => {
-                setViewDate(viewDayJs.add(1, "year").toDate());
+                setViewDate(viewDate.add(1, "year"));
               }}
             >
               <span>›</span>
@@ -67,11 +64,11 @@ function MonthsView(props: MonthsViewProps) {
               <tr key={rowStartMonth}>
                 {[0, 1, 2, 3].map(m => {
                   const month = m + rowStartMonth;
-                  const currentMonth = viewDayJs.set("month", month);
+                  const currentMonth = viewDate.set("month", month);
 
-                  const daysInMonths: Date[] = Array.from(
+                  const daysInMonths: Dayjs[] = Array.from(
                     { length: currentMonth.daysInMonth() },
-                    (e, i) => currentMonth.set("date", i + 1).toDate()
+                    (e, i) => currentMonth.set("date", i + 1)
                   );
 
                   const isDisabled = daysInMonths.every(
@@ -88,14 +85,12 @@ function MonthsView(props: MonthsViewProps) {
                           rdtDisabled: isDisabled,
                           rdtActive:
                             selectedDate &&
-                            selectedDayJs.isSame(currentMonth, "month")
+                            selectedDate.isSame(currentMonth, "month")
                         }
                       ])}
                       onClick={() => {
                         if (!isDisabled) {
-                          setSelectedDate(
-                            viewDayJs.set("month", month).toDate()
-                          );
+                          setSelectedDate(viewDate.set("month", month));
                         }
                       }}
                     >

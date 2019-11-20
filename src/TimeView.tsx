@@ -1,5 +1,5 @@
 import * as React from "react";
-import dayjs from "dayjs";
+import dayjs, { Dayjs } from "dayjs";
 
 import { TimeConstraint, TimeConstraints, ViewMode } from "./.";
 
@@ -102,10 +102,9 @@ function change(
 
 function getFormatted(
   type: "hours" | "minutes" | "seconds" | "milliseconds" | "daypart",
-  timestamp: Date,
+  timestamp: Dayjs,
   timeFormat?: string | false
 ) {
-  const timestampDayJs = dayjs(timestamp);
   const fmt = typeof timeFormat === "string" ? timeFormat : "";
 
   function has(f: string, val: string) {
@@ -135,23 +134,21 @@ function getFormatted(
       : undefined;
 
   if (typeFormat) {
-    return timestampDayJs.format(typeFormat);
+    return timestamp.format(typeFormat);
   }
 
   return undefined;
 }
 
 function toggleDayPart(
-  timestamp: Date,
-  setSelectedDate: (newDate: Date) => void
+  timestamp: Dayjs,
+  setSelectedDate: (newDate: Dayjs) => void
 ) {
   return () => {
-    const timestampDayJs = dayjs(timestamp);
-
-    const hours = timestampDayJs.get("hour");
+    const hours = timestamp.get("hour");
     const newHours = hours >= 12 ? hours - 12 : hours + 12;
 
-    setSelectedDate(timestampDayJs.set("hour", newHours).toDate());
+    setSelectedDate(timestamp.set("hour", newHours));
   };
 }
 
@@ -198,23 +195,21 @@ function onStartClicking(
 }
 
 export interface TimeViewProps {
-  viewTimestamp: Date;
+  viewTimestamp: Dayjs;
   dateFormat: string | false;
   setViewMode: (newViewMode: ViewMode) => void;
   timeFormat: string | false;
-  setSelectedDate: (newDate: Date) => void;
+  setSelectedDate: (newDate: Dayjs) => void;
 }
 
 function TimeView(props: TimeViewProps) {
   const {
-    viewTimestamp = new Date(),
+    viewTimestamp = dayjs(),
     dateFormat = false,
     setViewMode,
     timeFormat = "h:mm A",
     setSelectedDate
   } = props;
-
-  const viewTimestampDayJs = dayjs(viewTimestamp);
 
   let numCounters = 0;
 
@@ -229,7 +224,7 @@ function TimeView(props: TimeViewProps) {
                 colSpan={4}
                 onClick={() => setViewMode("days")}
               >
-                {viewTimestampDayJs.format(dateFormat)}
+                {viewTimestamp.format(dateFormat)}
               </th>
             </tr>
           </thead>

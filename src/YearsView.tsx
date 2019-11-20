@@ -1,7 +1,7 @@
 import * as React from "react";
 import cc from "classcat";
 
-import dayjs from "dayjs";
+import dayjs, { Dayjs } from "dayjs";
 
 import isLeapYear from "dayjs/plugin/isLeapYear";
 dayjs.extend(isLeapYear);
@@ -9,17 +9,17 @@ dayjs.extend(isLeapYear);
 import { ViewMode } from "./.";
 
 export interface YearsViewProps {
-  viewDate: Date;
-  setViewDate: (newSelectedDate: Date) => void;
-  selectedDate: Date | undefined;
-  setSelectedDate: (newDate: Date) => void;
+  viewDate: Dayjs;
+  setViewDate: (newSelectedDate: Dayjs) => void;
+  selectedDate: Dayjs | undefined;
+  setSelectedDate: (newDate: Dayjs) => void;
   setViewMode: (newViewMode: ViewMode) => void;
-  isValidDate?: (date: Date) => boolean;
+  isValidDate: (date: Dayjs) => boolean;
 }
 
 function YearsView(props: YearsViewProps) {
   const {
-    viewDate = new Date(),
+    viewDate = dayjs(),
     setViewDate,
     selectedDate,
     setSelectedDate,
@@ -27,10 +27,7 @@ function YearsView(props: YearsViewProps) {
     isValidDate
   } = props;
 
-  const viewDayJs = dayjs(viewDate);
-  const selectedDayJs = dayjs(selectedDate);
-
-  const startYear = Math.floor(viewDayJs.get("year") / 10) * 10;
+  const startYear = Math.floor(viewDate.get("year") / 10) * 10;
 
   return (
     <div className="rdtYears">
@@ -40,7 +37,7 @@ function YearsView(props: YearsViewProps) {
             <th
               className="rdtPrev"
               onClick={() => {
-                setViewDate(viewDayJs.add(-10, "year").toDate());
+                setViewDate(viewDate.add(-10, "year"));
               }}
             >
               <span>‹</span>
@@ -55,7 +52,7 @@ function YearsView(props: YearsViewProps) {
             <th
               className="rdtNext"
               onClick={() => {
-                setViewDate(viewDayJs.add(10, "year").toDate());
+                setViewDate(viewDate.add(10, "year"));
               }}
             >
               <span>›</span>
@@ -73,18 +70,16 @@ function YearsView(props: YearsViewProps) {
               <tr key={rowStartYear}>
                 {[0, 1, 2, 3].map(y => {
                   const year = y + rowStartYear;
-                  const currentYear = viewDayJs.set("year", year);
-                  const startOfYear = viewDayJs.startOf("year");
+                  const currentYear = viewDate.set("year", year);
+                  const startOfYear = viewDate.startOf("year");
 
                   const daysInYear = Array.from(
-                    { length: viewDayJs.isLeapYear() ? 366 : 365 },
+                    { length: viewDate.isLeapYear() ? 366 : 365 },
                     (e, i) => startOfYear.add(i + 1, "day")
                   );
 
                   const isDisabled = daysInYear.every(
-                    d =>
-                      typeof isValidDate === "function" &&
-                      !isValidDate(d.toDate())
+                    d => typeof isValidDate === "function" && !isValidDate(d)
                   );
 
                   return (
@@ -95,12 +90,12 @@ function YearsView(props: YearsViewProps) {
                         {
                           rdtDisabled: isDisabled,
                           rdtActive:
-                            selectedDate && selectedDayJs.get("year") === year
+                            selectedDate && selectedDate.get("year") === year
                         }
                       ])}
                       onClick={() => {
                         if (!isDisabled) {
-                          setSelectedDate(viewDayJs.set("year", year).toDate());
+                          setSelectedDate(viewDate.set("year", year));
                         }
                       }}
                     >

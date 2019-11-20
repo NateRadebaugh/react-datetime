@@ -56,7 +56,7 @@ export function CustomizableExample() {
   const [state, setState] = useState<any>({
     value: new Date(2019, 7, 2, 11, 25),
     dateFormat: "MM/DD/YYYY",
-    timeFormat: "hh:mm a",
+    timeFormat: "hh:mm A",
     dateTypeMode: undefined
   });
 
@@ -112,21 +112,21 @@ export function CustomizableExample() {
 
       <Select name="dateFormat">
         <option value="">false</option>
-        <option>yyyy-LL-dd</option>
+        <option>YYYY-MM-DD</option>
         <option>MM/DD/YYYY</option>
-        <option>dd.LL.yyyy</option>
-        <option>LL-dd</option>
-        <option>LLLL</option>
-        <option>yyyy/LL</option>
-        <option>yyyy</option>
+        <option>DD.MM.YYYY</option>
+        <option>MM-DD</option>
+        <option>MMMM</option>
+        <option>YYYY/MM</option>
+        <option>YYYY</option>
       </Select>
 
       <Select name="timeFormat">
         <option value="">false</option>
-        <option>hh:mm a</option>
+        <option>hh:mm A</option>
         <option>HH:mm:ss</option>
         <option>HH:mm:SSS</option>
-        <option>hh:mm:SSS a</option>
+        <option>hh:mm:SSS A</option>
         <option>hmm</option>
         <option>HH:mm xxx</option>
       </Select>
@@ -175,10 +175,10 @@ export function ViewModeExample() {
       <p>Try out various formats and see how they affect the component.</p>
       <p>
         {renderButton("Default - undefined", undefined, undefined)}
-        {renderButton("Years - yyyy", "yyyy", undefined)}
-        {renderButton("Months - LL/yyyy", "LL/yyyy", undefined)}
+        {renderButton("Years - YYYY", "YYYY", undefined)}
+        {renderButton("Months - MM/YYYY", "MM/YYYY", undefined)}
         {renderButton("Days - MM/DD/YYYY", "MM/DD/YYYY", undefined)}
-        {renderButton("Time - h:mm a", false, "h:mm a")}
+        {renderButton("Time - h:mm A", false, "h:mm A")}
       </p>
 
       <DateTime

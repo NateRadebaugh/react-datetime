@@ -1,23 +1,23 @@
 import * as React from "react";
 import cc from "classcat";
-import dayjs from "dayjs";
+import dayjs, { Dayjs } from "dayjs";
 
 import { ViewMode } from "./.";
 
 export interface DaysViewProps {
   timeFormat: string | false;
-  viewDate: Date;
-  setViewDate: (newSelectedDate: Date) => void;
-  selectedDate: Date | undefined;
-  setSelectedDate: (newDate: Date) => void;
+  viewDate: Dayjs;
+  setViewDate: (newSelectedDate: Dayjs) => void;
+  selectedDate: Dayjs | undefined;
+  setSelectedDate: (newDate: Dayjs) => void;
   setViewMode: (newViewMode: ViewMode) => void;
-  isValidDate?: (date: Date) => boolean;
+  isValidDate: (date: Dayjs) => boolean;
 }
 
 function DaysView(props: DaysViewProps) {
   const {
     timeFormat = false,
-    viewDate = new Date(),
+    viewDate = dayjs(),
     setViewDate,
     selectedDate,
     setSelectedDate,
@@ -25,19 +25,16 @@ function DaysView(props: DaysViewProps) {
     isValidDate
   } = props;
 
-  const viewDayJs = dayjs(viewDate);
-  const selectedDayJs = dayjs(selectedDate);
+  const sunday = viewDate.startOf("week");
 
-  const sunday = viewDayJs.startOf("week");
-
-  const prevMonth = viewDayJs.add(-1, "month");
+  const prevMonth = viewDate.add(-1, "month");
   const endOfPrevMonth = prevMonth.endOf("month");
   const startOfLastWeekOfPrevMonth = endOfPrevMonth.startOf("week");
   const daysSinceStartOfLastWeekOfPrevMonth = startOfLastWeekOfPrevMonth.diff(
-    viewDayJs,
+    viewDate,
     "day"
   );
-  const prevMonthLastWeekStart = viewDayJs.add(
+  const prevMonthLastWeekStart = viewDate.add(
     daysSinceStartOfLastWeekOfPrevMonth,
     "day"
   );
@@ -49,7 +46,7 @@ function DaysView(props: DaysViewProps) {
           <tr>
             <th
               className="rdtPrev"
-              onClick={() => setViewDate(viewDayJs.add(-1, "month").toDate())}
+              onClick={() => setViewDate(viewDate.add(-1, "month"))}
             >
               <span>‹</span>
             </th>
@@ -58,11 +55,11 @@ function DaysView(props: DaysViewProps) {
               onClick={() => setViewMode("months")}
               colSpan={5}
             >
-              {viewDayJs.format("MMMM YYYY")}
+              {viewDate.format("MMMM YYYY")}
             </th>
             <th
               className="rdtNext"
-              onClick={() => setViewDate(viewDayJs.add(1, "month").toDate())}
+              onClick={() => setViewDate(viewDate.add(1, "month"))}
             >
               <span>›</span>
             </th>
@@ -87,7 +84,7 @@ function DaysView(props: DaysViewProps) {
                   const workingDate = prevMonthLastWeekStart.add(i, "day");
                   const isDisabled =
                     typeof isValidDate === "function" &&
-                    !isValidDate(workingDate.toDate());
+                    !isValidDate(workingDate);
 
                   return (
                     <td
@@ -96,21 +93,19 @@ function DaysView(props: DaysViewProps) {
                         "rdtDay",
                         {
                           rdtOld: workingDate.isBefore(
-                            viewDayJs.startOf("month")
+                            viewDate.startOf("month")
                           ),
-                          rdtNew: viewDayJs
-                            .endOf("month")
-                            .isBefore(workingDate),
+                          rdtNew: viewDate.endOf("month").isBefore(workingDate),
                           rdtActive:
                             selectedDate &&
-                            workingDate.isSame(selectedDayJs, "day"),
+                            workingDate.isSame(selectedDate, "day"),
                           rdtToday: workingDate.isSame(new Date(), "day"),
                           rdtDisabled: isDisabled
                         }
                       ])}
                       onClick={() => {
                         if (!isDisabled) {
-                          setSelectedDate(workingDate.toDate());
+                          setSelectedDate(workingDate);
                         }
                       }}
                     >
@@ -130,7 +125,7 @@ function DaysView(props: DaysViewProps) {
                 colSpan={7}
                 className="rdtTimeToggle"
               >
-                {viewDayJs.format(timeFormat)}
+                {viewDate.format(timeFormat)}
               </td>
             </tr>
           </tfoot>

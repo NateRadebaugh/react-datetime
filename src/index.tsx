@@ -2,7 +2,7 @@ import * as React from "react";
 import Popover from "@reach/popover";
 import useOnClickOutside from "use-onclickoutside";
 
-import dayjs from "dayjs";
+import dayjs, { Dayjs } from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 dayjs.extend(customParseFormat);
 
@@ -10,21 +10,22 @@ import CalendarContainer from "./CalendarContainer";
 
 const { useRef, useState, useEffect, useCallback } = React;
 
-function tryGetAsTime(date: any) {
-  const asDate = dayjs(date);
-  if (asDate.isValid()) {
-    return asDate.valueOf();
-  }
-
-  return date;
-}
-
-function useDefaultStateWithOverride<Type>(
+function useDefaultStateWithOverride<Type = ViewMode | Dayjs | undefined>(
   defaultValue: Type,
   maybeDate = true
 ) {
   const [override, setOverride] = useState<Type | undefined>(undefined);
   const value = override || defaultValue;
+
+  function tryGetAsTime(date: unknown) {
+    if (dayjs.isDayjs(date)) {
+      if (date.isValid()) {
+        return date.valueOf();
+      }
+    }
+
+    return date;
+  }
 
   // Clear the override if the default changes
   const changeVal = maybeDate ? tryGetAsTime(defaultValue) : defaultValue;
@@ -38,19 +39,19 @@ function useDefaultStateWithOverride<Type>(
 function parse(
   date: Date | string | number | undefined,
   fullFormat: string
-): Date | undefined {
+): Dayjs | undefined {
   if (typeof date === "string") {
     const asDate = dayjs(date, fullFormat);
     if (asDate.isValid()) {
       const formatted = asDate.format(fullFormat);
       if (date === formatted) {
-        return asDate.toDate();
+        return asDate;
       }
     }
   } else if (date) {
     const asDate = dayjs(date);
     if (asDate.isValid()) {
-      return asDate.toDate();
+      return asDate;
     }
   }
 
@@ -152,7 +153,7 @@ function DateTime(
     >
 ) {
   const {
-    isValidDate,
+    isValidDate: rawIsValidDate,
     dateTypeMode: rawDateTypeMode,
     value,
     onChange: rawOnChange,
@@ -178,7 +179,9 @@ function DateTime(
   const dateTypeMode = getDateTypeMode(rawDateTypeMode, value);
 
   const getChangedValue = useCallback(
-    (newValue: undefined | string | Date) => {
+    (
+      newValue: undefined | string | Dayjs
+    ): string | number | Date | undefined => {
       if (typeof newValue === "string") {
         return newValue;
       }
@@ -197,7 +200,7 @@ function DateTime(
           return asDate.format(fullFormat);
       }
 
-      return newValue;
+      return asDate.toDate();
     },
     [dateTypeMode, fullFormat]
   );
@@ -206,11 +209,11 @@ function DateTime(
   // On Change
   // string -> string
   // falsy -> raw onChange
-  // Date -> if numeric, number (ms)
-  // Date -> if not numeric, Date
+  // Dayjs -> if numeric, number (ms)
+  // Dayjs -> if not numeric, Date
   //
   const onChange = useCallback(
-    (newValue: string | Date | undefined): void => {
+    (newValue: string | Dayjs | undefined): void => {
       if (typeof rawOnChange !== "function") {
         return;
       }
@@ -237,29 +240,33 @@ function DateTime(
     [getChangedValue, rawOnChange, value]
   );
 
+  function isValidDate(newDate: Dayjs) {
+    if (typeof rawIsValidDate === "function") {
+      return rawIsValidDate(newDate.toDate());
+    }
+
+    return true;
+  }
+
   //
   // ViewDate
   //
-  const [viewDate, setViewDate] = useDefaultStateWithOverride<Date>(
-    valueAsDate ||
-      dayjs(new Date())
-        .startOf("day")
-        .toDate()
+  const [viewDate, setViewDate] = useDefaultStateWithOverride<Dayjs>(
+    valueAsDate || dayjs(new Date()).startOf("day")
   );
 
   //
   // ViewMode
   //
   const defaultViewMode = getViewMode(dateFormat, timeFormat);
-  const [viewMode, setViewMode] = useDefaultStateWithOverride(
-    defaultViewMode,
-    false
-  );
+  const [viewMode, setViewMode] = useDefaultStateWithOverride<
+    ViewMode | undefined
+  >(defaultViewMode, false);
 
   //
   // ViewTimestamp
   //
-  const [viewTimestamp, setViewTimestamp] = useDefaultStateWithOverride<Date>(
+  const [viewTimestamp, setViewTimestamp] = useDefaultStateWithOverride<Dayjs>(
     valueAsDate || viewDate
   );
 
@@ -278,7 +285,7 @@ function DateTime(
     }
   }
 
-  function closeWith(newValue: undefined | string | Date) {
+  function closeWith(newValue: undefined | string | Dayjs) {
     setIsOpen(false);
 
     if (typeof onBlur === "function") {
@@ -294,10 +301,9 @@ function DateTime(
   //
   // SetSelectedDate
   //
-  function setSelectedDate(newDate: Date, tryClose = true) {
-    const asDate = dayjs(newDate);
-    setViewDate(asDate.toDate());
-    setViewTimestamp(asDate.toDate());
+  function setSelectedDate(newDate: Dayjs, tryClose = true) {
+    setViewDate(newDate);
+    setViewTimestamp(newDate);
 
     // Time switches value but stays open
     if (viewMode === "time") {
@@ -404,7 +410,7 @@ function DateTime(
     setViewTimestamp,
     viewMode,
     setViewMode,
-    isValidDate,
+    isValidDate: isValidDate,
     isStatic: shouldHideInput
   };
 
