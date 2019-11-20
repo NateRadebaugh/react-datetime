@@ -2,8 +2,7 @@ import * as React from "react";
 import DateTime from ".";
 import "../scss/styles.scss";
 
-import isBefore from "date-fns/isBefore";
-import startOfDay from "date-fns/startOfDay";
+import dayjs from "dayjs";
 
 const { useState } = React;
 
@@ -209,7 +208,7 @@ export function ValidatedExample() {
           setValue(newValue);
         }}
         timeFormat={false}
-        isValidDate={current => isBefore(current, startOfDay(new Date()))}
+        isValidDate={current => dayjs(current).isBefore(dayjs().startOf("day"))}
       />
     </div>
   );
