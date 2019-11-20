@@ -1,8 +1,6 @@
 import { Meta, Story, Preview } from "@storybook/addon-docs/blocks";
 import CalendarContainer from "./CalendarContainer";
 
-import es from "date-fns/locale/es";
-
 <Meta title="DateTime/CalendarContainer" component={CalendarContainer} />
 
 # CalendarContainer
@@ -33,18 +31,6 @@ The `selectedDate` is highlighted.
   </Story>
 </Preview>
 
-The picker can be formatted via the `locale` prop on `DateTime`, which is forwarded to `CalendarContainer` via `formatOptions`.
-
-```jsx
-<CalendarContainer viewMode="days" formatOptions={{ locale: es }} />
-```
-
-<Preview>
-  <Story name="Days locale">
-    <CalendarContainer viewMode="days" formatOptions={{ locale: es }} />
-  </Story>
-</Preview>
-
 ## Months
 
 ```jsx
@@ -66,18 +52,6 @@ The `selectedDate` is highlighted.
 <Preview>
   <Story name="Months selectedDate">
     <CalendarContainer viewMode="months" selectedDate={new Date()} />
-  </Story>
-</Preview>
-
-The picker can be formatted via the `locale` prop on `DateTime`, which is forwarded to `CalendarContainer` via `formatOptions`.
-
-```jsx
-<CalendarContainer viewMode="months" formatOptions={{ locale: es }} />
-```
-
-<Preview>
-  <Story name="Months locale">
-    <CalendarContainer viewMode="months" formatOptions={{ locale: es }} />
   </Story>
 </Preview>
 
@@ -144,11 +118,11 @@ Customize time precision via `timeFormat`.
 When dates are supported, show a switcher via `dateFormat`.
 
 ```jsx
-<CalendarContainer viewMode="time" dateFormat="LL/dd/yyyy" />
+<CalendarContainer viewMode="time" dateFormat="MM/DD/YYYY" />
 ```
 
 <Preview>
   <Story name="Time dateFormat">
-    <CalendarContainer viewMode="time" dateFormat="LL/dd/yyyy" />
+    <CalendarContainer viewMode="time" dateFormat="MM/DD/YYYY" />
   </Story>
 </Preview>

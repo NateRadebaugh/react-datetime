@@ -1,21 +1,16 @@
 import * as React from "react";
 import cc from "classcat";
 
-import format from "date-fns/format";
-import addYears from "date-fns/addYears";
-import isSameMonth from "date-fns/isSameMonth";
-import setMonth from "date-fns/setMonth";
-import getDaysInMonth from "date-fns/getDaysInMonth";
-import setDate from "date-fns/setDate";
+import dayjs from "dayjs";
+import { ViewMode } from "./.";
 
 export interface MonthsViewProps {
   viewDate: Date;
-  setViewDate: any;
+  setViewDate: (newSelectedDate: Date) => void;
   selectedDate: Date | undefined;
-  setSelectedDate: any;
-  formatOptions: any;
-  setViewMode: any;
-  isValidDate: any;
+  setSelectedDate: (newDate: Date) => void;
+  setViewMode: (newViewMode: ViewMode) => void;
+  isValidDate?: (date: Date) => boolean;
 }
 
 function MonthsView(props: MonthsViewProps) {
@@ -24,10 +19,12 @@ function MonthsView(props: MonthsViewProps) {
     setViewDate,
     selectedDate,
     setSelectedDate,
-    formatOptions,
     setViewMode,
     isValidDate
   } = props;
+
+  const viewDayJs = dayjs(viewDate);
+  const selectedDayJs = dayjs(selectedDate);
 
   return (
     <div className="rdtMonths">
@@ -36,7 +33,9 @@ function MonthsView(props: MonthsViewProps) {
           <tr>
             <th
               className="rdtPrev"
-              onClick={() => setViewDate(addYears(viewDate, -1))}
+              onClick={() => {
+                setViewDate(viewDayJs.add(-1, "year").toDate());
+              }}
             >
               <span>‹</span>
             </th>
@@ -45,11 +44,13 @@ function MonthsView(props: MonthsViewProps) {
               onClick={() => setViewMode("years")}
               colSpan={2}
             >
-              {format(viewDate, "yyyy", formatOptions)}
+              {viewDayJs.format("YYYY")}
             </th>
             <th
               className="rdtNext"
-              onClick={() => setViewDate(addYears(viewDate, 1))}
+              onClick={() => {
+                setViewDate(viewDayJs.add(1, "year").toDate());
+              }}
             >
               <span>›</span>
             </th>
@@ -66,17 +67,17 @@ function MonthsView(props: MonthsViewProps) {
               <tr key={rowStartMonth}>
                 {[0, 1, 2, 3].map(m => {
                   const month = m + rowStartMonth;
-                  const currentMonth = setMonth(viewDate, month);
+                  const currentMonth = viewDayJs.set("month", month);
 
-                  const daysInMonths = Array.from(
-                    { length: getDaysInMonth(currentMonth) },
-                    (e, i) => setDate(currentMonth, i + 1)
+                  const daysInMonths: Date[] = Array.from(
+                    { length: currentMonth.daysInMonth() },
+                    (e, i) => currentMonth.set("date", i + 1).toDate()
                   );
 
                   const isDisabled = daysInMonths.every(
                     d => typeof isValidDate === "function" && !isValidDate(d)
                   );
-                  const monthDate = setMonth(new Date(), month);
+                  const monthDate = dayjs().set("month", month);
 
                   return (
                     <td
@@ -87,16 +88,18 @@ function MonthsView(props: MonthsViewProps) {
                           rdtDisabled: isDisabled,
                           rdtActive:
                             selectedDate &&
-                            isSameMonth(selectedDate, currentMonth)
+                            selectedDayJs.isSame(currentMonth, "month")
                         }
                       ])}
                       onClick={() => {
                         if (!isDisabled) {
-                          setSelectedDate(setMonth(viewDate, month));
+                          setSelectedDate(
+                            viewDayJs.set("month", month).toDate()
+                          );
                         }
                       }}
                     >
-                      {format(monthDate, "LLL", formatOptions)}
+                      {monthDate.format("MMM")}
                     </td>
                   );
                 })}

@@ -5,10 +5,6 @@ import "../scss/styles.scss";
 import isBefore from "date-fns/isBefore";
 import startOfDay from "date-fns/startOfDay";
 
-import nl from "date-fns/locale/nl";
-import es from "date-fns/locale/es";
-import fr from "date-fns/locale/fr";
-
 const { useState } = React;
 
 export default {
@@ -43,58 +39,15 @@ export function SimpleExample() {
 
       <UncontrolledDateTime />
 
-      <UncontrolledDateTime dateFormat="LL/dd/yyyy" />
-      <UncontrolledDateTime dateFormat="LL/dd/yyyy" timeFormat={false} />
+      <UncontrolledDateTime dateFormat="MM/DD/YYYY" />
+      <UncontrolledDateTime dateFormat="MM/DD/YYYY" timeFormat={false} />
       <UncontrolledDateTime dateFormat={false} />
 
       <UncontrolledDateTime timeFormat="HH:mm" />
       <UncontrolledDateTime dateFormat={false} timeFormat="HH:mm" />
       <UncontrolledDateTime timeFormat={false} />
 
-      <UncontrolledDateTime dateFormat="LL/dd/yyyy" timeFormat="HH:mm" />
-    </div>
-  );
-}
-
-export function LocalizationExample() {
-  const [value, setValue] = useState<any>(
-    new Date(Date.UTC(2000, 0, 15, 2, 2, 2, 2))
-  );
-  const [currentLocale, setCurrentLocale] = useState();
-
-  function renderButton(text: string, newLocale: any) {
-    return (
-      <button
-        type="button"
-        onClick={() => setCurrentLocale(newLocale)}
-        disabled={currentLocale === newLocale}
-      >
-        {text}
-      </button>
-    );
-  }
-
-  return (
-    <div className="form-horizontal">
-      <h2>Locale props</h2>
-      <p>Try out various locales and see how they affect the component.</p>
-      <p>
-        {renderButton("EN - undefined", undefined)}
-        {renderButton("NL - nl", nl)}
-        {renderButton("ES - es", es)}
-        {renderButton("FR - fr", fr)}
-      </p>
-
-      <DateTime
-        value={value}
-        onChange={newValue => {
-          console.log(newValue);
-          setValue(newValue);
-        }}
-        locale={currentLocale}
-        dateFormat="LL/yyyy"
-        timeFormat={false}
-      />
+      <UncontrolledDateTime dateFormat="MM/DD/YYYY" timeFormat="HH:mm" />
     </div>
   );
 }
@@ -102,7 +55,7 @@ export function LocalizationExample() {
 export function CustomizableExample() {
   const [state, setState] = useState<any>({
     value: new Date(2019, 7, 2, 11, 25),
-    dateFormat: "LL/dd/yyyy",
+    dateFormat: "MM/DD/YYYY",
     timeFormat: "hh:mm a",
     dateTypeMode: undefined
   });
@@ -160,7 +113,7 @@ export function CustomizableExample() {
       <Select name="dateFormat">
         <option value="">false</option>
         <option>yyyy-LL-dd</option>
-        <option>LL/dd/yyyy</option>
+        <option>MM/DD/YYYY</option>
         <option>dd.LL.yyyy</option>
         <option>LL-dd</option>
         <option>LLLL</option>
@@ -224,7 +177,7 @@ export function ViewModeExample() {
         {renderButton("Default - undefined", undefined, undefined)}
         {renderButton("Years - yyyy", "yyyy", undefined)}
         {renderButton("Months - LL/yyyy", "LL/yyyy", undefined)}
-        {renderButton("Days - LL/dd/yyyy", "LL/dd/yyyy", undefined)}
+        {renderButton("Days - MM/DD/YYYY", "MM/DD/YYYY", undefined)}
         {renderButton("Time - h:mm a", false, "h:mm a")}
       </p>
 

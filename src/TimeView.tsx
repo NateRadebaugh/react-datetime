@@ -1,14 +1,7 @@
 import * as React from "react";
+import dayjs from "dayjs";
 
-import format from "date-fns/format";
-import getHours from "date-fns/getHours";
-import addHours from "date-fns/addHours";
-import addMinutes from "date-fns/addMinutes";
-import addSeconds from "date-fns/addSeconds";
-import addMilliseconds from "date-fns/addMilliseconds";
-import setHours from "date-fns/setHours";
-
-import { TimeConstraint, TimeConstraints } from "./index";
+import { TimeConstraint, TimeConstraints, ViewMode } from "./.";
 
 const allCounters: Array<"hours" | "minutes" | "seconds" | "milliseconds"> = [
   "hours",
@@ -91,27 +84,28 @@ function change(
   type: "hours" | "minutes" | "seconds" | "milliseconds",
   timestamp: Date,
   timeConstraints?: TimeConstraints
-) {
+): Date {
+  const timestampDayJs = dayjs(timestamp);
   const mult = op === "sub" ? -1 : 1;
 
   const step = getStepSize(type, timeConstraints) * mult;
   if (type === "hours") {
-    return addHours(timestamp, step);
+    return timestampDayJs.add(step, "hour").toDate();
   } else if (type === "minutes") {
-    return addMinutes(timestamp, step);
+    return timestampDayJs.add(step, "minute").toDate();
   } else if (type === "seconds") {
-    return addSeconds(timestamp, step);
+    return timestampDayJs.add(step, "second").toDate();
   } else {
-    return addMilliseconds(timestamp, step);
+    return timestampDayJs.add(step, "millisecond").toDate();
   }
 }
 
 function getFormatted(
   type: "hours" | "minutes" | "seconds" | "milliseconds" | "daypart",
   timestamp: Date,
-  timeFormat?: string | false,
-  formatOptions?: any
+  timeFormat?: string | false
 ) {
+  const timestampDayJs = dayjs(timestamp);
   const fmt = typeof timeFormat === "string" ? timeFormat : "";
 
   function has(f: string, val: string) {
@@ -123,7 +117,7 @@ function getFormatted(
   const hasSeconds = has(fmt, "s");
   const hasMilliseconds = has(fmt, "S");
 
-  const hasDayPart = has(fmt, "a");
+  const hasDayPart = has(fmt, "A");
 
   const typeFormat =
     type === "hours" && hasHours
@@ -137,22 +131,27 @@ function getFormatted(
       : type === "milliseconds" && hasMilliseconds
       ? "SSS"
       : type === "daypart" && hasDayPart
-      ? "a"
+      ? "A"
       : undefined;
 
   if (typeFormat) {
-    return format(timestamp, typeFormat, formatOptions);
+    return timestampDayJs.format(typeFormat);
   }
 
   return undefined;
 }
 
-function toggleDayPart(timestamp: Date, setSelectedDate) {
+function toggleDayPart(
+  timestamp: Date,
+  setSelectedDate: (newDate: Date) => void
+) {
   return () => {
-    const hours = getHours(timestamp);
+    const timestampDayJs = dayjs(timestamp);
+
+    const hours = timestampDayJs.get("hour");
     const newHours = hours >= 12 ? hours - 12 : hours + 12;
 
-    setSelectedDate(setHours(timestamp, newHours));
+    setSelectedDate(timestampDayJs.set("hour", newHours).toDate());
   };
 }
 
@@ -201,10 +200,9 @@ function onStartClicking(
 export interface TimeViewProps {
   viewTimestamp: Date;
   dateFormat: string | false;
-  setViewMode: any;
+  setViewMode: (newViewMode: ViewMode) => void;
   timeFormat: string | false;
-  formatOptions: any;
-  setSelectedDate: any;
+  setSelectedDate: (newDate: Date) => void;
 }
 
 function TimeView(props: TimeViewProps) {
@@ -212,10 +210,11 @@ function TimeView(props: TimeViewProps) {
     viewTimestamp = new Date(),
     dateFormat = false,
     setViewMode,
-    timeFormat = "h:mm a",
-    formatOptions,
+    timeFormat = "h:mm A",
     setSelectedDate
   } = props;
+
+  const viewTimestampDayJs = dayjs(viewTimestamp);
 
   let numCounters = 0;
 
@@ -230,7 +229,7 @@ function TimeView(props: TimeViewProps) {
                 colSpan={4}
                 onClick={() => setViewMode("days")}
               >
-                {format(viewTimestamp, dateFormat)}
+                {viewTimestampDayJs.format(dateFormat)}
               </th>
             </tr>
           </thead>
@@ -240,12 +239,7 @@ function TimeView(props: TimeViewProps) {
             <td>
               <div className="rdtCounters">
                 {allCounters.map(type => {
-                  const val = getFormatted(
-                    type,
-                    viewTimestamp,
-                    timeFormat,
-                    formatOptions
-                  );
+                  const val = getFormatted(type, viewTimestamp, timeFormat);
                   if (val) {
                     numCounters++;
                   }
@@ -263,12 +257,7 @@ function TimeView(props: TimeViewProps) {
                 <TimePart
                   onUp={toggleDayPart(viewTimestamp, setSelectedDate)}
                   onDown={toggleDayPart(viewTimestamp, setSelectedDate)}
-                  value={getFormatted(
-                    "daypart",
-                    viewTimestamp,
-                    timeFormat,
-                    formatOptions
-                  )}
+                  value={getFormatted("daypart", viewTimestamp, timeFormat)}
                 />
               </div>
             </td>

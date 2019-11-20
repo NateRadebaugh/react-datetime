@@ -158,7 +158,7 @@
       color: $dropdown-link-active-color;
     }
 
-    .rdtToday:before {
+    &.rdtToday:before {
       border-bottom-color: $dropdown-link-active-color;
     }
   }

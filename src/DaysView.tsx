@@ -1,26 +1,17 @@
 import * as React from "react";
 import cc from "classcat";
+import dayjs from "dayjs";
 
-import addDays from "date-fns/addDays";
-import format from "date-fns/format";
-import differenceInDays from "date-fns/differenceInDays";
-import startOfWeek from "date-fns/startOfWeek";
-import startOfMonth from "date-fns/startOfMonth";
-import endOfMonth from "date-fns/endOfMonth";
-import isSameDay from "date-fns/isSameDay";
-import isBefore from "date-fns/isBefore";
-import addMonths from "date-fns/addMonths";
-import getDate from "date-fns/getDate";
+import { ViewMode } from "./.";
 
 export interface DaysViewProps {
   timeFormat: string | false;
   viewDate: Date;
-  setViewDate: any;
+  setViewDate: (newSelectedDate: Date) => void;
   selectedDate: Date | undefined;
-  setSelectedDate: any;
-  formatOptions: any;
-  setViewMode: any;
-  isValidDate: any;
+  setSelectedDate: (newDate: Date) => void;
+  setViewMode: (newViewMode: ViewMode) => void;
+  isValidDate?: (date: Date) => boolean;
 }
 
 function DaysView(props: DaysViewProps) {
@@ -30,21 +21,25 @@ function DaysView(props: DaysViewProps) {
     setViewDate,
     selectedDate,
     setSelectedDate,
-    formatOptions,
     setViewMode,
     isValidDate
   } = props;
 
-  const sunday = startOfWeek(viewDate);
+  const viewDayJs = dayjs(viewDate);
+  const selectedDayJs = dayjs(selectedDate);
 
-  const prevMonth = addMonths(viewDate, -1);
-  const daysSincePrevMonthLastWeekStart = differenceInDays(
-    startOfWeek(endOfMonth(prevMonth)),
-    viewDate
+  const sunday = viewDayJs.startOf("week");
+
+  const prevMonth = viewDayJs.add(-1, "month");
+  const endOfPrevMonth = prevMonth.endOf("month");
+  const startOfLastWeekOfPrevMonth = endOfPrevMonth.startOf("week");
+  const daysSinceStartOfLastWeekOfPrevMonth = startOfLastWeekOfPrevMonth.diff(
+    viewDayJs,
+    "day"
   );
-  const prevMonthLastWeekStart = addDays(
-    viewDate,
-    daysSincePrevMonthLastWeekStart
+  const prevMonthLastWeekStart = viewDayJs.add(
+    daysSinceStartOfLastWeekOfPrevMonth,
+    "day"
   );
 
   return (
@@ -54,7 +49,7 @@ function DaysView(props: DaysViewProps) {
           <tr>
             <th
               className="rdtPrev"
-              onClick={() => setViewDate(addMonths(viewDate, -1))}
+              onClick={() => setViewDate(viewDayJs.add(-1, "month").toDate())}
             >
               <span>‹</span>
             </th>
@@ -63,11 +58,11 @@ function DaysView(props: DaysViewProps) {
               onClick={() => setViewMode("months")}
               colSpan={5}
             >
-              {format(viewDate, "LLLL yyyy", formatOptions)}
+              {viewDayJs.format("MMMM YYYY")}
             </th>
             <th
               className="rdtNext"
-              onClick={() => setViewDate(addMonths(viewDate, 1))}
+              onClick={() => setViewDate(viewDayJs.add(1, "month").toDate())}
             >
               <span>›</span>
             </th>
@@ -75,7 +70,7 @@ function DaysView(props: DaysViewProps) {
           <tr>
             {[0, 1, 2, 3, 4, 5, 6].map(colNum => (
               <th key={colNum} className="dow">
-                {format(addDays(sunday, colNum), "iiiiii", formatOptions)}
+                {sunday.add(colNum, "day").format("dd")}
               </th>
             ))}
           </tr>
@@ -86,41 +81,40 @@ function DaysView(props: DaysViewProps) {
             const rowStartDay = rowNum * 7;
 
             return (
-              <tr
-                key={format(
-                  addDays(prevMonthLastWeekStart, rowStartDay),
-                  "yyyy-MM-dd'T'HH:mm:ss.SSSxxx"
-                )}
-              >
+              <tr key={prevMonthLastWeekStart.add(rowStartDay, "day").format()}>
                 {[0, 1, 2, 3, 4, 5, 6].map(d => {
                   const i = d + rowStartDay;
-                  const workingDate = addDays(prevMonthLastWeekStart, i);
+                  const workingDate = prevMonthLastWeekStart.add(i, "day");
                   const isDisabled =
                     typeof isValidDate === "function" &&
-                    !isValidDate(workingDate);
+                    !isValidDate(workingDate.toDate());
 
                   return (
                     <td
-                      key={getDate(workingDate)}
+                      key={workingDate.format()}
                       className={cc([
                         "rdtDay",
                         {
-                          rdtOld: isBefore(workingDate, startOfMonth(viewDate)),
-                          rdtNew: isBefore(endOfMonth(viewDate), workingDate),
+                          rdtOld: workingDate.isBefore(
+                            viewDayJs.startOf("month")
+                          ),
+                          rdtNew: viewDayJs
+                            .endOf("month")
+                            .isBefore(workingDate),
                           rdtActive:
                             selectedDate &&
-                            isSameDay(workingDate, selectedDate),
-                          rdtToday: isSameDay(workingDate, new Date()),
+                            workingDate.isSame(selectedDayJs, "day"),
+                          rdtToday: workingDate.isSame(new Date(), "day"),
                           rdtDisabled: isDisabled
                         }
                       ])}
                       onClick={() => {
                         if (!isDisabled) {
-                          setSelectedDate(workingDate);
+                          setSelectedDate(workingDate.toDate());
                         }
                       }}
                     >
-                      {format(workingDate, "d", formatOptions)}
+                      {workingDate.format("D")}
                     </td>
                   );
                 })}
@@ -136,7 +130,7 @@ function DaysView(props: DaysViewProps) {
                 colSpan={7}
                 className="rdtTimeToggle"
               >
-                {format(viewDate, timeFormat, formatOptions)}
+                {viewDayJs.format(timeFormat)}
               </td>
             </tr>
           </tfoot>

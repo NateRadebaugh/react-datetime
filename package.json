@@ -131,6 +131,7 @@
     "@reach/popover": "^0.6.1",
     "classcat": "^4.0.2",
     "date-fns": "^2.8.0",
+    "dayjs": "^1.8.17",
     "use-onclickoutside": "^0.3.1"
   }
 }

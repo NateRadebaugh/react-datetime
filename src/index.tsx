@@ -2,21 +2,18 @@ import * as React from "react";
 import Popover from "@reach/popover";
 import useOnClickOutside from "use-onclickoutside";
 
-import format from "date-fns/format";
-import rawParse from "date-fns/parse";
-import isEqual from "date-fns/isEqual";
-import toDate from "date-fns/toDate";
-import isDateValid from "date-fns/isValid";
-import startOfDay from "date-fns/startOfDay";
+import dayjs from "dayjs";
+import customParseFormat from "dayjs/plugin/customParseFormat";
+dayjs.extend(customParseFormat);
 
 import CalendarContainer from "./CalendarContainer";
 
 const { useRef, useState, useEffect, useCallback } = React;
 
 function tryGetAsTime(date: any) {
-  const asDate = toDate(date);
-  if (asDate && isDateValid(asDate)) {
-    return asDate.getTime();
+  const asDate = dayjs(date);
+  if (asDate.isValid()) {
+    return asDate.valueOf();
   }
 
   return date;
@@ -40,21 +37,20 @@ function useDefaultStateWithOverride<Type>(
 
 function parse(
   date: Date | string | number | undefined,
-  fullFormat: string,
-  formatOptions: any
+  fullFormat: string
 ): Date | undefined {
   if (typeof date === "string") {
-    const asDate = rawParse(date, fullFormat, new Date(), formatOptions);
-    if (isDateValid(asDate)) {
-      const formatted = format(asDate, fullFormat, formatOptions);
+    const asDate = dayjs(date, fullFormat);
+    if (asDate.isValid()) {
+      const formatted = asDate.format(fullFormat);
       if (date === formatted) {
-        return asDate;
+        return asDate.toDate();
       }
     }
   } else if (date) {
-    const asDate = toDate(date);
-    if (isDateValid(asDate)) {
-      return asDate;
+    const asDate = dayjs(date);
+    if (asDate.isValid()) {
+      return asDate.toDate();
     }
   }
 
@@ -93,11 +89,11 @@ function getViewMode(
   timeFormat: string | false
 ): ViewMode | undefined {
   if (typeof dateFormat === "string" && dateFormat) {
-    if (dateFormat.match(/[d]/)) {
+    if (dateFormat.match(/[D]/)) {
       return "days";
-    } else if (dateFormat.indexOf("L") !== -1) {
+    } else if (dateFormat.indexOf("M") !== -1) {
       return "months";
-    } else if (dateFormat.indexOf("y") !== -1) {
+    } else if (dateFormat.indexOf("Y") !== -1) {
       return "years";
     }
   }
@@ -145,8 +141,6 @@ interface DateTimeProps {
   dateFormat?: string | boolean;
   timeFormat?: string | boolean;
 
-  locale?: any;
-
   shouldHideInput?: boolean;
 }
 
@@ -166,7 +160,6 @@ function DateTime(
     onFocus,
     dateFormat: rawDateFormat = true,
     timeFormat: rawTimeFormat = true,
-    locale,
     shouldHideInput = false,
     ...rest
   } = props as DateTimeProps;
@@ -174,18 +167,14 @@ function DateTime(
   //
   // Formats
   //
-  const dateFormat = rawDateFormat === true ? "LL/dd/yyyy" : rawDateFormat;
-  const timeFormat = rawTimeFormat === true ? "h:mm a" : rawTimeFormat;
+  const dateFormat = rawDateFormat === true ? "MM/DD/YYYY" : rawDateFormat;
+  const timeFormat = rawTimeFormat === true ? "h:mm A" : rawTimeFormat;
   const fullFormat =
     dateFormat && timeFormat
       ? `${dateFormat} ${timeFormat}`
       : dateFormat || timeFormat || "";
 
-  const formatOptions = {
-    locale
-  };
-
-  const valueAsDate = parse(value, fullFormat, formatOptions);
+  const valueAsDate = parse(value, fullFormat);
   const dateTypeMode = getDateTypeMode(rawDateTypeMode, value);
 
   const getChangedValue = useCallback(
@@ -198,17 +187,19 @@ function DateTime(
         return newValue;
       }
 
+      const asDate = dayjs(newValue);
+
       switch (dateTypeMode) {
         case "utc-ms-timestamp":
-          return newValue.getTime();
+          return asDate.valueOf();
 
         case "input-format":
-          return format(newValue, fullFormat, formatOptions);
+          return asDate.format(fullFormat);
       }
 
       return newValue;
     },
-    [dateTypeMode, formatOptions, fullFormat]
+    [dateTypeMode, fullFormat]
   );
 
   //
@@ -232,7 +223,7 @@ function DateTime(
       if (
         value instanceof Date &&
         changedValue instanceof Date &&
-        isEqual(value, changedValue)
+        dayjs(value).isSame(dayjs(changedValue))
       ) {
         return;
       }
@@ -249,8 +240,11 @@ function DateTime(
   //
   // ViewDate
   //
-  const [viewDate, setViewDate] = useDefaultStateWithOverride(
-    valueAsDate || startOfDay(new Date())
+  const [viewDate, setViewDate] = useDefaultStateWithOverride<Date>(
+    valueAsDate ||
+      dayjs(new Date())
+        .startOf("day")
+        .toDate()
   );
 
   //
@@ -265,7 +259,7 @@ function DateTime(
   //
   // ViewTimestamp
   //
-  const [viewTimestamp, setViewTimestamp] = useDefaultStateWithOverride(
+  const [viewTimestamp, setViewTimestamp] = useDefaultStateWithOverride<Date>(
     valueAsDate || viewDate
   );
 
@@ -301,9 +295,9 @@ function DateTime(
   // SetSelectedDate
   //
   function setSelectedDate(newDate: Date, tryClose = true) {
-    const asDate = toDate(newDate);
-    setViewDate(asDate);
-    setViewTimestamp(asDate);
+    const asDate = dayjs(newDate);
+    setViewDate(asDate.toDate());
+    setViewTimestamp(asDate.toDate());
 
     // Time switches value but stays open
     if (viewMode === "time") {
@@ -339,7 +333,7 @@ function DateTime(
   function onInputChange(e: React.ChangeEvent<HTMLInputElement>) {
     const { value: newValue } = e.target;
 
-    const newValueAsDate = parse(newValue, fullFormat, formatOptions);
+    const newValueAsDate = parse(newValue, fullFormat);
     if (newValueAsDate) {
       setSelectedDate(newValueAsDate, false);
     } else {
@@ -376,7 +370,7 @@ function DateTime(
 
   const valueStr: string =
     valueAsDate && fullFormat
-      ? format(valueAsDate, fullFormat, formatOptions)
+      ? dayjs(valueAsDate).format(fullFormat)
       : typeof value === "string"
       ? value
       : "";
@@ -408,7 +402,6 @@ function DateTime(
     setSelectedDate,
     viewTimestamp,
     setViewTimestamp,
-    formatOptions,
     viewMode,
     setViewMode,
     isValidDate,
