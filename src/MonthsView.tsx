@@ -85,7 +85,7 @@ function MonthsView(props: MonthsViewProps) {
                           rdtDisabled: isDisabled,
                           rdtActive:
                             selectedDate &&
-                            selectedDate.isSame(currentMonth, "month")
+                            dayjs(selectedDate).isSame(currentMonth, "month")
                         }
                       ])}
                       onClick={() => {

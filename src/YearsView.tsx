@@ -90,7 +90,8 @@ function YearsView(props: YearsViewProps) {
                         {
                           rdtDisabled: isDisabled,
                           rdtActive:
-                            selectedDate && selectedDate.get("year") === year
+                            selectedDate &&
+                            dayjs(selectedDate).get("year") === year
                         }
                       ])}
                       onClick={() => {
