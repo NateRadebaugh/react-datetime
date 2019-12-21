@@ -19,8 +19,8 @@ function useDefaultStateWithOverride<Type = ViewMode | Dayjs | undefined>(
 
   function tryGetAsTime(date: unknown) {
     if (dayjs.isDayjs(date)) {
-      if (date.isValid()) {
-        return date.valueOf();
+      if (dayjs(date).isValid()) {
+        return dayjs(date).valueOf();
       }
     }
 
@@ -59,8 +59,6 @@ function parse(
 }
 
 export interface TimeConstraint {
-  min: number;
-  max: number;
   step: number;
 }
 
@@ -85,7 +83,7 @@ const nextViewModes: NextViewModes = {
   years: "months"
 };
 
-function getViewMode(
+function getDefaultViewMode(
   dateFormat: string | false,
   timeFormat: string | false
 ): ViewMode | undefined {
@@ -107,8 +105,7 @@ function getViewMode(
 }
 
 function getDateTypeMode(
-  rawDateTypeMode: DateTypeMode | undefined,
-  value: string | number | Date | undefined
+  rawDateTypeMode: DateTypeMode | undefined
 ): DateTypeMode {
   if (typeof rawDateTypeMode === "string") {
     const lowerRawDateTypeMode = rawDateTypeMode.toLowerCase();
@@ -117,12 +114,6 @@ function getDateTypeMode(
       case "input-format":
         return lowerRawDateTypeMode;
     }
-  } else if (typeof value === "number") {
-    return "utc-ms-timestamp";
-  }
-
-  if (rawDateTypeMode) {
-    return rawDateTypeMode;
   }
 
   return "Date";
@@ -143,6 +134,7 @@ interface DateTimeProps {
   timeFormat?: string | boolean;
 
   shouldHideInput?: boolean;
+  timeConstraints?: TimeConstraints;
 }
 
 function DateTime(
@@ -162,6 +154,7 @@ function DateTime(
     dateFormat: rawDateFormat = true,
     timeFormat: rawTimeFormat = true,
     shouldHideInput = false,
+    timeConstraints,
     ...rest
   } = props as DateTimeProps;
 
@@ -176,7 +169,7 @@ function DateTime(
       : dateFormat || timeFormat || "";
 
   const valueAsDate = parse(value, fullFormat);
-  const dateTypeMode = getDateTypeMode(rawDateTypeMode, value);
+  const dateTypeMode = getDateTypeMode(rawDateTypeMode);
 
   const getChangedValue = useCallback(
     (
@@ -224,11 +217,20 @@ function DateTime(
       // Suppress change event when the value didn't change!
       //
       if (
-        value instanceof Date &&
-        changedValue instanceof Date &&
-        dayjs(value).isSame(dayjs(changedValue))
+        value &&
+        changedValue &&
+        dayjs(value).isValid() &&
+        dayjs(changedValue).isValid()
       ) {
-        return;
+        const oldValStr =
+          typeof value === "string" ? value : dayjs(value).format(fullFormat);
+        const newValStr =
+          typeof changedValue === "string"
+            ? changedValue
+            : dayjs(changedValue).format(fullFormat);
+        if (oldValStr === newValStr) {
+          return;
+        }
       }
 
       if (value === changedValue) {
@@ -237,7 +239,7 @@ function DateTime(
 
       rawOnChange(changedValue);
     },
-    [getChangedValue, rawOnChange, value]
+    [fullFormat, getChangedValue, rawOnChange, value]
   );
 
   function isValidDate(newDate: Dayjs) {
@@ -258,7 +260,7 @@ function DateTime(
   //
   // ViewMode
   //
-  const defaultViewMode = getViewMode(dateFormat, timeFormat);
+  const defaultViewMode = getDefaultViewMode(dateFormat, timeFormat);
   const [viewMode, setViewMode] = useDefaultStateWithOverride<
     ViewMode | undefined
   >(defaultViewMode, false);
@@ -352,11 +354,15 @@ function DateTime(
       switch (e.which) {
         // Enter key
         case 13:
+          // Eat enter key
+          e.preventDefault();
+
         // Escape key
         case 27:
         // Tab key
         case 9:
           close();
+
           break;
       }
     } else {
@@ -390,6 +396,7 @@ function DateTime(
     type: "text",
     onClick: open,
     onFocus: open,
+    //onBlur: close,
     onChange: onInputChange,
     onKeyDown: onInputKeyDown,
     value: valueStr
@@ -410,8 +417,9 @@ function DateTime(
     setViewTimestamp,
     viewMode,
     setViewMode,
-    isValidDate: isValidDate,
-    isStatic: shouldHideInput
+    isValidDate,
+    isStatic: shouldHideInput,
+    timeConstraints
   };
 
   return !shouldHideInput ? (

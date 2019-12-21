@@ -98,14 +98,21 @@ export function CustomizableExample() {
         <strong>Value:</strong> {JSON.stringify(state.value)}
       </div>
 
-      <DateTime
-        value={state.value}
-        onChange={newValue => {
-          console.log(newValue);
-          setState({ ...state, value: newValue });
+      <form
+        onSubmit={e => {
+          alert("submitted");
+          e.preventDefault();
         }}
-        {...state}
-      />
+      >
+        <DateTime
+          value={state.value}
+          onChange={newValue => {
+            console.log(newValue);
+            setState({ ...state, value: newValue });
+          }}
+          {...state}
+        />
+      </form>
 
       <hr />
 
@@ -124,8 +131,8 @@ export function CustomizableExample() {
         <option value="">false</option>
         <option>hh:mm A</option>
         <option>HH:mm:ss</option>
-        <option>HH:mm:SSS</option>
-        <option>hh:mm:SSS A</option>
+        <option>HH:mm:ss.SSS</option>
+        <option>hh:mm:ss.SSS a</option>
         <option>hmm</option>
         <option>HH:mm xxx</option>
       </Select>

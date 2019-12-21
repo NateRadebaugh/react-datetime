@@ -1,7 +1,7 @@
 import * as React from "react";
 import dayjs, { Dayjs } from "dayjs";
 
-import { TimeConstraint, TimeConstraints, ViewMode } from "./.";
+import { TimeConstraints, ViewMode } from "./index";
 
 const allCounters: Array<"hours" | "minutes" | "seconds" | "milliseconds"> = [
   "hours",
@@ -10,25 +10,17 @@ const allCounters: Array<"hours" | "minutes" | "seconds" | "milliseconds"> = [
   "milliseconds"
 ];
 
-const defaultTimeConstraints: AlwaysTimeConstraints = {
+const defaultTimeConstraints = {
   hours: {
-    min: 0,
-    max: 23,
     step: 1
   },
   minutes: {
-    min: 0,
-    max: 59,
     step: 1
   },
   seconds: {
-    min: 0,
-    max: 59,
     step: 1
   },
   milliseconds: {
-    min: 0,
-    max: 999,
     step: 1
   }
 };
@@ -59,16 +51,9 @@ const TimePart = (props: TimePartInterface) => {
   ) : null;
 };
 
-interface AlwaysTimeConstraints {
-  hours: TimeConstraint;
-  minutes: TimeConstraint;
-  seconds: TimeConstraint;
-  milliseconds: TimeConstraint;
-}
-
 function getStepSize(
   type: "hours" | "minutes" | "seconds" | "milliseconds",
-  timeConstraints?: TimeConstraints
+  timeConstraints: TimeConstraints | undefined
 ) {
   let step = defaultTimeConstraints[type].step;
   const config = timeConstraints ? timeConstraints[type] : undefined;
@@ -82,21 +67,21 @@ function getStepSize(
 function change(
   op: "add" | "sub",
   type: "hours" | "minutes" | "seconds" | "milliseconds",
-  timestamp: Date,
-  timeConstraints?: TimeConstraints
-): Date {
+  timestamp: Dayjs,
+  timeConstraints: TimeConstraints | undefined
+): Dayjs {
   const timestampDayJs = dayjs(timestamp);
   const mult = op === "sub" ? -1 : 1;
 
   const step = getStepSize(type, timeConstraints) * mult;
   if (type === "hours") {
-    return timestampDayJs.add(step, "hour").toDate();
+    return timestampDayJs.add(step, "hour");
   } else if (type === "minutes") {
-    return timestampDayJs.add(step, "minute").toDate();
+    return timestampDayJs.add(step, "minute");
   } else if (type === "seconds") {
-    return timestampDayJs.add(step, "second").toDate();
+    return timestampDayJs.add(step, "second");
   } else {
-    return timestampDayJs.add(step, "millisecond").toDate();
+    return timestampDayJs.add(step, "millisecond");
   }
 }
 
@@ -116,7 +101,7 @@ function getFormatted(
   const hasSeconds = has(fmt, "s");
   const hasMilliseconds = has(fmt, "S");
 
-  const hasDayPart = has(fmt, "A");
+  const hasDayPart = has(fmt, "A") || has(fmt, "a");
 
   const typeFormat =
     type === "hours" && hasHours
@@ -159,12 +144,12 @@ let mouseUpListener: () => void;
 function onStartClicking(
   op: "add" | "sub",
   type: "hours" | "minutes" | "seconds" | "milliseconds",
-  props
+  props: TimeViewProps
 ) {
   return () => {
     const {
       readonly,
-      viewTimestamp: origViewTimestamp = new Date(),
+      viewTimestamp: origViewTimestamp = dayjs(),
       timeConstraints,
       setViewTimestamp,
       setSelectedDate
@@ -199,7 +184,10 @@ export interface TimeViewProps {
   dateFormat: string | false;
   setViewMode: (newViewMode: ViewMode) => void;
   timeFormat: string | false;
-  setSelectedDate: (newDate: Dayjs) => void;
+  setSelectedDate: (newDate: Dayjs, tryClose?: boolean) => void;
+  setViewTimestamp: (newViewTimestamp: Dayjs | undefined) => void;
+  readonly?: boolean;
+  timeConstraints?: TimeConstraints;
 }
 
 function TimeView(props: TimeViewProps) {
@@ -214,13 +202,14 @@ function TimeView(props: TimeViewProps) {
   let numCounters = 0;
 
   return (
-    <div className="rdtTime">
+    <div className="rdtTime" data-testid="time-picker">
       <table>
         {dateFormat ? (
           <thead>
             <tr>
               <th
                 className="rdtSwitch"
+                data-testid="time-mode-switcher"
                 colSpan={4}
                 onClick={() => setViewMode("days")}
               >

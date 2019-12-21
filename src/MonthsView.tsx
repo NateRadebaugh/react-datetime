@@ -1,16 +1,15 @@
 import * as React from "react";
 import cc from "classcat";
-
 import dayjs, { Dayjs } from "dayjs";
-import { ViewMode } from "./.";
+import { ViewMode } from "./index";
 
 export interface MonthsViewProps {
   viewDate: Dayjs;
-  setViewDate: (newSelectedDate: Dayjs) => void;
+  setViewDate: (newViewDate: Dayjs | undefined) => void;
   selectedDate: Dayjs | undefined;
-  setSelectedDate: (newDate: Dayjs) => void;
+  setSelectedDate: (newDate: Dayjs, tryClose?: boolean) => void;
   setViewMode: (newViewMode: ViewMode) => void;
-  isValidDate: (date: Dayjs) => boolean;
+  isValidDate?: (date: Dayjs) => boolean;
 }
 
 function MonthsView(props: MonthsViewProps) {
@@ -24,7 +23,7 @@ function MonthsView(props: MonthsViewProps) {
   } = props;
 
   return (
-    <div className="rdtMonths">
+    <div className="rdtMonths" data-testid="month-picker">
       <table>
         <thead>
           <tr>
@@ -38,6 +37,7 @@ function MonthsView(props: MonthsViewProps) {
             </th>
             <th
               className="rdtSwitch"
+              data-testid="month-mode-switcher"
               onClick={() => setViewMode("years")}
               colSpan={2}
             >
@@ -76,6 +76,10 @@ function MonthsView(props: MonthsViewProps) {
                   );
                   const monthDate = dayjs().set("month", month);
 
+                  const isActive =
+                    selectedDate &&
+                    dayjs(selectedDate).isSame(currentMonth, "month");
+
                   return (
                     <td
                       key={month}
@@ -83,9 +87,7 @@ function MonthsView(props: MonthsViewProps) {
                         "rdtMonth",
                         {
                           rdtDisabled: isDisabled,
-                          rdtActive:
-                            selectedDate &&
-                            dayjs(selectedDate).isSame(currentMonth, "month")
+                          rdtActive: isActive
                         }
                       ])}
                       onClick={() => {

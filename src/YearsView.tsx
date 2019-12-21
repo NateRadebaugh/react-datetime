@@ -1,20 +1,19 @@
 import * as React from "react";
 import cc from "classcat";
-
 import dayjs, { Dayjs } from "dayjs";
 
 import isLeapYear from "dayjs/plugin/isLeapYear";
 dayjs.extend(isLeapYear);
 
-import { ViewMode } from "./.";
+import { ViewMode } from "./index";
 
 export interface YearsViewProps {
   viewDate: Dayjs;
-  setViewDate: (newSelectedDate: Dayjs) => void;
+  setViewDate: (newViewDate: Dayjs | undefined) => void;
   selectedDate: Dayjs | undefined;
-  setSelectedDate: (newDate: Dayjs) => void;
+  setSelectedDate: (newDate: Dayjs, tryClose?: boolean) => void;
   setViewMode: (newViewMode: ViewMode) => void;
-  isValidDate: (date: Dayjs) => boolean;
+  isValidDate?: (date: Dayjs) => boolean;
 }
 
 function YearsView(props: YearsViewProps) {
@@ -30,7 +29,7 @@ function YearsView(props: YearsViewProps) {
   const startYear = Math.floor(viewDate.get("year") / 10) * 10;
 
   return (
-    <div className="rdtYears">
+    <div className="rdtYears" data-testid="year-picker">
       <table>
         <thead>
           <tr>
@@ -44,6 +43,7 @@ function YearsView(props: YearsViewProps) {
             </th>
             <th
               className="rdtSwitch"
+              data-testid="year-mode-switcher"
               onClick={() => setViewMode("years")}
               colSpan={2}
             >
@@ -82,6 +82,9 @@ function YearsView(props: YearsViewProps) {
                     d => typeof isValidDate === "function" && !isValidDate(d)
                   );
 
+                  const isActive =
+                    selectedDate && dayjs(selectedDate).get("year") === year;
+
                   return (
                     <td
                       key={year}
@@ -89,9 +92,7 @@ function YearsView(props: YearsViewProps) {
                         "rdtYear",
                         {
                           rdtDisabled: isDisabled,
-                          rdtActive:
-                            selectedDate &&
-                            dayjs(selectedDate).get("year") === year
+                          rdtActive: isActive
                         }
                       ])}
                       onClick={() => {

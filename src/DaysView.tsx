@@ -1,17 +1,16 @@
 import * as React from "react";
 import cc from "classcat";
 import dayjs, { Dayjs } from "dayjs";
-
-import { ViewMode } from "./.";
+import { ViewMode } from "./index";
 
 export interface DaysViewProps {
   timeFormat: string | false;
   viewDate: Dayjs;
-  setViewDate: (newSelectedDate: Dayjs) => void;
+  setViewDate: (newViewDate: Dayjs | undefined) => void;
   selectedDate: Dayjs | undefined;
-  setSelectedDate: (newDate: Dayjs) => void;
+  setSelectedDate: (newDate: Dayjs, tryClose?: boolean) => void;
   setViewMode: (newViewMode: ViewMode) => void;
-  isValidDate: (date: Dayjs) => boolean;
+  isValidDate?: (date: Dayjs) => boolean;
 }
 
 function DaysView(props: DaysViewProps) {
@@ -40,7 +39,7 @@ function DaysView(props: DaysViewProps) {
   );
 
   return (
-    <div className="rdtDays">
+    <div className="rdtDays" data-testid="day-picker">
       <table>
         <thead>
           <tr>
@@ -52,6 +51,7 @@ function DaysView(props: DaysViewProps) {
             </th>
             <th
               className="rdtSwitch"
+              data-testid="day-mode-switcher"
               onClick={() => setViewMode("months")}
               colSpan={5}
             >
@@ -86,6 +86,9 @@ function DaysView(props: DaysViewProps) {
                     typeof isValidDate === "function" &&
                     !isValidDate(workingDate);
 
+                  const isActive =
+                    selectedDate && workingDate.isSame(selectedDate, "day");
+
                   return (
                     <td
                       key={workingDate.format()}
@@ -96,9 +99,7 @@ function DaysView(props: DaysViewProps) {
                             viewDate.startOf("month")
                           ),
                           rdtNew: viewDate.endOf("month").isBefore(workingDate),
-                          rdtActive:
-                            selectedDate &&
-                            workingDate.isSame(selectedDate, "day"),
+                          rdtActive: isActive,
                           rdtToday: workingDate.isSame(new Date(), "day"),
                           rdtDisabled: isDisabled
                         }
@@ -124,6 +125,7 @@ function DaysView(props: DaysViewProps) {
                 onClick={() => setViewMode("time")}
                 colSpan={7}
                 className="rdtTimeToggle"
+                data-testid="day-to-time-mode-switcher"
               >
                 {viewDate.format(timeFormat)}
               </td>
