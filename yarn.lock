@@ -1603,17 +1603,17 @@
     react-lifecycles-compat "^3.0.4"
     util-deprecate "^1.0.2"
 
-"@storybook/addon-knobs@5.3.0-rc.13":
-  version "5.3.0-rc.13"
-  resolved "https://registry.yarnpkg.com/@storybook/addon-knobs/-/addon-knobs-5.3.0-rc.13.tgz#a428f77ac139a463a65fc0f28a23c4f1d6c0812a"
-  integrity sha512-Uk2Xp5cXzpAtramrKKgIsXf+F8ARG5gbwogPOfmy2ft0D22WXaDbBCxKcqPwc4ONBrgbv9TyQYpf3bKAl62K6w==
+"@storybook/addon-knobs@5.3.0":
+  version "5.3.0"
+  resolved "https://registry.yarnpkg.com/@storybook/addon-knobs/-/addon-knobs-5.3.0.tgz#a3ffd6459d9090c3ace247aeb67cf301deecd43c"
+  integrity sha512-UamwIv8c+7VW4T7QUsa+FbcOh2cc7EE1RsW3nQGNhQXGlRxQN6/AURBCsHtBthul44nZ9jZxEkbzFrdEnw0d2w==
   dependencies:
-    "@storybook/addons" "5.3.0-rc.13"
-    "@storybook/api" "5.3.0-rc.13"
-    "@storybook/client-api" "5.3.0-rc.13"
-    "@storybook/components" "5.3.0-rc.13"
-    "@storybook/core-events" "5.3.0-rc.13"
-    "@storybook/theming" "5.3.0-rc.13"
+    "@storybook/addons" "5.3.0"
+    "@storybook/api" "5.3.0"
+    "@storybook/client-api" "5.3.0"
+    "@storybook/components" "5.3.0"
+    "@storybook/core-events" "5.3.0"
+    "@storybook/theming" "5.3.0"
     "@types/react-color" "^3.0.1"
     copy-to-clipboard "^3.0.8"
     core-js "^3.0.1"
@@ -1769,17 +1769,6 @@
     global "^4.3.2"
     telejson "^3.2.0"
 
-"@storybook/channel-postmessage@5.3.0-rc.13":
-  version "5.3.0-rc.13"
-  resolved "https://registry.yarnpkg.com/@storybook/channel-postmessage/-/channel-postmessage-5.3.0-rc.13.tgz#df164c6aee0170e359424bbdb497fa5a17f4c5d7"
-  integrity sha512-JOFmTmd/kVO5akioqghwYYmP3TuMFKsU3EFeHlS8atkL15uY1rL257/K2LHQiUCv+0rMb301Aw+uBvmhzEO+pg==
-  dependencies:
-    "@storybook/channels" "5.3.0-rc.13"
-    "@storybook/client-logger" "5.3.0-rc.13"
-    core-js "^3.0.1"
-    global "^4.3.2"
-    telejson "^3.2.0"
-
 "@storybook/channels@5.3.0":
   version "5.3.0"
   resolved "https://registry.yarnpkg.com/@storybook/channels/-/channels-5.3.0.tgz#d124815216df6a48161f0ff2a31c18ba6412f5f0"
@@ -1811,28 +1800,6 @@
     "@storybook/channels" "5.3.0"
     "@storybook/client-logger" "5.3.0"
     "@storybook/core-events" "5.3.0"
-    "@storybook/csf" "0.0.1"
-    core-js "^3.0.1"
-    eventemitter3 "^4.0.0"
-    global "^4.3.2"
-    is-plain-object "^3.0.0"
-    lodash "^4.17.15"
-    memoizerific "^1.11.3"
-    qs "^6.6.0"
-    stable "^0.1.8"
-    ts-dedent "^1.1.0"
-    util-deprecate "^1.0.2"
-
-"@storybook/client-api@5.3.0-rc.13":
-  version "5.3.0-rc.13"
-  resolved "https://registry.yarnpkg.com/@storybook/client-api/-/client-api-5.3.0-rc.13.tgz#bc538f33a342f0cd2e0b390ba228d376d0f22c09"
-  integrity sha512-fNnLXijTGkcy0PGeomXBryonQEakFkhkCU8ZWeycjkPUPKsjmBSHd/rOSwUHGnY1nDZQ94uYl2Mv/1KKGR6c3w==
-  dependencies:
-    "@storybook/addons" "5.3.0-rc.13"
-    "@storybook/channel-postmessage" "5.3.0-rc.13"
-    "@storybook/channels" "5.3.0-rc.13"
-    "@storybook/client-logger" "5.3.0-rc.13"
-    "@storybook/core-events" "5.3.0-rc.13"
     "@storybook/csf" "0.0.1"
     core-js "^3.0.1"
     eventemitter3 "^4.0.0"
