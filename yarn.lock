@@ -1604,10 +1604,10 @@
     react-inspector "^4.0.0"
     uuid "^3.3.2"
 
-"@storybook/addon-docs@5.3.11":
-  version "5.3.11"
-  resolved "https://registry.yarnpkg.com/@storybook/addon-docs/-/addon-docs-5.3.11.tgz#79faba91193d6b8947452aa703436730b266ed98"
-  integrity sha512-0Bgj4KgrsuULcXrY6rg85/J2FS3FWaDlDUx8/mE8R4IEi40oCAISreKRTFRbu7j0YqI1VJ6U5RSUqIZ8EIUJ9w==
+"@storybook/addon-docs@5.3.12":
+  version "5.3.12"
+  resolved "https://registry.yarnpkg.com/@storybook/addon-docs/-/addon-docs-5.3.12.tgz#dc3c222d856f4d92de2feb6ac513680739aac15d"
+  integrity sha512-igAV/mOgk8B3rptB/mT5hS37PLjFJCZkYclydCVAg70z5mm1DT0AvUQtntwSNzzB/rPB/ajtghtE4nxTfCBLkw==
   dependencies:
     "@babel/generator" "^7.4.0"
     "@babel/parser" "^7.4.2"
@@ -1617,14 +1617,14 @@
     "@mdx-js/loader" "^1.5.1"
     "@mdx-js/mdx" "^1.5.1"
     "@mdx-js/react" "^1.5.1"
-    "@storybook/addons" "5.3.11"
-    "@storybook/api" "5.3.11"
-    "@storybook/components" "5.3.11"
-    "@storybook/core-events" "5.3.11"
+    "@storybook/addons" "5.3.12"
+    "@storybook/api" "5.3.12"
+    "@storybook/components" "5.3.12"
+    "@storybook/core-events" "5.3.12"
     "@storybook/csf" "0.0.1"
-    "@storybook/postinstall" "5.3.11"
-    "@storybook/source-loader" "5.3.11"
-    "@storybook/theming" "5.3.11"
+    "@storybook/postinstall" "5.3.12"
+    "@storybook/source-loader" "5.3.12"
+    "@storybook/theming" "5.3.12"
     acorn "^7.1.0"
     acorn-jsx "^5.1.0"
     acorn-walk "^7.0.0"
@@ -2011,10 +2011,10 @@
     pretty-hrtime "^1.0.3"
     regenerator-runtime "^0.13.3"
 
-"@storybook/postinstall@5.3.11":
-  version "5.3.11"
-  resolved "https://registry.yarnpkg.com/@storybook/postinstall/-/postinstall-5.3.11.tgz#d72be37359aa8c485c8e79a649aada34b6156c8f"
-  integrity sha512-JCahsaK7GBibtR4hcX1HsgG51B5h/HD3/IhGHvE/aENHbhfD6Z3CKrD/wPNRUKOIx3c2RyDG42ROMWVtMmu+vg==
+"@storybook/postinstall@5.3.12":
+  version "5.3.12"
+  resolved "https://registry.yarnpkg.com/@storybook/postinstall/-/postinstall-5.3.12.tgz#78361c634bc3bdaaef9974dcc9b29ceb0aadd8ff"
+  integrity sha512-PYBnPL9pYdMfpbtq8Nxrx0e24Gt4jcsyZ1P5s4vCJ/a9jZCxL8C6MZ7/a8qIDcvp3hukbMw1Yr6baDQM1efx1g==
   dependencies:
     core-js "^3.0.1"
 
@@ -2080,13 +2080,13 @@
     qs "^6.6.0"
     util-deprecate "^1.0.2"
 
-"@storybook/source-loader@5.3.11":
-  version "5.3.11"
-  resolved "https://registry.yarnpkg.com/@storybook/source-loader/-/source-loader-5.3.11.tgz#3f0c823ced1782120afe3a1b117734a28dc50908"
-  integrity sha512-Se3pZSj1FlfT8goi351kd6e5ojguaGAQ6Z47W6vfsVMEFOQWcgL5zk2+yjr4GRBpTDJvxJFSNAEQkFV78rELbA==
+"@storybook/source-loader@5.3.12":
+  version "5.3.12"
+  resolved "https://registry.yarnpkg.com/@storybook/source-loader/-/source-loader-5.3.12.tgz#b3ed2fc62ff38b66fcb831a9c1003cb71c41dae6"
+  integrity sha512-+l85iXo1qp0Yvw792uSqizzgPzdksILYMzDnXiqiLU4oPKb8GMcwGHC6RwLsUqGA0ZA/Smls8mvbdCEXjRRlnw==
   dependencies:
-    "@storybook/addons" "5.3.11"
-    "@storybook/client-logger" "5.3.11"
+    "@storybook/addons" "5.3.12"
+    "@storybook/client-logger" "5.3.12"
     "@storybook/csf" "0.0.1"
     core-js "^3.0.1"
     estraverse "^4.2.0"
