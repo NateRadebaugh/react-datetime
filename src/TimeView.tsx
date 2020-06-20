@@ -10,17 +10,24 @@ import setHours from "date-fns/setHours";
 
 import { TimeConstraints, FormatOptions, ViewMode, FORMATS } from "./index";
 
+const types = {
+  h: "hours",
+  m: "minutes",
+  s: "seconds",
+  ms: "milliseconds",
+} as const;
+
 const defaultTimeConstraints = {
-  hours: {
+  h: {
     step: 1,
   },
-  minutes: {
+  m: {
     step: 1,
   },
-  seconds: {
+  s: {
     step: 1,
   },
-  milliseconds: {
+  ms: {
     step: 1,
   },
 };
@@ -55,13 +62,9 @@ function getStepSize(
   type: "h" | "m" | "s" | "ms",
   timeConstraints: TimeConstraints | undefined
 ) {
-  let step = defaultTimeConstraints[type].step;
-  const config = timeConstraints ? timeConstraints[type] : undefined;
-  if (config && config.step) {
-    step = config.step;
-  }
-
-  return step;
+  return (
+    timeConstraints?.[types[type]]?.step ?? defaultTimeConstraints[type].step
+  );
 }
 
 function change(
