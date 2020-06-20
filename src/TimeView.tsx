@@ -10,13 +10,6 @@ import setHours from "date-fns/setHours";
 
 import { TimeConstraints, FormatOptions, ViewMode, FORMATS } from "./index";
 
-const allCounters: Array<"hours" | "minutes" | "seconds" | "milliseconds"> = [
-  "hours",
-  "minutes",
-  "seconds",
-  "milliseconds",
-];
-
 const defaultTimeConstraints = {
   hours: {
     step: 1,
@@ -59,7 +52,7 @@ const TimePart = (props: TimePartInterface) => {
 };
 
 function getStepSize(
-  type: "hours" | "minutes" | "seconds" | "milliseconds",
+  type: "h" | "m" | "s" | "ms",
   timeConstraints: TimeConstraints | undefined
 ) {
   let step = defaultTimeConstraints[type].step;
@@ -73,18 +66,18 @@ function getStepSize(
 
 function change(
   op: "add" | "sub",
-  type: "hours" | "minutes" | "seconds" | "milliseconds",
+  type: "h" | "m" | "s" | "ms",
   timestamp: Date,
   timeConstraints: TimeConstraints | undefined
 ) {
   const mult = op === "sub" ? -1 : 1;
 
   const step = getStepSize(type, timeConstraints) * mult;
-  if (type === "hours") {
+  if (type === "h") {
     return addHours(timestamp, step);
-  } else if (type === "minutes") {
+  } else if (type === "m") {
     return addMinutes(timestamp, step);
-  } else if (type === "seconds") {
+  } else if (type === "s") {
     return addSeconds(timestamp, step);
   } else {
     return addMilliseconds(timestamp, step);
@@ -92,7 +85,7 @@ function change(
 }
 
 function getFormatted(
-  type: "hours" | "minutes" | "seconds" | "milliseconds" | "daypart",
+  type: "h" | "m" | "s" | "ms" | "daypart",
   timestamp: Date,
   timeFormat: string,
   formatOptions?: any
@@ -111,15 +104,15 @@ function getFormatted(
   const hasDayPart = has(fmt, FORMATS.AM_PM);
 
   const typeFormat =
-    type === "hours" && hasHours
+    type === "h" && hasHours
       ? hasDayPart
         ? FORMATS.HOUR
         : FORMATS.MILITARY_HOUR
-      : type === "minutes" && hasMinutes
+      : type === "m" && hasMinutes
       ? FORMATS.MINUTE
-      : type === "seconds" && hasSeconds
+      : type === "s" && hasSeconds
       ? FORMATS.SECOND
-      : type === "milliseconds" && hasMilliseconds
+      : type === "ms" && hasMilliseconds
       ? FORMATS.MILLISECOND
       : type === "daypart" && hasDayPart
       ? FORMATS.AM_PM
@@ -150,7 +143,7 @@ let mouseUpListener: () => void;
 
 function onStartClicking(
   op: "add" | "sub",
-  type: "hours" | "minutes" | "seconds" | "milliseconds",
+  type: "h" | "m" | "s" | "ms",
   props: TimeViewProps
 ) {
   return () => {
@@ -231,7 +224,7 @@ function TimeView(props: TimeViewProps): JSX.Element {
           <tr>
             <td>
               <div className="rdtCounters">
-                {allCounters.map((type) => {
+                {(["h", "m", "s", "ms"] as const).map((type) => {
                   const val = getFormatted(
                     type,
                     viewTimestamp,
