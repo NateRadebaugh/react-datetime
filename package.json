@@ -114,7 +114,7 @@
     "@storybook/addon-docs": "6.0.3",
     "@storybook/addon-info": "5.3.19",
     "@storybook/addon-knobs": "5.3.19",
-    "@storybook/addon-links": "5.3.19",
+    "@storybook/addon-links": "6.0.3",
     "@storybook/addons": "5.3.19",
     "@storybook/preset-typescript": "^3.0.0",
     "@storybook/react": "5.3.19",
