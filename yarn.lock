@@ -3003,9 +3003,9 @@
     "@types/reactcss" "*"
 
 "@types/react-dom@^17.0.1":
-  version "17.0.2"
-  resolved "https://registry.yarnpkg.com/@types/react-dom/-/react-dom-17.0.2.tgz#35654cf6c49ae162d5bc90843d5437dc38008d43"
-  integrity sha512-Icd9KEgdnFfJs39KyRyr0jQ7EKhq8U6CcHRMGAS45fp5qgUvxL3ujUCfWFttUK2UErqZNj97t9gsVPNAqcwoCg==
+  version "17.0.7"
+  resolved "https://registry.yarnpkg.com/@types/react-dom/-/react-dom-17.0.7.tgz#b8ee15ead9e5d6c2c858b44949fdf2ebe5212232"
+  integrity sha512-Wd5xvZRlccOrCTej8jZkoFZuZRKHzanDDv1xglI33oBNFMWrqOSzrvWFw7ngSiZjrpJAzPKFtX7JvuXpkNmQHA==
   dependencies:
     "@types/react" "*"
 
