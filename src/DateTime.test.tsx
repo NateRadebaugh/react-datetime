@@ -214,7 +214,8 @@ describe("DateTime", () => {
 
       // Act
       const element = await screen.findByLabelText("Some Field");
-      fireEvent.focus(element);
+      userEvent.click(element);
+      expect(element).toHaveFocus();
 
       // Assert
       const picker = await screen.findByTestId("day-picker");
@@ -945,7 +946,8 @@ describe("DateTime", () => {
 
       // Act
       const element = await screen.findByLabelText("Some Field");
-      fireEvent.focus(element);
+      userEvent.click(element);
+      expect(element).toHaveFocus();
 
       // Assert
       const picker = await screen.findByTestId("month-picker");
@@ -1239,7 +1241,8 @@ describe("DateTime", () => {
       expect(screen.queryByTestId("picker-wrapper")).not.toBeInTheDocument();
 
       // Act
-      fireEvent.focus(element);
+      userEvent.click(element);
+      expect(element).toHaveFocus();
 
       // Assert
       const picker = await screen.findByText(/2010-2019/i);
@@ -1522,7 +1525,8 @@ describe("DateTime", () => {
 
       // Act
       const element = await screen.findByLabelText("Some Field");
-      fireEvent.focus(element);
+      userEvent.click(element);
+      expect(element).toHaveFocus();
 
       // Assert
       expect(await screen.findByTestId("picker-wrapper")).toBeVisible();
@@ -1580,7 +1584,8 @@ describe("DateTime", () => {
 
       // Act
       const element = await screen.findByLabelText("Some Field");
-      fireEvent.focus(element);
+      userEvent.click(element);
+      expect(element).toHaveFocus();
 
       const picker = await screen.findByText(/pm/i);
       expect(picker).toBeVisible();
@@ -1608,7 +1613,8 @@ describe("DateTime", () => {
 
       // Act
       const element = await screen.findByLabelText("Some Field");
-      fireEvent.focus(element);
+      userEvent.click(element);
+      expect(element).toHaveFocus();
 
       const picker = await screen.findByTestId("time-picker");
       expect(picker).toBeVisible();
@@ -1635,7 +1641,8 @@ describe("DateTime", () => {
 
       // Act
       const element = await screen.findByLabelText("Some Field");
-      fireEvent.focus(element);
+      userEvent.click(element);
+      expect(element).toHaveFocus();
 
       const picker = await screen.findByText(/pm/i);
       expect(picker).toBeVisible();
@@ -1665,7 +1672,8 @@ describe("DateTime", () => {
       const element = await screen.findByLabelText("Some Field");
 
       // Act
-      fireEvent.focus(element);
+      userEvent.click(element);
+      expect(element).toHaveFocus();
 
       const dayPicker = await screen.findByTestId("day-picker");
       expect(dayPicker).toBeVisible();
@@ -1698,7 +1706,8 @@ describe("DateTime", () => {
       const element = await screen.findByLabelText("Some Field");
 
       // Act
-      fireEvent.focus(element);
+      userEvent.click(element);
+      expect(element).toHaveFocus();
 
       const dayPicker = await screen.findByTestId("day-picker");
       expect(dayPicker).toBeVisible();
@@ -1731,7 +1740,8 @@ describe("DateTime", () => {
       const element = await screen.findByLabelText("Some Field");
 
       // Act
-      fireEvent.focus(element);
+      userEvent.click(element);
+      expect(element).toHaveFocus();
 
       const dayPicker = await screen.findByTestId("day-picker");
       expect(dayPicker).toBeVisible();
@@ -1798,7 +1808,8 @@ describe("DateTime", () => {
       const element = await screen.findByLabelText("Some Field");
 
       // Act
-      fireEvent.focus(element);
+      userEvent.click(element);
+      expect(element).toHaveFocus();
 
       {
         const picker = await screen.findByTestId("day-picker");
@@ -1872,7 +1883,8 @@ describe("DateTime", () => {
       const element = await screen.findByLabelText("Some Field");
 
       // Act
-      fireEvent.focus(element);
+      userEvent.click(element);
+      expect(element).toHaveFocus();
 
       {
         const picker = await screen.findByTestId("day-picker");
@@ -2688,7 +2700,6 @@ describe("DateTime", () => {
 
           // Open picker
           userEvent.tab();
-          fireEvent.focus(element);
           expect(element).toHaveFocus();
 
           // Should have triggered "onFocus"
@@ -2759,7 +2770,6 @@ describe("DateTime", () => {
 
           // Tab in
           userEvent.tab();
-          fireEvent.focus(element);
           expect(element).toHaveFocus();
 
           // Tab out
@@ -2802,12 +2812,10 @@ describe("DateTime", () => {
 
           // Tab in
           userEvent.tab();
-          fireEvent.focus(element);
           expect(element).toHaveFocus();
 
           // Tab out
           userEvent.tab();
-          fireEvent.focusOut(element);
 
           // Should have triggered "onBlur"
           expect(handleBlur).toHaveBeenCalledTimes(1);
@@ -2886,7 +2894,8 @@ describe("DateTime", () => {
 
         // Act
         // Open picker
-        fireEvent.focus(element);
+        userEvent.click(element);
+        expect(element).toHaveFocus();
 
         // Should start visible with nothing active
         expect(await screen.findByTestId("day-picker")).toBeVisible();
@@ -2922,7 +2931,8 @@ describe("DateTime", () => {
 
         // Act
         // Open picker
-        fireEvent.focus(element);
+        userEvent.click(element);
+        expect(element).toHaveFocus();
 
         // Should start visible with nothing active
         expect(await screen.findByTestId("month-picker")).toBeVisible();
@@ -2958,7 +2968,8 @@ describe("DateTime", () => {
 
         // Act
         // Open picker
-        fireEvent.focus(element);
+        userEvent.click(element);
+        expect(element).toHaveFocus();
 
         // Should start visible with nothing active
         expect(await screen.findByTestId("year-picker")).toBeVisible();
@@ -2994,7 +3005,8 @@ describe("DateTime", () => {
 
         // Act
         // Open picker
-        fireEvent.focus(element);
+        userEvent.click(element);
+        expect(element).toHaveFocus();
 
         // Should start visible with nothing active
         const picker = await screen.findByTestId("time-picker");
@@ -3035,7 +3047,8 @@ describe("DateTime", () => {
 
         // Act
         // Open picker
-        fireEvent.focus(element);
+        userEvent.click(element);
+        expect(element).toHaveFocus();
 
         // Should start visible with nothing active
         expect(await screen.findByTestId("day-picker")).toBeVisible();
@@ -3074,7 +3087,8 @@ describe("DateTime", () => {
 
         // Open picker
         userEvent.tab();
-        fireEvent.focus(element);
+        userEvent.click(element);
+        expect(element).toHaveFocus();
         expect(element).toHaveFocus();
 
         // Should become visible
@@ -3103,7 +3117,8 @@ describe("DateTime", () => {
 
         // Act
         // Open picker
-        fireEvent.focus(element);
+        userEvent.click(element);
+        expect(element).toHaveFocus();
 
         // Should become visible
         expect(await screen.findByTestId("picker-wrapper")).toBeVisible();
@@ -3165,7 +3180,8 @@ describe("DateTime", () => {
 
         // Act
         // Open picker
-        fireEvent.focus(element);
+        userEvent.click(element);
+        expect(element).toHaveFocus();
 
         // Should become visible
         expect(await screen.findByTestId("picker-wrapper")).toBeVisible();
@@ -3200,7 +3216,8 @@ describe("DateTime", () => {
 
         // Act
         // Open picker
-        fireEvent.focus(element);
+        userEvent.click(element);
+        expect(element).toHaveFocus();
 
         // Should become visible
         expect(await screen.findByTestId("picker-wrapper")).toBeVisible();
