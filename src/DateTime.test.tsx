@@ -49,6 +49,8 @@ afterEach(async () => {
   global.Date = RealDate;
 
   cleanup();
+
+  await waitFor(() => {});
 });
 
 describe("DateTime", () => {
