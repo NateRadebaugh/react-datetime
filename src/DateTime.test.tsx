@@ -3110,18 +3110,7 @@ describe("DateTime", () => {
         expect(await screen.findByTestId("day-picker")).toBeVisible();
 
         // Hit enter
-        fireEvent.keyDown(element, {
-          key: "Enter",
-          code: 13,
-          keyCode: 13,
-          charCode: 13,
-        });
-        fireEvent.keyUp(element, {
-          key: "Enter",
-          code: 13,
-          keyCode: 13,
-          charCode: 13,
-        });
+        userEvent.type(element, "{enter}");
 
         // Assert the picker is closed
         expect(screen.queryByTestId("picker-wrapper")).not.toBeInTheDocument();
@@ -3148,18 +3137,7 @@ describe("DateTime", () => {
         expect(screen.queryByTestId("picker-wrapper")).not.toBeInTheDocument();
 
         // Hit down arrow
-        fireEvent.keyDown(element, {
-          key: "ArrowDown",
-          code: 40,
-          keyCode: 40,
-          charCode: 40,
-        });
-        fireEvent.keyUp(element, {
-          key: "ArrowDown",
-          code: 40,
-          keyCode: 40,
-          charCode: 40,
-        });
+        userEvent.type(element, "{arrowdown}");
 
         // Assert the picker is open
         expect(await screen.findByTestId("picker-wrapper")).toBeVisible();
@@ -3194,18 +3172,7 @@ describe("DateTime", () => {
         expect(await screen.findByTestId("day-picker")).toBeVisible();
 
         // Hit escape
-        fireEvent.keyDown(element, {
-          key: "Escape",
-          code: 27,
-          keyCode: 27,
-          charCode: 27,
-        });
-        fireEvent.keyUp(element, {
-          key: "Escape",
-          code: 27,
-          keyCode: 27,
-          charCode: 27,
-        });
+        userEvent.type(element, "{esc}");
 
         // Assert the picker is closed
         expect(screen.queryByTestId("picker-wrapper")).not.toBeInTheDocument();
