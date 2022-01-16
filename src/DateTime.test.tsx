@@ -138,11 +138,11 @@ describe("DateTime", () => {
       fireEvent.click(element);
 
       // Assert
-      expect(queryByTestId("picker-wrapper")).toBeNull();
-      expect(queryByTestId("day-picker")).toBeNull();
-      expect(queryByTestId("month-picker")).toBeNull();
-      expect(queryByTestId("year-picker")).toBeNull();
-      expect(queryByTestId("time-picker")).toBeNull();
+      expect(queryByTestId("picker-wrapper")).not.toBeInTheDocument();
+      expect(queryByTestId("day-picker")).not.toBeInTheDocument();
+      expect(queryByTestId("month-picker")).not.toBeInTheDocument();
+      expect(queryByTestId("year-picker")).not.toBeInTheDocument();
+      expect(queryByTestId("time-picker")).not.toBeInTheDocument();
     });
 
     it("should show nothing with shouldHideInput if there's no date/time formats", async () => {
@@ -162,11 +162,11 @@ describe("DateTime", () => {
       );
 
       // Assert
-      expect(queryByTestId("picker-wrapper")).toBeNull();
-      expect(queryByTestId("day-picker")).toBeNull();
-      expect(queryByTestId("month-picker")).toBeNull();
-      expect(queryByTestId("year-picker")).toBeNull();
-      expect(queryByTestId("time-picker")).toBeNull();
+      expect(queryByTestId("picker-wrapper")).not.toBeInTheDocument();
+      expect(queryByTestId("day-picker")).not.toBeInTheDocument();
+      expect(queryByTestId("month-picker")).not.toBeInTheDocument();
+      expect(queryByTestId("year-picker")).not.toBeInTheDocument();
+      expect(queryByTestId("time-picker")).not.toBeInTheDocument();
     });
   });
 
@@ -550,7 +550,7 @@ describe("DateTime", () => {
 
       const element = await findByLabelText("Some Field");
       expect(element).toHaveValue("");
-      expect(queryByTestId("picker-wrapper")).toBeNull();
+      expect(queryByTestId("picker-wrapper")).not.toBeInTheDocument();
 
       // Act
       // Open picker
@@ -585,7 +585,7 @@ describe("DateTime", () => {
 
       const element = await findByLabelText("Some Field");
       expect(element).toHaveValue("");
-      expect(queryByTestId("picker-wrapper")).toBeNull();
+      expect(queryByTestId("picker-wrapper")).not.toBeInTheDocument();
 
       // Act
       // Open picker
@@ -631,7 +631,7 @@ describe("DateTime", () => {
 
       const element = await findByLabelText("Some Field");
       expect(element).toHaveValue("");
-      expect(queryByTestId("picker-wrapper")).toBeNull();
+      expect(queryByTestId("picker-wrapper")).not.toBeInTheDocument();
 
       // Act
       // Open picker
@@ -670,7 +670,7 @@ describe("DateTime", () => {
 
       const element = await findByLabelText("Some Field");
       expect(element).toHaveValue("");
-      expect(queryByTestId("picker-wrapper")).toBeNull();
+      expect(queryByTestId("picker-wrapper")).not.toBeInTheDocument();
 
       // Act
       // Open picker
@@ -708,7 +708,7 @@ describe("DateTime", () => {
 
       const element = await findByLabelText("Some Field");
       expect(element).toHaveValue("");
-      expect(queryByTestId("picker-wrapper")).toBeNull();
+      expect(queryByTestId("picker-wrapper")).not.toBeInTheDocument();
 
       // Act
       // Open picker
@@ -1000,7 +1000,7 @@ describe("DateTime", () => {
 
       const element = await findByLabelText("Some Field");
       expect(element).toHaveValue("");
-      expect(queryByTestId("picker-wrapper")).toBeNull();
+      expect(queryByTestId("picker-wrapper")).not.toBeInTheDocument();
 
       // Act
       fireEvent.click(element);
@@ -1035,7 +1035,7 @@ describe("DateTime", () => {
 
       const element = await findByLabelText("Some Field");
       expect(element).toHaveValue("");
-      expect(queryByTestId("picker-wrapper")).toBeNull();
+      expect(queryByTestId("picker-wrapper")).not.toBeInTheDocument();
 
       // Act
       // Open picker
@@ -1088,7 +1088,7 @@ describe("DateTime", () => {
 
       const element = await findByLabelText("Some Field");
       expect(element).toHaveValue("");
-      expect(queryByTestId("picker-wrapper")).toBeNull();
+      expect(queryByTestId("picker-wrapper")).not.toBeInTheDocument();
 
       // Act
       fireEvent.click(element);
@@ -1123,7 +1123,7 @@ describe("DateTime", () => {
 
       const element = await findByLabelText("Some Field");
       expect(element).toHaveValue("");
-      expect(queryByTestId("picker-wrapper")).toBeNull();
+      expect(queryByTestId("picker-wrapper")).not.toBeInTheDocument();
 
       // Act
       fireEvent.click(element);
@@ -1230,7 +1230,7 @@ describe("DateTime", () => {
 
       const element = await findByLabelText("Some Field");
       expect(element).toHaveValue("");
-      expect(queryByTestId("picker-wrapper")).toBeNull();
+      expect(queryByTestId("picker-wrapper")).not.toBeInTheDocument();
 
       // Act
       fireEvent.click(element);
@@ -1268,7 +1268,7 @@ describe("DateTime", () => {
 
       const element = await findByLabelText("Some Field");
       expect(element).toHaveValue("");
-      expect(queryByTestId("picker-wrapper")).toBeNull();
+      expect(queryByTestId("picker-wrapper")).not.toBeInTheDocument();
 
       // Act
       fireEvent.focus(element);
@@ -1306,7 +1306,7 @@ describe("DateTime", () => {
 
       const element = await findByLabelText("Some Field");
       expect(element).toHaveValue("");
-      expect(queryByTestId("picker-wrapper")).toBeNull();
+      expect(queryByTestId("picker-wrapper")).not.toBeInTheDocument();
 
       // Act
       fireEvent.click(element);
@@ -1345,7 +1345,7 @@ describe("DateTime", () => {
 
       const element = await findByLabelText("Some Field");
       expect(element).toHaveValue("");
-      expect(queryByTestId("picker-wrapper")).toBeNull();
+      expect(queryByTestId("picker-wrapper")).not.toBeInTheDocument();
 
       // Act
       // Open picker
@@ -1389,7 +1389,7 @@ describe("DateTime", () => {
 
       const element = await findByLabelText("Some Field");
       expect(element).toHaveValue("");
-      expect(queryByTestId("picker-wrapper")).toBeNull();
+      expect(queryByTestId("picker-wrapper")).not.toBeInTheDocument();
 
       // Act
       fireEvent.click(element);
@@ -1421,7 +1421,7 @@ describe("DateTime", () => {
 
       const element = await findByLabelText("Some Field");
       expect(element).toHaveValue("");
-      expect(queryByTestId("picker-wrapper")).toBeNull();
+      expect(queryByTestId("picker-wrapper")).not.toBeInTheDocument();
 
       // Act
       fireEvent.click(element);
@@ -1784,7 +1784,7 @@ describe("DateTime", () => {
 
       // Assert
       const switcher = queryByTestId("day-to-time-mode-switcher");
-      expect(switcher).toBeNull();
+      expect(switcher).not.toBeInTheDocument();
     });
 
     it("should stay on year picker when already on year picker", async () => {
@@ -1804,7 +1804,7 @@ describe("DateTime", () => {
 
       const element = await findByLabelText("Some Field");
       expect(element).toHaveValue("");
-      expect(queryByTestId("picker-wrapper")).toBeNull();
+      expect(queryByTestId("picker-wrapper")).not.toBeInTheDocument();
 
       // Act
       fireEvent.click(element);
@@ -2149,7 +2149,7 @@ describe("DateTime", () => {
 
           const element = await findByLabelText("Some Field");
           expect(element).toHaveValue("");
-          expect(queryByTestId("picker-wrapper")).toBeNull();
+          expect(queryByTestId("picker-wrapper")).not.toBeInTheDocument();
 
           // Act
           // Open picker
@@ -2236,7 +2236,7 @@ describe("DateTime", () => {
 
           const element = await findByLabelText("Some Field");
           expect(element).toHaveValue("");
-          expect(queryByTestId("picker-wrapper")).toBeNull();
+          expect(queryByTestId("picker-wrapper")).not.toBeInTheDocument();
 
           // Act
           // Open picker
@@ -2277,7 +2277,7 @@ describe("DateTime", () => {
           );
 
           expect(await findByLabelText("Some Field")).toHaveValue("");
-          expect(queryByTestId("picker-wrapper")).toBeNull();
+          expect(queryByTestId("picker-wrapper")).not.toBeInTheDocument();
 
           // Act
           // Open picker
@@ -2316,7 +2316,7 @@ describe("DateTime", () => {
           );
 
           expect(await findByLabelText("Some Field")).toHaveValue("");
-          expect(queryByTestId("picker-wrapper")).toBeNull();
+          expect(queryByTestId("picker-wrapper")).not.toBeInTheDocument();
 
           // Act
           // Open picker
@@ -2367,7 +2367,7 @@ describe("DateTime", () => {
 
           const element = await findByLabelText("Some Field");
           expect(element).toHaveValue("");
-          expect(queryByTestId("picker-wrapper")).toBeNull();
+          expect(queryByTestId("picker-wrapper")).not.toBeInTheDocument();
 
           // Act
           // Open picker
@@ -2430,7 +2430,7 @@ describe("DateTime", () => {
 
           const element = await findByLabelText("Some Field");
           expect(element).toHaveValue("");
-          expect(queryByTestId("picker-wrapper")).toBeNull();
+          expect(queryByTestId("picker-wrapper")).not.toBeInTheDocument();
 
           // Act
           // Open picker
@@ -2493,7 +2493,7 @@ describe("DateTime", () => {
 
           const element = await findByLabelText("Some Field");
           expect(element).toHaveValue("");
-          expect(queryByTestId("picker-wrapper")).toBeNull();
+          expect(queryByTestId("picker-wrapper")).not.toBeInTheDocument();
 
           // Act
           // Open picker
@@ -2556,7 +2556,7 @@ describe("DateTime", () => {
 
           const element = await findByLabelText("Some Field");
           expect(element).toHaveValue("");
-          expect(queryByTestId("picker-wrapper")).toBeNull();
+          expect(queryByTestId("picker-wrapper")).not.toBeInTheDocument();
 
           // Act
           // Open picker
@@ -2614,7 +2614,7 @@ describe("DateTime", () => {
 
           const element = await findByLabelText("Some Field");
           expect(element).toHaveValue("");
-          expect(queryByTestId("picker-wrapper")).toBeNull();
+          expect(queryByTestId("picker-wrapper")).not.toBeInTheDocument();
 
           // Act
           // Open picker
@@ -2684,7 +2684,7 @@ describe("DateTime", () => {
 
           const element = await findByLabelText("Some Field");
           expect(element).toHaveValue("");
-          expect(queryByTestId("picker-wrapper")).toBeNull();
+          expect(queryByTestId("picker-wrapper")).not.toBeInTheDocument();
 
           // Act
           // Open picker
@@ -2729,7 +2729,7 @@ describe("DateTime", () => {
 
           const element = await findByLabelText("Some Field");
           expect(element).toHaveValue("");
-          expect(queryByTestId("picker-wrapper")).toBeNull();
+          expect(queryByTestId("picker-wrapper")).not.toBeInTheDocument();
 
           // Act
           expect(document.body).toHaveFocus();
@@ -2763,7 +2763,7 @@ describe("DateTime", () => {
 
           const element = await findByLabelText("Some Field");
           expect(element).toHaveValue("");
-          expect(queryByTestId("picker-wrapper")).toBeNull();
+          expect(queryByTestId("picker-wrapper")).not.toBeInTheDocument();
 
           // Act
           userEvent.click(element);
@@ -2796,7 +2796,7 @@ describe("DateTime", () => {
 
           const element = await findByLabelText("Some Field");
           expect(element).toHaveValue("");
-          expect(queryByTestId("picker-wrapper")).toBeNull();
+          expect(queryByTestId("picker-wrapper")).not.toBeInTheDocument();
 
           // Act
           expect(document.body).toHaveFocus();
@@ -2837,7 +2837,7 @@ describe("DateTime", () => {
           );
 
           const element = await findByLabelText("Some Field");
-          expect(queryByTestId("picker-wrapper")).toBeNull();
+          expect(queryByTestId("picker-wrapper")).not.toBeInTheDocument();
 
           // Act
           expect(document.body).toHaveFocus();
@@ -2879,7 +2879,7 @@ describe("DateTime", () => {
 
           const element = await findByLabelText("Some Field");
           expect(element).toHaveValue("");
-          expect(queryByTestId("picker-wrapper")).toBeNull();
+          expect(queryByTestId("picker-wrapper")).not.toBeInTheDocument();
 
           // Act
           // Open picker
@@ -2922,7 +2922,7 @@ describe("DateTime", () => {
 
         const element = await findByLabelText("Some Field");
         expect(element).toHaveValue("");
-        expect(queryByTestId("picker-wrapper")).toBeNull();
+        expect(queryByTestId("picker-wrapper")).not.toBeInTheDocument();
 
         // Act
         // Open picker
@@ -2958,7 +2958,7 @@ describe("DateTime", () => {
 
         const element = await findByLabelText("Some Field");
         expect(element).toHaveValue("");
-        expect(queryByTestId("picker-wrapper")).toBeNull();
+        expect(queryByTestId("picker-wrapper")).not.toBeInTheDocument();
 
         // Act
         // Open picker
@@ -2994,7 +2994,7 @@ describe("DateTime", () => {
 
         const element = await findByLabelText("Some Field");
         expect(element).toHaveValue("");
-        expect(queryByTestId("picker-wrapper")).toBeNull();
+        expect(queryByTestId("picker-wrapper")).not.toBeInTheDocument();
 
         // Act
         // Open picker
@@ -3030,7 +3030,7 @@ describe("DateTime", () => {
 
         const element = await findByLabelText("Some Field");
         expect(element).toHaveValue("");
-        expect(queryByTestId("picker-wrapper")).toBeNull();
+        expect(queryByTestId("picker-wrapper")).not.toBeInTheDocument();
 
         // Act
         // Open picker
@@ -3071,7 +3071,7 @@ describe("DateTime", () => {
 
         const element = await findByLabelText("Some Field");
         expect(element).toHaveValue("");
-        expect(queryByTestId("picker-wrapper")).toBeNull();
+        expect(queryByTestId("picker-wrapper")).not.toBeInTheDocument();
 
         // Act
         // Open picker
@@ -3107,7 +3107,7 @@ describe("DateTime", () => {
 
         const element = await findByLabelText("Some Field");
         expect(element).toHaveValue("");
-        expect(queryByTestId("picker-wrapper")).toBeNull();
+        expect(queryByTestId("picker-wrapper")).not.toBeInTheDocument();
 
         // Act
         expect(document.body).toHaveFocus();
@@ -3139,7 +3139,7 @@ describe("DateTime", () => {
 
         const element = await findByLabelText("Some Field");
         expect(element).toHaveValue("");
-        expect(queryByTestId("picker-wrapper")).toBeNull();
+        expect(queryByTestId("picker-wrapper")).not.toBeInTheDocument();
 
         // Act
         // Open picker
@@ -3164,8 +3164,8 @@ describe("DateTime", () => {
         });
 
         // Assert the picker is closed
-        expect(queryByTestId("picker-wrapper")).toBeNull();
-        expect(queryByTestId("day-picker")).toBeNull();
+        expect(queryByTestId("picker-wrapper")).not.toBeInTheDocument();
+        expect(queryByTestId("day-picker")).not.toBeInTheDocument();
       });
 
       it("should open when closed and hitting down arrow", async () => {
@@ -3185,7 +3185,7 @@ describe("DateTime", () => {
 
         const element = await findByLabelText("Some Field");
         expect(element).toHaveValue("");
-        expect(queryByTestId("picker-wrapper")).toBeNull();
+        expect(queryByTestId("picker-wrapper")).not.toBeInTheDocument();
 
         // Hit down arrow
         fireEvent.keyDown(element, {
@@ -3223,7 +3223,7 @@ describe("DateTime", () => {
 
         const element = await findByLabelText("Some Field");
         expect(element).toHaveValue("");
-        expect(queryByTestId("picker-wrapper")).toBeNull();
+        expect(queryByTestId("picker-wrapper")).not.toBeInTheDocument();
 
         // Act
         // Open picker
@@ -3248,8 +3248,8 @@ describe("DateTime", () => {
         });
 
         // Assert the picker is closed
-        expect(queryByTestId("picker-wrapper")).toBeNull();
-        expect(queryByTestId("day-picker")).toBeNull();
+        expect(queryByTestId("picker-wrapper")).not.toBeInTheDocument();
+        expect(queryByTestId("day-picker")).not.toBeInTheDocument();
       });
 
       it("should hide when open and hitting tab", async () => {
@@ -3269,7 +3269,7 @@ describe("DateTime", () => {
 
         const element = await findByLabelText("Some Field");
         expect(element).toHaveValue("");
-        expect(queryByTestId("picker-wrapper")).toBeNull();
+        expect(queryByTestId("picker-wrapper")).not.toBeInTheDocument();
 
         // Act
         // Open picker
@@ -3294,8 +3294,8 @@ describe("DateTime", () => {
         });
 
         // Assert the picker is closed
-        expect(queryByTestId("picker-wrapper")).toBeNull();
-        expect(queryByTestId("day-picker")).toBeNull();
+        expect(queryByTestId("picker-wrapper")).not.toBeInTheDocument();
+        expect(queryByTestId("day-picker")).not.toBeInTheDocument();
       });
     });
   });
