@@ -1,5 +1,5 @@
 import * as React from "react";
-import { render, act, fireEvent, screen, waitFor } from "@testing-library/react";
+import { render, act, fireEvent, screen } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
 import userEvent from "@testing-library/user-event";
 import isSameDay from "date-fns/isSameDay";
@@ -47,8 +47,6 @@ function mockDate(isoDate: Date) {
 
 afterEach(async () => {
   global.Date = RealDate;
-
-  await waitFor(() => {});
 });
 
 describe("DateTime", () => {
@@ -91,15 +89,13 @@ describe("DateTime", () => {
     it("should not render any input", async () => {
       render(<DateTime shouldHideInput />);
 
-      const input = screen.queryByRole("textbox");
-      expect(input).not.toBeInTheDocument();
+      expect(screen.queryByRole("textbox")).not.toBeInTheDocument();
     });
 
     it("should render a picker with className", async () => {
       render(<DateTime className="some-class" shouldHideInput />);
 
-      const input = screen.queryByRole("textbox");
-      expect(input).not.toBeInTheDocument();
+      expect(screen.queryByRole("textbox")).not.toBeInTheDocument();
 
       const picker = await screen.findByTestId("picker-wrapper");
       expect(picker).toHaveClass("some-class");
@@ -108,8 +104,7 @@ describe("DateTime", () => {
     it("should render a picker with id", async () => {
       render(<DateTime id="some-id" shouldHideInput />);
 
-      const input = screen.queryByRole("textbox");
-      expect(input).not.toBeInTheDocument();
+      expect(screen.queryByRole("textbox")).not.toBeInTheDocument();
 
       const picker = await screen.findByTestId("picker-wrapper");
       expect(picker).toHaveAttribute("id", "some-id");
