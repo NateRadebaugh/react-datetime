@@ -91,9 +91,10 @@ describe("DateTime", () => {
 
   describe("shouldHideInput", () => {
     it("should not render any input", async () => {
-      const { container } = render(<DateTime shouldHideInput />);
+      render(<DateTime shouldHideInput />);
 
-      expect(container.querySelector("input")).toBeNull();
+      const input = screen.queryByRole("input");
+      expect(input).not.toBeInTheDocument();
     });
 
     it("should render a picker with className", async () => {
@@ -101,14 +102,18 @@ describe("DateTime", () => {
         <DateTime className="some-class" shouldHideInput />
       );
 
-      expect(container.querySelector("input")).toBeNull();
+      const input = screen.queryByRole("input");
+      expect(input).not.toBeInTheDocument();
+
       expect(container.firstChild).toHaveClass("some-class");
     });
 
     it("should render a picker with id", async () => {
       const { container } = render(<DateTime id="some-id" shouldHideInput />);
 
-      expect(container.querySelector("input")).toBeNull();
+      const input = screen.queryByRole("input");
+      expect(input).not.toBeInTheDocument();
+
       expect(container.firstChild).toHaveAttribute("id", "some-id");
     });
   });
@@ -1984,53 +1989,39 @@ describe("DateTime", () => {
         expect(downArrows?.length).toBe(5);
 
         // Increase hours from 12 to 1
-        act(() => {
-          userEvent.click(upArrows[0]);
-        });
+        userEvent.click(upArrows[0]);
 
         // Increase minutes from 00 to 05
         for (let i = 0; i < 5; i++) {
-          act(() => {
-            userEvent.click(upArrows[1]);
-          });
+          userEvent.click(upArrows[1]);
         }
 
         // Increase seconds from 00 to 35
         for (let i = 0; i < 35; i++) {
-          act(() => {
-            userEvent.click(upArrows[2]);
-          });
+          userEvent.click(upArrows[2]);
         }
 
         // Increase milliseconds from 000 to 321
         for (let i = 0; i < 321; i++) {
-          act(() => {
-            userEvent.click(upArrows[3]);
-          });
+          userEvent.click(upArrows[3]);
         }
 
         // Change from AM to PM
-        act(() => {
-          userEvent.click(upArrows[4]);
-        });
+        userEvent.click(upArrows[4]);
 
         expect(picker.textContent?.replace(/[^\w/]+/g, "")).toMatch(
           /02\/01\/202010535321PM/i
         );
 
         // Change from PM to AM
-        act(() => {
-          userEvent.click(upArrows[4]);
-        });
+        userEvent.click(upArrows[4]);
 
         expect(picker.textContent?.replace(/[^\w/]+/g, "")).toMatch(
           /02\/01\/202010535321AM/i
         );
 
         // Change from AM to PM
-        act(() => {
-          userEvent.click(upArrows[4]);
-        });
+        userEvent.click(upArrows[4]);
 
         expect(picker.textContent?.replace(/[^\w/]+/g, "")).toMatch(
           /02\/01\/202010535321PM/i
@@ -2336,9 +2327,7 @@ describe("DateTime", () => {
           expect(downArrows?.length).toBe(3);
 
           // Increase hours from 12 to 1
-          act(() => {
-            userEvent.click(upArrows[0]);
-          });
+          userEvent.click(upArrows[0]);
 
           expect(await screen.findByLabelText("Some Field")).toHaveValue(
             "1:00 AM"
@@ -2392,9 +2381,7 @@ describe("DateTime", () => {
           expect(downArrows?.length).toBe(3);
 
           // Increase hours from 12 to 3
-          act(() => {
-            userEvent.click(upArrows[0]);
-          });
+          userEvent.click(upArrows[0]);
 
           expect(element).toHaveValue("3:00 AM");
 
@@ -2402,9 +2389,7 @@ describe("DateTime", () => {
           expect(handleChange).toHaveBeenCalledWith("3:00 AM");
 
           // Decrease hours from 3 to 12
-          act(() => {
-            userEvent.click(downArrows[0]);
-          });
+          userEvent.click(downArrows[0]);
 
           expect(element).toHaveValue("12:00 AM");
 
@@ -2457,9 +2442,7 @@ describe("DateTime", () => {
           expect(downArrows?.length).toBe(3);
 
           // Increase minutes from 0 to 15
-          act(() => {
-            userEvent.click(upArrows[1]);
-          });
+          userEvent.click(upArrows[1]);
 
           expect(element).toHaveValue("12:15 AM");
 
@@ -2467,9 +2450,7 @@ describe("DateTime", () => {
           expect(handleChange).toHaveBeenCalledWith("12:15 AM");
 
           // Decrease minutes from 15 to 0
-          act(() => {
-            userEvent.click(downArrows[1]);
-          });
+          userEvent.click(downArrows[1]);
 
           expect(element).toHaveValue("12:00 AM");
 
@@ -2522,9 +2503,7 @@ describe("DateTime", () => {
           expect(downArrows?.length).toBe(4);
 
           // Increase seconds from 0 to 30
-          act(() => {
-            userEvent.click(upArrows[2]);
-          });
+          userEvent.click(upArrows[2]);
 
           expect(element).toHaveValue("12:00:30 AM");
 
@@ -2532,9 +2511,7 @@ describe("DateTime", () => {
           expect(handleChange).toHaveBeenCalledWith("12:00:30 AM");
 
           // Decrease seconds from 30 to 0
-          act(() => {
-            userEvent.click(downArrows[2]);
-          });
+          userEvent.click(downArrows[2]);
 
           expect(element).toHaveValue("12:00:00 AM");
 
@@ -2587,9 +2564,7 @@ describe("DateTime", () => {
           expect(downArrows?.length).toBe(5);
 
           // Increase milliseconds from 0 to 10
-          act(() => {
-            userEvent.click(upArrows[3]);
-          });
+          userEvent.click(upArrows[3]);
 
           expect(element).toHaveValue("12:00:00.010 AM");
 
@@ -2597,9 +2572,7 @@ describe("DateTime", () => {
           expect(handleChange).toHaveBeenCalledWith("12:00:00.010 AM");
 
           // Decrease milliseconds from 10 to 0
-          act(() => {
-            userEvent.click(downArrows[3]);
-          });
+          userEvent.click(downArrows[3]);
 
           expect(element).toHaveValue("12:00:00.000 AM");
 
@@ -2646,12 +2619,13 @@ describe("DateTime", () => {
           const downArrows = await screen.findAllByText("▼");
           expect(downArrows?.length).toBe(4);
 
+          // Use fake timers to run for x seconds
+          jest.useFakeTimers();
+
+          fireEvent.mouseDown(upArrows[2]);
+
           // Increase seconds
           act(() => {
-            jest.useFakeTimers();
-
-            fireEvent.mouseDown(upArrows[2]);
-
             // Fast forward and exhaust only currently pending timers
             // (but not any new timers that get created during that process)
             jest.runOnlyPendingTimers();
@@ -2667,11 +2641,12 @@ describe("DateTime", () => {
             // Fast forward and exhaust only currently pending timers
             // (but not any new timers that get created during that process)
             jest.runOnlyPendingTimers();
-
-            fireEvent.mouseUp(upArrows[2]);
-
-            jest.useRealTimers();
           });
+
+          fireEvent.mouseUp(upArrows[2]);
+
+          // Re-enable real timers
+          jest.useRealTimers();
 
           expect(element).toHaveValue("12:00:04 AM");
 
