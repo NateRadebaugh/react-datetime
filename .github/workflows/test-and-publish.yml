@@ -1,4 +1,4 @@
-name: react-datetime tests
+name: tests
 
 on:
   push:
@@ -23,6 +23,7 @@ jobs:
           fetch-depth: 1
       - run: npm i -g yarn
       - run: yarn --frozen-lockfile
+      - run: yarn lint
       - run: yarn test:ci
 
   publish-module:
