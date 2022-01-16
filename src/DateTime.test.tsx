@@ -2251,7 +2251,9 @@ describe("DateTime", () => {
 
         it("should trigger onChange input string when increasing time by one step", async () => {
           mockDate(new Date(2019, 0, 1, 12, 1, 12, 34));
+
           const handleChange = jest.fn();
+
           // Arrange
           render(
             <>
