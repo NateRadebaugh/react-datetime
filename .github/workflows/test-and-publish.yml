@@ -12,7 +12,7 @@ jobs:
     runs-on: "${{ matrix.os }}"
     strategy:
       matrix:
-        os: [ubuntu-latest]
+        os: [ubuntu-18.04]
         node: [14]
     steps:
       - uses: actions/setup-node@v1
@@ -29,7 +29,7 @@ jobs:
     name: "Publish Module to NPM"
     needs: test
     if: github.ref == 'refs/heads/main' #publish only when merged in main, not on PR
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@v2
         with:
