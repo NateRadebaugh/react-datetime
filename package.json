@@ -103,7 +103,7 @@
   "devDependencies": {
     "@babel/preset-env": "^7.16.11",
     "@sheerun/mutationobserver-shim": "^0.3.3",
-    "@storybook/addon-actions": "6.4.14",
+    "@storybook/addon-actions": "6.4.17",
     "@storybook/addon-docs": "6.4.14",
     "@storybook/addon-knobs": "6.4.0",
     "@storybook/addon-links": "6.4.14",
