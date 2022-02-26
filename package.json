@@ -152,9 +152,5 @@
     "date-fns": "^2.28.0",
     "tslib": "^2.3.1",
     "use-onclickoutside": "^0.4.0"
-  },
-  "resolutions": {
-    "**/tsdx/jest": "27.4.7",
-    "**/tsdx/ts-jest": "27.1.3"
   }
 }
