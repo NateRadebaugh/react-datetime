@@ -3,18 +3,25 @@ import { render, fireEvent, screen } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
 import userEvent from "@testing-library/user-event";
 
+// @ts-ignore
 import MutationObserver from "@sheerun/mutationobserver-shim";
 window.MutationObserver = MutationObserver;
 
-import { DateTime as RawDateTime, FORMATS } from "./index";
+import {
+  DateTime as RawDateTime,
+  Props as RawDateTimeProps,
+  FORMATS,
+} from "./index";
 
 const FULL_DATE_FORMAT = `${FORMATS.MONTH}/${FORMATS.DAY}/${FORMATS.YEAR}`;
 const FULL_TIME_FORMAT = `${FORMATS.HOUR}:${FORMATS.MINUTE} ${FORMATS.AM_PM}`;
 
-function DateTime(props) {
+function DateTime(props: RawDateTimeProps) {
   const [value, setValue] = React.useState(props.value);
 
-  function onChange(newVal) {
+  function onChange(
+    newVal: Parameters<NonNullable<RawDateTimeProps["onChange"]>>[0]
+  ) {
     if (typeof props.onChange === "function") {
       props.onChange(newVal);
     }
@@ -42,10 +49,6 @@ function mockDate(isoDate: Date) {
   };
 }
 
-function type(element: Element, value: string) {
-  userEvent.type(element, value);
-}
-
 afterEach(async () => {
   global.Date = RealDate;
 });
@@ -67,7 +70,7 @@ it("should let you type to mark a full date active", async () => {
 
   // Act
   // Open picker
-  userEvent.click(element);
+  await userEvent.click(element);
   expect(element).toHaveFocus();
 
   // Should start visible with nothing active
@@ -80,7 +83,7 @@ it("should let you type to mark a full date active", async () => {
     expect(targetDate).not.toHaveClass("rdtActive");
   }
 
-  type(element, "06/16/2015");
+  await userEvent.type(element, "06/16/2015");
 
   expect(element).toMatchInlineSnapshot(`
     <input
@@ -122,7 +125,7 @@ it("should let you type to mark a month/year active", async () => {
 
   // Act
   // Open picker
-  userEvent.click(element);
+  await userEvent.click(element);
   expect(element).toHaveFocus();
 
   // Should start visible with nothing active
@@ -130,7 +133,7 @@ it("should let you type to mark a month/year active", async () => {
   expect(await screen.findByText(/jun/i)).toBeVisible();
   expect(await screen.findByText(/jun/i)).not.toHaveClass("rdtActive");
 
-  type(element, "06/2015");
+  await userEvent.type(element, "06/2015");
 
   expect(element).toMatchInlineSnapshot(`
     <input
@@ -163,7 +166,7 @@ it("should let you type to mark a year active", async () => {
 
   // Act
   // Open picker
-  userEvent.click(element);
+  await userEvent.click(element);
   expect(element).toHaveFocus();
 
   // Should start visible with nothing active
@@ -171,7 +174,7 @@ it("should let you type to mark a year active", async () => {
   expect(await screen.findByText(/2015/i)).toBeVisible();
   expect(await screen.findByText(/2015/i)).not.toHaveClass("rdtActive");
 
-  type(element, "2015");
+  await userEvent.type(element, "2015");
 
   expect(element).toMatchInlineSnapshot(`
     <input
@@ -204,7 +207,7 @@ it("should let you type to mark a time active", async () => {
 
   // Act
   // Open picker
-  userEvent.click(element);
+  await userEvent.click(element);
   expect(element).toHaveFocus();
 
   // Should start visible with nothing active
@@ -215,7 +218,7 @@ it("should let you type to mark a time active", async () => {
     expect(textContent).toMatch(/1200AM/i);
   }
 
-  userEvent.paste(element, "4:13 PM");
+  await userEvent.paste("4:13 PM");
 
   // Assert the typed value is now active
   expect(await screen.findByTestId("time-picker")).toBeVisible();
@@ -246,7 +249,7 @@ it("should let you type to mark a date/time active", async () => {
 
   // Act
   // Open picker
-  userEvent.click(element);
+  await userEvent.click(element);
   expect(element).toHaveFocus();
 
   // Should start visible with nothing active
@@ -254,7 +257,7 @@ it("should let you type to mark a date/time active", async () => {
   expect(await screen.findByText("16")).toBeVisible();
   expect(await screen.findByText("16")).not.toHaveClass("rdtActive");
 
-  type(element, "06/16/2015 12:00 AM");
+  await userEvent.type(element, "06/16/2015 12:00 AM");
 
   expect(element).toMatchInlineSnapshot(`
     <input
@@ -289,8 +292,8 @@ it("should show when tabbed in", async () => {
   expect(document.body).toHaveFocus();
 
   // Open picker
-  userEvent.tab();
-  userEvent.click(element);
+  await userEvent.tab();
+  await userEvent.click(element);
   expect(element).toHaveFocus();
   expect(element).toHaveFocus();
 
@@ -316,7 +319,7 @@ it("should hide when open and hitting enter", async () => {
 
   // Act
   // Open picker
-  userEvent.click(element);
+  await userEvent.click(element);
   expect(element).toHaveFocus();
 
   // Should become visible
@@ -324,7 +327,7 @@ it("should hide when open and hitting enter", async () => {
   expect(await screen.findByTestId("day-picker")).toBeVisible();
 
   // Hit enter
-  type(element, "{enter}");
+  await userEvent.keyboard("{Enter}");
 
   // Assert the picker is closed
   expect(screen.queryByTestId("picker-wrapper")).not.toBeInTheDocument();
@@ -347,7 +350,7 @@ it("should open when closed and hitting down arrow", async () => {
   expect(screen.queryByTestId("picker-wrapper")).not.toBeInTheDocument();
 
   // Hit down arrow
-  type(element, "{arrowdown}");
+  await userEvent.type(element, "{arrowdown}");
 
   // Assert the picker is open
   expect(await screen.findByTestId("picker-wrapper")).toBeVisible();
@@ -371,7 +374,7 @@ it("should hide when open and hitting escape", async () => {
 
   // Act
   // Open picker
-  userEvent.click(element);
+  await userEvent.click(element);
   expect(element).toHaveFocus();
 
   // Should become visible
@@ -379,7 +382,7 @@ it("should hide when open and hitting escape", async () => {
   expect(await screen.findByTestId("day-picker")).toBeVisible();
 
   // Hit escape
-  type(element, "{esc}");
+  await userEvent.keyboard("{Escape}");
 
   // Assert the picker is closed
   expect(screen.queryByTestId("picker-wrapper")).not.toBeInTheDocument();
@@ -403,7 +406,7 @@ it("should hide when open and hitting tab", async () => {
 
   // Act
   // Open picker
-  userEvent.click(element);
+  await userEvent.click(element);
   expect(element).toHaveFocus();
 
   // Should become visible
@@ -411,18 +414,7 @@ it("should hide when open and hitting tab", async () => {
   expect(await screen.findByTestId("day-picker")).toBeVisible();
 
   // Hit tab
-  fireEvent.keyDown(element, {
-    key: "Tab",
-    code: 9,
-    keyCode: 9,
-    charCode: 9,
-  });
-  fireEvent.keyUp(element, {
-    key: "Tab",
-    code: 9,
-    keyCode: 9,
-    charCode: 9,
-  });
+  await userEvent.keyboard("{Tab}");
 
   // Assert the picker is closed
   expect(screen.queryByTestId("picker-wrapper")).not.toBeInTheDocument();

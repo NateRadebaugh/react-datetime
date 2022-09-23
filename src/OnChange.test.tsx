@@ -4,18 +4,25 @@ import { render, act, fireEvent, screen } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
 import userEvent from "@testing-library/user-event";
 
+// @ts-ignore
 import MutationObserver from "@sheerun/mutationobserver-shim";
 window.MutationObserver = MutationObserver;
 
-import { DateTime as RawDateTime, FORMATS } from "./index";
+import {
+  DateTime as RawDateTime,
+  Props as RawDateTimeProps,
+  FORMATS,
+} from "./index";
 
 const FULL_DATE_FORMAT = `${FORMATS.MONTH}/${FORMATS.DAY}/${FORMATS.YEAR}`;
 const FULL_TIME_FORMAT = `${FORMATS.HOUR}:${FORMATS.MINUTE} ${FORMATS.AM_PM}`;
 
-function DateTime(props) {
+function DateTime(props: RawDateTimeProps) {
   const [value, setValue] = React.useState(props.value);
 
-  function onChange(newVal) {
+  function onChange(
+    newVal: Parameters<NonNullable<RawDateTimeProps["onChange"]>>[0]
+  ) {
     if (typeof props.onChange === "function") {
       props.onChange(newVal);
     }
@@ -71,7 +78,7 @@ it("should not trigger onChange Date when opening w/ Date", async () => {
 
   // Act
   // Open picker
-  userEvent.click(element);
+  await userEvent.click(element);
 
   expect(handleChange).toHaveBeenCalledTimes(0);
 });
@@ -100,7 +107,7 @@ it("should not trigger onChange Date when clicking same date", async () => {
 
   // Act
   // Open picker
-  userEvent.click(element);
+  await userEvent.click(element);
 
   // Assert
   expect(await screen.findByTestId("day-picker")).toBeVisible();
@@ -109,7 +116,7 @@ it("should not trigger onChange Date when clicking same date", async () => {
   expect(someDay).toBeVisible();
 
   // Pick date
-  userEvent.click(someDay);
+  await userEvent.click(someDay);
 
   expect(element).toHaveValue("01/16/2019");
 
@@ -140,7 +147,7 @@ it("should trigger onChange Date when picking a first date", async () => {
 
   // Act
   // Open picker
-  userEvent.click(element);
+  await userEvent.click(element);
 
   // Assert
   expect(await screen.findByTestId("day-picker")).toBeVisible();
@@ -149,7 +156,7 @@ it("should trigger onChange Date when picking a first date", async () => {
   expect(someDay).toBeVisible();
 
   // Pick date
-  userEvent.click(someDay);
+  await userEvent.click(someDay);
 
   expect(element).toHaveValue("01/16/2019");
 
@@ -181,7 +188,7 @@ it("should trigger onChange Date when picking a new date", async () => {
 
   // Act
   // Open picker
-  userEvent.click(element);
+  await userEvent.click(element);
 
   // Assert
   expect(await screen.findByTestId("day-picker")).toBeVisible();
@@ -190,7 +197,7 @@ it("should trigger onChange Date when picking a new date", async () => {
   expect(someDay).toBeVisible();
 
   // Pick date
-  userEvent.click(someDay);
+  await userEvent.click(someDay);
 
   expect(element).toHaveValue("01/17/2019");
 
@@ -225,7 +232,7 @@ it("should trigger onChange input string when picking a date", async () => {
 
   // Act
   // Open picker
-  userEvent.click(element);
+  await userEvent.click(element);
 
   // Assert
   expect(await screen.findByTestId("day-picker")).toBeVisible();
@@ -234,7 +241,7 @@ it("should trigger onChange input string when picking a date", async () => {
   expect(someDay).toBeVisible();
 
   // Pick date
-  userEvent.click(someDay);
+  await userEvent.click(someDay);
 
   expect(element).toHaveValue("01/16/2019");
 
@@ -266,14 +273,14 @@ it("should trigger onChange input string when picking a date/time", async () => 
 
   // Act
   // Open picker
-  userEvent.click(await screen.findByLabelText("Some Field"));
+  await userEvent.click(await screen.findByLabelText("Some Field"));
 
   // Assert
   expect(await screen.findByTestId("day-picker")).toBeVisible();
   expect(await screen.findByText("16")).toBeVisible();
 
   // Pick date
-  userEvent.click(await screen.findByText("16"));
+  await userEvent.click(await screen.findByText("16"));
 
   expect(await screen.findByLabelText("Some Field")).toHaveValue(
     "01/16/2019 12:00 AM"
@@ -307,7 +314,7 @@ it("should trigger onChange input string when increasing time by one step", asyn
 
   // Act
   // Open picker
-  userEvent.click(await screen.findByLabelText("Some Field"));
+  await userEvent.click(await screen.findByLabelText("Some Field"));
 
   // Assert
   expect(await screen.findByTestId("time-picker")).toBeVisible();
@@ -319,7 +326,7 @@ it("should trigger onChange input string when increasing time by one step", asyn
   expect(downArrows?.length).toBe(3);
 
   // Increase hours from 12 to 1
-  userEvent.click(upArrows[0]);
+  await userEvent.click(upArrows[0]);
 
   expect(await screen.findByLabelText("Some Field")).toHaveValue("1:00 AM");
   expect(handleChange).toHaveBeenCalledTimes(1);
@@ -356,7 +363,7 @@ it("should trigger onChange input string when increasing time by 3 hour incremen
 
   // Act
   // Open picker
-  userEvent.click(element);
+  await userEvent.click(element);
 
   // Assert
   expect(await screen.findByTestId("time-picker")).toBeVisible();
@@ -369,7 +376,7 @@ it("should trigger onChange input string when increasing time by 3 hour incremen
   expect(downArrows?.length).toBe(3);
 
   // Increase hours from 12 to 3
-  userEvent.click(upArrows[0]);
+  await userEvent.click(upArrows[0]);
 
   expect(element).toHaveValue("3:00 AM");
 
@@ -377,7 +384,7 @@ it("should trigger onChange input string when increasing time by 3 hour incremen
   expect(handleChange).toHaveBeenCalledWith("3:00 AM");
 
   // Decrease hours from 3 to 12
-  userEvent.click(downArrows[0]);
+  await userEvent.click(downArrows[0]);
 
   expect(element).toHaveValue("12:00 AM");
 
@@ -415,7 +422,7 @@ it("should trigger onChange input string when increasing time by 15 min incremen
 
   // Act
   // Open picker
-  userEvent.click(element);
+  await userEvent.click(element);
 
   // Assert
   expect(await screen.findByTestId("time-picker")).toBeVisible();
@@ -428,7 +435,7 @@ it("should trigger onChange input string when increasing time by 15 min incremen
   expect(downArrows?.length).toBe(3);
 
   // Increase minutes from 0 to 15
-  userEvent.click(upArrows[1]);
+  await userEvent.click(upArrows[1]);
 
   expect(element).toHaveValue("12:15 AM");
 
@@ -436,7 +443,7 @@ it("should trigger onChange input string when increasing time by 15 min incremen
   expect(handleChange).toHaveBeenCalledWith("12:15 AM");
 
   // Decrease minutes from 15 to 0
-  userEvent.click(downArrows[1]);
+  await userEvent.click(downArrows[1]);
 
   expect(element).toHaveValue("12:00 AM");
 
@@ -474,7 +481,7 @@ it("should trigger onChange input string when increasing time by 30 second incre
 
   // Act
   // Open picker
-  userEvent.click(element);
+  await userEvent.click(element);
 
   // Assert
   expect(await screen.findByTestId("time-picker")).toBeVisible();
@@ -487,7 +494,7 @@ it("should trigger onChange input string when increasing time by 30 second incre
   expect(downArrows?.length).toBe(4);
 
   // Increase seconds from 0 to 30
-  userEvent.click(upArrows[2]);
+  await userEvent.click(upArrows[2]);
 
   expect(element).toHaveValue("12:00:30 AM");
 
@@ -495,7 +502,7 @@ it("should trigger onChange input string when increasing time by 30 second incre
   expect(handleChange).toHaveBeenCalledWith("12:00:30 AM");
 
   // Decrease seconds from 30 to 0
-  userEvent.click(downArrows[2]);
+  await userEvent.click(downArrows[2]);
 
   expect(element).toHaveValue("12:00:00 AM");
 
@@ -533,7 +540,7 @@ it("should trigger onChange input string when increasing time by 10 milliseconds
 
   // Act
   // Open picker
-  userEvent.click(element);
+  await userEvent.click(element);
 
   // Assert
   expect(await screen.findByTestId("time-picker")).toBeVisible();
@@ -546,7 +553,7 @@ it("should trigger onChange input string when increasing time by 10 milliseconds
   expect(downArrows?.length).toBe(5);
 
   // Increase milliseconds from 0 to 10
-  userEvent.click(upArrows[3]);
+  await userEvent.click(upArrows[3]);
 
   expect(element).toHaveValue("12:00:00.010 AM");
 
@@ -554,7 +561,7 @@ it("should trigger onChange input string when increasing time by 10 milliseconds
   expect(handleChange).toHaveBeenCalledWith("12:00:00.010 AM");
 
   // Decrease milliseconds from 10 to 0
-  userEvent.click(downArrows[3]);
+  await userEvent.click(downArrows[3]);
 
   expect(element).toHaveValue("12:00:00.000 AM");
 
@@ -587,7 +594,7 @@ it('should trigger onChange input string once holding down the "up" seconds for 
 
   // Act
   // Open picker
-  userEvent.click(element);
+  await userEvent.click(element);
 
   // Assert
   expect(await screen.findByTestId("time-picker")).toBeVisible();
@@ -659,7 +666,7 @@ it("should trigger onChange utc-ms-timestamp when picking a date", async () => {
 
   // Act
   // Open picker
-  userEvent.click(element);
+  await userEvent.click(element);
 
   // Assert
   expect(await screen.findByTestId("day-picker")).toBeVisible();
@@ -668,7 +675,7 @@ it("should trigger onChange utc-ms-timestamp when picking a date", async () => {
   expect(someDay).toBeVisible();
 
   // Pick date
-  userEvent.click(someDay);
+  await userEvent.click(someDay);
 
   expect(element).toHaveValue("01/16/2019");
 

@@ -4,17 +4,24 @@ import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
 import userEvent from "@testing-library/user-event";
 
+// @ts-ignore
 import MutationObserver from "@sheerun/mutationobserver-shim";
 window.MutationObserver = MutationObserver;
 
-import { DateTime as RawDateTime, FORMATS } from "./index";
+import {
+  DateTime as RawDateTime,
+  Props as RawDateTimeProps,
+  FORMATS,
+} from "./index";
 
 const FULL_DATE_FORMAT = `${FORMATS.MONTH}/${FORMATS.DAY}/${FORMATS.YEAR}`;
 
-function DateTime(props) {
+function DateTime(props: RawDateTimeProps) {
   const [value, setValue] = React.useState(props.value);
 
-  function onChange(newVal) {
+  function onChange(
+    newVal: Parameters<NonNullable<RawDateTimeProps["onChange"]>>[0]
+  ) {
     if (typeof props.onChange === "function") {
       props.onChange(newVal);
     }
@@ -74,11 +81,11 @@ it("should trigger onBlur with no value when tabbed out with no value", async ()
   expect(document.body).toHaveFocus();
 
   // Tab in
-  userEvent.tab();
+  await userEvent.tab();
   expect(element).toHaveFocus();
 
   // Tab out
-  userEvent.tab();
+  await userEvent.keyboard("{Tab}");
 
   // Should have triggered "onBlur"
   expect(handleBlur).toHaveBeenCalledTimes(1);
@@ -115,11 +122,11 @@ it("should trigger onBlur with value when tabbed out with value", async () => {
   expect(document.body).toHaveFocus();
 
   // Tab in
-  userEvent.tab();
+  await userEvent.tab();
   expect(element).toHaveFocus();
 
   // Tab out
-  userEvent.tab();
+  await userEvent.keyboard("{Tab}");
 
   // Should have triggered "onBlur"
   expect(handleBlur).toHaveBeenCalledTimes(1);
@@ -151,7 +158,7 @@ it("should trigger onBlur when picking a first date", async () => {
 
   // Act
   // Open picker
-  userEvent.click(element);
+  await userEvent.click(element);
 
   // Assert
   expect(await screen.findByTestId("day-picker")).toBeVisible();
@@ -160,7 +167,7 @@ it("should trigger onBlur when picking a first date", async () => {
   expect(someDay).toBeVisible();
 
   // Pick date
-  userEvent.click(someDay);
+  await userEvent.click(someDay);
 
   expect(element).toHaveValue("01/16/2019");
 
