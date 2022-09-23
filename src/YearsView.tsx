@@ -1,5 +1,5 @@
 import * as React from "react";
-import cc from "classcat";
+import clsx from "clsx";
 
 import format from "date-fns/format";
 import addYears from "date-fns/addYears";
@@ -88,7 +88,7 @@ function YearsView(props: YearsViewProps): JSX.Element {
                   return (
                     <td
                       key={year}
-                      className={cc([
+                      className={clsx([
                         "rdtYear",
                         {
                           rdtDisabled: isDisabled,

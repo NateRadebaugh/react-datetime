@@ -1,5 +1,5 @@
 import * as React from "react";
-import cc from "classcat";
+import clsx from "clsx";
 
 import TimeView, { TimeViewProps } from "./TimeView";
 import DaysView, { DaysViewProps } from "./DaysView";
@@ -43,7 +43,7 @@ const CalendarContainer = React.forwardRef(function CalendarContainer(
       ref={ref}
       id={id}
       data-testid="picker-wrapper"
-      className={cc(["rdtPicker", className, { rdtStatic: isStatic }])}
+      className={clsx(["rdtPicker", className, { rdtStatic: isStatic }])}
       style={style}
     >
       {CalendarElement && <CalendarElement {...rest} />}

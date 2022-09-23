@@ -1,5 +1,5 @@
 import * as React from "react";
-import cc from "classcat";
+import clsx from "clsx";
 
 import format from "date-fns/format";
 import addYears from "date-fns/addYears";
@@ -86,7 +86,7 @@ function MonthsView(props: MonthsViewProps): JSX.Element {
                   return (
                     <td
                       key={month}
-                      className={cc([
+                      className={clsx([
                         "rdtMonth",
                         {
                           rdtDisabled: isDisabled,

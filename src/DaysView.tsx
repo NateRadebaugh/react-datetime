@@ -1,5 +1,5 @@
 import * as React from "react";
-import cc from "classcat";
+import clsx from "clsx";
 
 import addDays from "date-fns/addDays";
 import format from "date-fns/format";
@@ -115,7 +115,7 @@ function DaysView(props: DaysViewProps): JSX.Element {
                   return (
                     <td
                       key={getDate(workingDate)}
-                      className={cc([
+                      className={clsx([
                         "rdtDay",
                         {
                           rdtOld: isBefore(workingDate, startOfMonth(viewDate)),
