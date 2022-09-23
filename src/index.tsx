@@ -400,24 +400,24 @@ export const DateTime: FC<Props> = (props): JSX.Element => {
 
   function onInputKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
     if (isOpen) {
-      switch (e.which) {
+      switch (e.code) {
         // Enter key
-        case 13:
+        case "Enter":
           // Eat enter key
           e.preventDefault();
 
         // Escape key
-        case 27:
+        case "Escape":
         // Tab key
-        case 9:
+        case "Tab":
           close();
 
           break;
       }
     } else {
-      switch (e.which) {
+      switch (e.code) {
         // Down arrow
-        case 40:
+        case "ArrowDown":
           open();
           break;
       }

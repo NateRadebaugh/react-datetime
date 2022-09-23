@@ -7,18 +7,25 @@ import isSameDay from "date-fns/isSameDay";
 import isSameMonth from "date-fns/isSameMonth";
 import isSameYear from "date-fns/isSameYear";
 
+// @ts-ignore
 import MutationObserver from "@sheerun/mutationobserver-shim";
 window.MutationObserver = MutationObserver;
 
-import { DateTime as RawDateTime, FORMATS } from "./index";
+import {
+  DateTime as RawDateTime,
+  Props as RawDateTimeProps,
+  FORMATS,
+} from "./index";
 
 const FULL_DATE_FORMAT = `${FORMATS.MONTH}/${FORMATS.DAY}/${FORMATS.YEAR}`;
 const FULL_TIME_FORMAT = `${FORMATS.HOUR}:${FORMATS.MINUTE} ${FORMATS.AM_PM}`;
 
-function DateTime(props) {
+function DateTime(props: RawDateTimeProps) {
   const [value, setValue] = React.useState(props.value);
 
-  function onChange(newVal) {
+  function onChange(
+    newVal: Parameters<NonNullable<RawDateTimeProps["onChange"]>>[0]
+  ) {
     if (typeof props.onChange === "function") {
       props.onChange(newVal);
     }
@@ -126,7 +133,7 @@ describe("DateTime", () => {
 
       // Act
       const element = await screen.findByLabelText("Some Field");
-      userEvent.click(element);
+      await userEvent.click(element);
 
       // Assert
       expect(screen.queryByTestId("picker-wrapper")).not.toBeInTheDocument();
@@ -195,7 +202,7 @@ describe("DateTime", () => {
 
       // Act
       const element = await screen.findByLabelText("Some Field");
-      userEvent.click(element);
+      await userEvent.click(element);
 
       // Assert
       const picker = await screen.findByTestId("day-picker");
@@ -215,7 +222,7 @@ describe("DateTime", () => {
 
       // Act
       const element = await screen.findByLabelText("Some Field");
-      userEvent.click(element);
+      await userEvent.click(element);
       expect(element).toHaveFocus();
 
       // Assert
@@ -237,7 +244,7 @@ describe("DateTime", () => {
 
         // Act
         const element = await screen.findByLabelText("Some Field");
-        userEvent.click(element);
+        await userEvent.click(element);
 
         // Assert
         expect(await screen.findByTestId("day-picker")).toBeVisible();
@@ -262,7 +269,7 @@ describe("DateTime", () => {
 
         // Act
         const element = await screen.findByLabelText("Some Field");
-        userEvent.click(element);
+        await userEvent.click(element);
 
         // Assert
         expect(await screen.findByTestId("day-picker")).toBeVisible();
@@ -287,7 +294,7 @@ describe("DateTime", () => {
 
         // Act
         const element = await screen.findByLabelText("Some Field");
-        userEvent.click(element);
+        await userEvent.click(element);
 
         // Assert
         expect(await screen.findByTestId("day-picker")).toBeVisible();
@@ -312,7 +319,7 @@ describe("DateTime", () => {
 
         // Act
         const element = await screen.findByLabelText("Some Field");
-        userEvent.click(element);
+        await userEvent.click(element);
 
         // Assert
         expect(await screen.findByTestId("day-picker")).toBeVisible();
@@ -337,7 +344,7 @@ describe("DateTime", () => {
 
         // Act
         const element = await screen.findByLabelText("Some Field");
-        userEvent.click(element);
+        await userEvent.click(element);
 
         // Assert
         expect(await screen.findByTestId("day-picker")).toBeVisible();
@@ -362,7 +369,7 @@ describe("DateTime", () => {
 
         // Act
         const element = await screen.findByLabelText("Some Field");
-        userEvent.click(element);
+        await userEvent.click(element);
 
         // Assert
         expect(await screen.findByTestId("day-picker")).toBeVisible();
@@ -387,7 +394,7 @@ describe("DateTime", () => {
 
         // Act
         const element = await screen.findByLabelText("Some Field");
-        userEvent.click(element);
+        await userEvent.click(element);
 
         // Assert
         expect(await screen.findByTestId("day-picker")).toBeVisible();
@@ -412,7 +419,7 @@ describe("DateTime", () => {
 
         // Act
         const element = await screen.findByLabelText("Some Field");
-        userEvent.click(element);
+        await userEvent.click(element);
 
         // Assert
         expect(await screen.findByTestId("day-picker")).toBeVisible();
@@ -437,7 +444,7 @@ describe("DateTime", () => {
 
         // Act
         const element = await screen.findByLabelText("Some Field");
-        userEvent.click(element);
+        await userEvent.click(element);
 
         // Assert
         expect(await screen.findByTestId("day-picker")).toBeVisible();
@@ -462,7 +469,7 @@ describe("DateTime", () => {
 
         // Act
         const element = await screen.findByLabelText("Some Field");
-        userEvent.click(element);
+        await userEvent.click(element);
 
         // Assert
         expect(await screen.findByTestId("day-picker")).toBeVisible();
@@ -487,7 +494,7 @@ describe("DateTime", () => {
 
         // Act
         const element = await screen.findByLabelText("Some Field");
-        userEvent.click(element);
+        await userEvent.click(element);
 
         // Assert
         expect(await screen.findByTestId("day-picker")).toBeVisible();
@@ -512,7 +519,7 @@ describe("DateTime", () => {
 
         // Act
         const element = await screen.findByLabelText("Some Field");
-        userEvent.click(element);
+        await userEvent.click(element);
 
         // Assert
         expect(await screen.findByTestId("day-picker")).toBeVisible();
@@ -546,7 +553,7 @@ describe("DateTime", () => {
 
       // Act
       // Open picker
-      userEvent.click(element);
+      await userEvent.click(element);
 
       // Assert
       expect(await screen.findByTestId("day-picker")).toBeVisible();
@@ -555,7 +562,7 @@ describe("DateTime", () => {
       expect(someDay).toBeVisible();
 
       // Pick date
-      userEvent.click(someDay);
+      await userEvent.click(someDay);
 
       expect(element).toHaveValue("01/16/2019");
     });
@@ -581,7 +588,7 @@ describe("DateTime", () => {
 
       // Act
       // Open picker
-      userEvent.click(element);
+      await userEvent.click(element);
 
       // Assert
       expect(await screen.findByTestId("day-picker")).toBeVisible();
@@ -590,7 +597,7 @@ describe("DateTime", () => {
       expect(someDay).toBeVisible();
 
       // Pick date
-      userEvent.click(someDay);
+      await userEvent.click(someDay);
 
       expect(element).toHaveValue("");
     });
@@ -627,19 +634,19 @@ describe("DateTime", () => {
 
       // Act
       // Open picker
-      userEvent.click(element);
+      await userEvent.click(element);
 
       // Assert
       expect(await screen.findByTestId("day-picker")).toBeVisible();
 
       // Click a date (disabled)
-      userEvent.click(await screen.findByText("16"));
+      await userEvent.click(await screen.findByText("16"));
 
       expect(element).toHaveValue("");
       expect(handleChange).toHaveBeenCalledTimes(0);
 
       // Click another date (not disabled)
-      userEvent.click(await screen.findByText("17"));
+      await userEvent.click(await screen.findByText("17"));
 
       expect(element).toHaveValue("01/17/2019");
       expect(handleChange).toHaveBeenCalledTimes(1);
@@ -666,7 +673,7 @@ describe("DateTime", () => {
 
       // Act
       // Open picker
-      userEvent.click(element);
+      await userEvent.click(element);
 
       // Assert
       expect(await screen.findByTestId("day-picker")).toBeVisible();
@@ -674,11 +681,11 @@ describe("DateTime", () => {
       // Go to previous month (twice)
       const prevButton = await screen.findByText("‹");
       expect(prevButton).toBeVisible();
-      userEvent.click(prevButton);
-      userEvent.click(prevButton);
+      await userEvent.click(prevButton);
+      await userEvent.click(prevButton);
 
       // Pick date
-      userEvent.click(await screen.findByText("16"));
+      await userEvent.click(await screen.findByText("16"));
 
       expect(element).toHaveValue("11/16/2018");
     });
@@ -704,7 +711,7 @@ describe("DateTime", () => {
 
       // Act
       // Open picker
-      userEvent.click(element);
+      await userEvent.click(element);
 
       // Assert
       expect(await screen.findByTestId("day-picker")).toBeVisible();
@@ -712,11 +719,11 @@ describe("DateTime", () => {
       // Go to next month (twice)
       const nextButton = await screen.findByText("›");
       expect(nextButton).toBeVisible();
-      userEvent.click(nextButton);
-      userEvent.click(nextButton);
+      await userEvent.click(nextButton);
+      await userEvent.click(nextButton);
 
       // Pick date
-      userEvent.click(await screen.findByText("16"));
+      await userEvent.click(await screen.findByText("16"));
 
       expect(element).toHaveValue("03/16/2019");
     });
@@ -743,7 +750,7 @@ describe("DateTime", () => {
 
       // Act
       // Open picker
-      userEvent.click(await screen.findByLabelText("Some Field"));
+      await userEvent.click(await screen.findByLabelText("Some Field"));
 
       // Assert
       expect(await screen.findByTestId("day-picker")).toBeVisible();
@@ -773,7 +780,7 @@ describe("DateTime", () => {
 
       // Act
       // Open picker
-      userEvent.click(element);
+      await userEvent.click(element);
 
       // Assert
       expect(await screen.findByTestId("day-picker")).toBeVisible();
@@ -805,7 +812,7 @@ describe("DateTime", () => {
 
       // Act
       // Open picker
-      userEvent.click(element);
+      await userEvent.click(element);
 
       // Assert
       expect(await screen.findByTestId("day-picker")).toBeVisible();
@@ -837,7 +844,7 @@ describe("DateTime", () => {
 
       // Act
       // Open picker
-      userEvent.click(element);
+      await userEvent.click(element);
 
       // Assert
       expect(await screen.findByTestId("day-picker")).toBeVisible();
@@ -869,7 +876,7 @@ describe("DateTime", () => {
 
       // Act
       // Open picker
-      userEvent.click(element);
+      await userEvent.click(element);
 
       // Assert
       expect(await screen.findByTestId("day-picker")).toBeVisible();
@@ -917,7 +924,7 @@ describe("DateTime", () => {
 
       // Act
       const element = await screen.findByLabelText("Some Field");
-      userEvent.click(element);
+      await userEvent.click(element);
 
       // Assert
       const picker = await screen.findByTestId("month-picker");
@@ -947,7 +954,7 @@ describe("DateTime", () => {
 
       // Act
       const element = await screen.findByLabelText("Some Field");
-      userEvent.click(element);
+      await userEvent.click(element);
       expect(element).toHaveFocus();
 
       // Assert
@@ -982,11 +989,11 @@ describe("DateTime", () => {
       expect(screen.queryByTestId("picker-wrapper")).not.toBeInTheDocument();
 
       // Act
-      userEvent.click(element);
+      await userEvent.click(element);
 
       // Assert
       const someMonth = await screen.findByText(/jun/i);
-      userEvent.click(someMonth);
+      await userEvent.click(someMonth);
 
       expect(element).toHaveValue("06/2019");
     });
@@ -1018,33 +1025,33 @@ describe("DateTime", () => {
 
       // Act
       // Open picker
-      userEvent.click(element);
+      await userEvent.click(element);
 
       // Assert
       expect(await screen.findByTestId("month-picker")).toBeVisible();
 
       // Click a month (disabled)
-      userEvent.click(await screen.findByText(/jan/i));
+      await userEvent.click(await screen.findByText(/jan/i));
       expect(element).toHaveValue("");
       expect(handleChange).toHaveBeenCalledTimes(0);
 
       // Click a month (disabled)
-      userEvent.click(await screen.findByText(/feb/i));
+      await userEvent.click(await screen.findByText(/feb/i));
       expect(element).toHaveValue("");
       expect(handleChange).toHaveBeenCalledTimes(0);
 
       // Click a month (disabled)
-      userEvent.click(await screen.findByText(/nov/i));
+      await userEvent.click(await screen.findByText(/nov/i));
       expect(element).toHaveValue("");
       expect(handleChange).toHaveBeenCalledTimes(0);
 
       // Click a month (disabled)
-      userEvent.click(await screen.findByText(/feb/i));
+      await userEvent.click(await screen.findByText(/feb/i));
       expect(element).toHaveValue("");
       expect(handleChange).toHaveBeenCalledTimes(0);
 
       // Click another date (not disabled)
-      userEvent.click(await screen.findByText(/mar/i));
+      await userEvent.click(await screen.findByText(/mar/i));
 
       expect(element).toHaveValue("03/2019");
       expect(handleChange).toHaveBeenCalledTimes(1);
@@ -1070,16 +1077,16 @@ describe("DateTime", () => {
       expect(screen.queryByTestId("picker-wrapper")).not.toBeInTheDocument();
 
       // Act
-      userEvent.click(element);
+      await userEvent.click(element);
 
       // Go to previous year (twice)
       const prevButton = await screen.findByText("‹");
       expect(prevButton).toBeVisible();
-      userEvent.click(prevButton);
-      userEvent.click(prevButton);
+      await userEvent.click(prevButton);
+      await userEvent.click(prevButton);
 
       const someMonth = await screen.findByText(/jun/i);
-      userEvent.click(someMonth);
+      await userEvent.click(someMonth);
 
       // Assert
       expect(element).toHaveValue("06/2017");
@@ -1105,16 +1112,16 @@ describe("DateTime", () => {
       expect(screen.queryByTestId("picker-wrapper")).not.toBeInTheDocument();
 
       // Act
-      userEvent.click(element);
+      await userEvent.click(element);
 
       // Go to previous year (twice)
       const nextButton = await screen.findByText("›");
       expect(nextButton).toBeVisible();
-      userEvent.click(nextButton);
-      userEvent.click(nextButton);
+      await userEvent.click(nextButton);
+      await userEvent.click(nextButton);
 
       const someMonth = await screen.findByText(/jun/i);
-      userEvent.click(someMonth);
+      await userEvent.click(someMonth);
 
       // Assert
       expect(element).toHaveValue("06/2021");
@@ -1141,7 +1148,7 @@ describe("DateTime", () => {
 
       // Act
       // Open picker
-      userEvent.click(element);
+      await userEvent.click(element);
 
       // Assert
       const someMonth = await screen.findByText(/jun/i);
@@ -1170,7 +1177,7 @@ describe("DateTime", () => {
 
       // Act
       // Open picker
-      userEvent.click(element);
+      await userEvent.click(element);
 
       // Assert
       const someMonth = await screen.findByText(/jun/i);
@@ -1212,7 +1219,7 @@ describe("DateTime", () => {
       expect(screen.queryByTestId("picker-wrapper")).not.toBeInTheDocument();
 
       // Act
-      userEvent.click(element);
+      await userEvent.click(element);
 
       // Assert
       const picker = await screen.findByText(/2010-2019/i);
@@ -1242,7 +1249,7 @@ describe("DateTime", () => {
       expect(screen.queryByTestId("picker-wrapper")).not.toBeInTheDocument();
 
       // Act
-      userEvent.click(element);
+      await userEvent.click(element);
       expect(element).toHaveFocus();
 
       // Assert
@@ -1273,14 +1280,14 @@ describe("DateTime", () => {
       expect(screen.queryByTestId("picker-wrapper")).not.toBeInTheDocument();
 
       // Act
-      userEvent.click(element);
+      await userEvent.click(element);
 
       expect(await screen.findByTestId("year-picker")).toBeVisible();
 
       const someYear = await screen.findByText("2015");
       expect(someYear).toBeVisible();
 
-      userEvent.click(someYear);
+      await userEvent.click(someYear);
 
       // Assert
       expect(element).toHaveValue("2015");
@@ -1313,28 +1320,28 @@ describe("DateTime", () => {
 
       // Act
       // Open picker
-      userEvent.click(element);
+      await userEvent.click(element);
 
       // Assert
       expect(await screen.findByTestId("year-picker")).toBeVisible();
 
       // Click a month (disabled)
-      userEvent.click(await screen.findByText("2010"));
+      await userEvent.click(await screen.findByText("2010"));
       expect(element).toHaveValue("");
       expect(handleChange).toHaveBeenCalledTimes(0);
 
       // Click a month (disabled)
-      userEvent.click(await screen.findByText("2011"));
+      await userEvent.click(await screen.findByText("2011"));
       expect(element).toHaveValue("");
       expect(handleChange).toHaveBeenCalledTimes(0);
 
       // Click a month (disabled)
-      userEvent.click(await screen.findByText("2014"));
+      await userEvent.click(await screen.findByText("2014"));
       expect(element).toHaveValue("");
       expect(handleChange).toHaveBeenCalledTimes(0);
 
       // Click another date (not disabled)
-      userEvent.click(await screen.findByText("2019"));
+      await userEvent.click(await screen.findByText("2019"));
 
       expect(element).toHaveValue("2019");
       expect(handleChange).toHaveBeenCalledTimes(1);
@@ -1356,17 +1363,17 @@ describe("DateTime", () => {
       expect(screen.queryByTestId("picker-wrapper")).not.toBeInTheDocument();
 
       // Act
-      userEvent.click(element);
+      await userEvent.click(element);
       expect(await screen.findByTestId("year-picker")).toBeVisible();
 
       // Go to previous decade (twice)
       const prevButton = await screen.findByText("‹");
       expect(prevButton).toBeVisible();
-      userEvent.click(prevButton);
-      userEvent.click(prevButton);
+      await userEvent.click(prevButton);
+      await userEvent.click(prevButton);
 
       const someYear = await screen.findByText("1990");
-      userEvent.click(someYear);
+      await userEvent.click(someYear);
 
       // Assert
       expect(element).toHaveValue("1990");
@@ -1388,17 +1395,17 @@ describe("DateTime", () => {
       expect(screen.queryByTestId("picker-wrapper")).not.toBeInTheDocument();
 
       // Act
-      userEvent.click(element);
+      await userEvent.click(element);
       expect(await screen.findByTestId("year-picker")).toBeVisible();
 
       // Go to next decade (twice)
       const nextButton = await screen.findByText("›");
       expect(nextButton).toBeVisible();
-      userEvent.click(nextButton);
-      userEvent.click(nextButton);
+      await userEvent.click(nextButton);
+      await userEvent.click(nextButton);
 
       const someYear = await screen.findByText("2035");
-      userEvent.click(someYear);
+      await userEvent.click(someYear);
 
       // Assert
       expect(element).toHaveValue("2035");
@@ -1425,7 +1432,7 @@ describe("DateTime", () => {
 
       // Act
       // Open picker
-      userEvent.click(element);
+      await userEvent.click(element);
 
       // Assert
       const someYear = await screen.findByText("2015");
@@ -1454,7 +1461,7 @@ describe("DateTime", () => {
 
       // Act
       // Open picker
-      userEvent.click(element);
+      await userEvent.click(element);
 
       // Assert
       const someYear = await screen.findByText("2015");
@@ -1502,7 +1509,7 @@ describe("DateTime", () => {
 
       // Act
       const element = await screen.findByLabelText("Some Field");
-      userEvent.click(element);
+      await userEvent.click(element);
 
       // Assert
       expect(await screen.findByTestId("picker-wrapper")).toBeVisible();
@@ -1526,7 +1533,7 @@ describe("DateTime", () => {
 
       // Act
       const element = await screen.findByLabelText("Some Field");
-      userEvent.click(element);
+      await userEvent.click(element);
       expect(element).toHaveFocus();
 
       // Assert
@@ -1558,7 +1565,7 @@ describe("DateTime", () => {
 
       // Act
       const element = await screen.findByLabelText("Some Field");
-      userEvent.click(element);
+      await userEvent.click(element);
 
       const picker = await screen.findByTestId("time-picker");
       expect(picker).toBeVisible();
@@ -1585,7 +1592,7 @@ describe("DateTime", () => {
 
       // Act
       const element = await screen.findByLabelText("Some Field");
-      userEvent.click(element);
+      await userEvent.click(element);
       expect(element).toHaveFocus();
 
       const picker = await screen.findByText(/pm/i);
@@ -1614,7 +1621,7 @@ describe("DateTime", () => {
 
       // Act
       const element = await screen.findByLabelText("Some Field");
-      userEvent.click(element);
+      await userEvent.click(element);
       expect(element).toHaveFocus();
 
       const picker = await screen.findByTestId("time-picker");
@@ -1642,7 +1649,7 @@ describe("DateTime", () => {
 
       // Act
       const element = await screen.findByLabelText("Some Field");
-      userEvent.click(element);
+      await userEvent.click(element);
       expect(element).toHaveFocus();
 
       const picker = await screen.findByText(/pm/i);
@@ -1673,7 +1680,7 @@ describe("DateTime", () => {
       const element = await screen.findByLabelText("Some Field");
 
       // Act
-      userEvent.click(element);
+      await userEvent.click(element);
       expect(element).toHaveFocus();
 
       const dayPicker = await screen.findByTestId("day-picker");
@@ -1682,7 +1689,7 @@ describe("DateTime", () => {
       const switcher = await screen.findByTestId("day-mode-switcher");
       expect(switcher).toBeVisible();
 
-      userEvent.click(switcher);
+      await userEvent.click(switcher);
 
       // Assert
       const monthPicker = await screen.findByTestId("month-picker");
@@ -1707,7 +1714,7 @@ describe("DateTime", () => {
       const element = await screen.findByLabelText("Some Field");
 
       // Act
-      userEvent.click(element);
+      await userEvent.click(element);
       expect(element).toHaveFocus();
 
       const dayPicker = await screen.findByTestId("day-picker");
@@ -1716,7 +1723,7 @@ describe("DateTime", () => {
       const switcher = await screen.findByTestId("day-to-time-mode-switcher");
       expect(switcher).toBeVisible();
 
-      userEvent.click(switcher);
+      await userEvent.click(switcher);
 
       // Assert
       const timePicker = await screen.findByTestId("time-picker");
@@ -1741,7 +1748,7 @@ describe("DateTime", () => {
       const element = await screen.findByLabelText("Some Field");
 
       // Act
-      userEvent.click(element);
+      await userEvent.click(element);
       expect(element).toHaveFocus();
 
       const dayPicker = await screen.findByTestId("day-picker");
@@ -1772,18 +1779,18 @@ describe("DateTime", () => {
       expect(screen.queryByTestId("picker-wrapper")).not.toBeInTheDocument();
 
       // Act
-      userEvent.click(element);
+      await userEvent.click(element);
       expect(await screen.findByTestId("day-picker")).toBeVisible();
 
-      userEvent.click(await screen.findByTestId("day-mode-switcher"));
+      await userEvent.click(await screen.findByTestId("day-mode-switcher"));
 
       expect(await screen.findByTestId("month-picker")).toBeVisible();
 
-      userEvent.click(await screen.findByTestId("month-mode-switcher"));
+      await userEvent.click(await screen.findByTestId("month-mode-switcher"));
 
       expect(await screen.findByTestId("year-picker")).toBeVisible();
 
-      userEvent.click(await screen.findByTestId("year-mode-switcher"));
+      await userEvent.click(await screen.findByTestId("year-mode-switcher"));
 
       // Assert
       expect(await screen.findByTestId("year-picker")).toBeVisible();

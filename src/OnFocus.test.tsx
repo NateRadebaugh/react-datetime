@@ -4,17 +4,24 @@ import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
 import userEvent from "@testing-library/user-event";
 
+// @ts-ignore
 import MutationObserver from "@sheerun/mutationobserver-shim";
 window.MutationObserver = MutationObserver;
 
-import { DateTime as RawDateTime, FORMATS } from "./index";
+import {
+  DateTime as RawDateTime,
+  Props as RawDateTimeProps,
+  FORMATS,
+} from "./index";
 
 const FULL_DATE_FORMAT = `${FORMATS.MONTH}/${FORMATS.DAY}/${FORMATS.YEAR}`;
 
-function DateTime(props) {
+function DateTime(props: RawDateTimeProps) {
   const [value, setValue] = React.useState(props.value);
 
-  function onChange(newVal) {
+  function onChange(
+    newVal: Parameters<NonNullable<RawDateTimeProps["onChange"]>>[0]
+  ) {
     if (typeof props.onChange === "function") {
       props.onChange(newVal);
     }
@@ -72,7 +79,7 @@ it("should trigger onFocus when tabbed in", async () => {
   expect(document.body).toHaveFocus();
 
   // Open picker
-  userEvent.tab();
+  await userEvent.tab();
   expect(element).toHaveFocus();
 
   // Should have triggered "onFocus"
@@ -102,7 +109,7 @@ it("should trigger onFocus when clicked in", async () => {
   expect(screen.queryByTestId("picker-wrapper")).not.toBeInTheDocument();
 
   // Act
-  userEvent.click(element);
+  await userEvent.click(element);
 
   // Should have triggered "onFocus"
   expect(handleFocus).toHaveBeenCalledTimes(1);
