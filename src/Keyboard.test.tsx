@@ -332,6 +332,9 @@ it("should hide when open and hitting enter", async () => {
   // Assert the picker is closed
   expect(screen.queryByTestId("picker-wrapper")).not.toBeInTheDocument();
   expect(screen.queryByTestId("day-picker")).not.toBeInTheDocument();
+
+  // Assert element is not focused
+  expect(element).not.toHaveFocus();
 });
 
 it("should open when closed and hitting down arrow", async () => {
@@ -387,6 +390,9 @@ it("should hide when open and hitting escape", async () => {
   // Assert the picker is closed
   expect(screen.queryByTestId("picker-wrapper")).not.toBeInTheDocument();
   expect(screen.queryByTestId("day-picker")).not.toBeInTheDocument();
+
+  // Assert element is not focused
+  expect(element).not.toHaveFocus();
 });
 
 it("should hide when open and hitting tab", async () => {

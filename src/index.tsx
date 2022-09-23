@@ -405,9 +405,20 @@ export const DateTime: FC<Props> = (props): JSX.Element => {
         case "Enter":
           // Eat enter key
           e.preventDefault();
+          if (inputRef.current) {
+            inputRef.current.blur();
+          }
+          close();
+          break;
 
         // Escape key
         case "Escape":
+          if (inputRef.current) {
+            inputRef.current.blur();
+          }
+          close();
+          break;
+
         // Tab key
         case "Tab":
           close();
@@ -424,7 +435,7 @@ export const DateTime: FC<Props> = (props): JSX.Element => {
     }
   }
 
-  const inputRef = useRef(null);
+  const inputRef = useRef<HTMLInputElement>(null);
   const contentRef = useRef(null);
 
   useOnClickOutside(contentRef, close);
