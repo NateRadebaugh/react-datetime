@@ -138,8 +138,8 @@
   },
   "dependencies": {
     "@reach/popover": "^0.17.0",
-    "classcat": "^5.0.1",
-    "date-fns": "^2.29.1",
+    "classcat": "^5.0.4",
+    "date-fns": "^2.29.3",
     "use-onclickoutside": "^0.4.1"
   }
 }
