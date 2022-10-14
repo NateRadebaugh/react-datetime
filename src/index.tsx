@@ -6,7 +6,7 @@ import React, {
   useMemo,
   FC,
 } from "react";
-import Popover from "@reach/popover";
+import { Popover } from "@reach/popover";
 import useOnClickOutside from "use-onclickoutside";
 
 import format from "date-fns/format";
