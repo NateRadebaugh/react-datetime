@@ -137,7 +137,7 @@
     "webpack": "^5.74.0"
   },
   "dependencies": {
-    "@reach/popover": "^0.17.0",
+    "@reach/popover": "^0.18.0",
     "clsx": "^1.2.1",
     "date-fns": "^2.29.2",
     "use-onclickoutside": "^0.4.1"
