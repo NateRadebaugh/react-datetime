@@ -1,10 +1,6 @@
+import { Meta, StoryObj } from "@storybook/react";
 import * as React from "react";
-import {
-  withKnobs,
-  optionsKnob as options,
-  boolean,
-} from "@storybook/addon-knobs";
-import { DateTime, DateTypeMode, FORMATS } from "./.";
+import { DateTime, DateTimeProps, FORMATS } from ".";
 import "../scss/styles.scss";
 
 import isBefore from "date-fns/isBefore";
@@ -20,27 +16,12 @@ import fr from "date-fns/locale/fr";
 
 const { useState } = React;
 
-export default {
-  title: "DateTime",
+const meta = {
   component: DateTime,
-  decorators: [withKnobs],
-};
+  //tags: ["autodocs"],
+} satisfies Meta<typeof DateTime>;
 
-function parseString(value: string) {
-  if (value === "undefined") {
-    return undefined;
-  }
-
-  if (value === "true") {
-    return true;
-  }
-
-  if (value === "false") {
-    return false;
-  }
-
-  return value;
-}
+export default meta;
 
 export const SimpleExamples: () => JSX.Element = () => {
   function UncontrolledDateTime(props: {
@@ -105,6 +86,10 @@ export const SimpleExamples: () => JSX.Element = () => {
     </div>
   );
 };
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+(SimpleExamples as any).parameters = {
+  controls: { hideNoControlsWarning: true },
+};
 
 export function InlineExamples(): JSX.Element {
   function UncontrolledDateTime({
@@ -141,13 +126,6 @@ export function InlineExamples(): JSX.Element {
 
   return (
     <div>
-      <link
-        rel="stylesheet"
-        href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
-        crossOrigin="anonymous"
-      />
-
       <div className="container-fluid">
         <h2>Inline Examples</h2>
 
@@ -196,143 +174,35 @@ export function InlineExamples(): JSX.Element {
     </div>
   );
 }
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+(InlineExamples as any).parameters = {
+  controls: { hideNoControlsWarning: true },
+};
 
-export function CustomizableExample(): JSX.Element {
+type CustomizableExampleComponentProps = Pick<
+  DateTimeProps,
+  | "shouldHideInput"
+  | "dateFormat"
+  | "timeFormat"
+  | "locale"
+  | "weekStartsOn"
+  | "dateTypeMode"
+  | "isValidDate"
+  | "timeConstraints"
+>;
+function CustomizableExampleComponent(
+  props: CustomizableExampleComponentProps
+): JSX.Element {
   const [value, setValue] = useState<string | number | Date | undefined>(
     new Date(2019, 7, 2, 11, 25)
   );
-
-  //
-  // shouldHideInput
-  //
-  const shouldHideInput = boolean("shouldHideInput", true);
-
-  //
-  // locale
-  //
-  const localeOptions = {
-    "EN - undefined": undefined,
-    "NL - nl": nl,
-    "ES - es": es,
-    "FR - fr": fr,
-  };
-
-  const currentLocaleName = options(
-    "locale",
-    Object.keys(localeOptions).reduce(
-      (prev, curr) => ({ ...prev, [curr]: curr }),
-      {}
-    ),
-    "EN - undefined",
-    {
-      display: "inline-radio",
-    }
-  );
-  const currentLocale = currentLocaleName && localeOptions[currentLocaleName];
-
-  //
-  // dateFormat
-  //
-  const dateFormat = parseString(
-    options(
-      "dateFormat",
-      [
-        `undefined`,
-        `false`,
-        `${FORMATS.YEAR}-${FORMATS.MONTH}-${FORMATS.DAY}`,
-        `${FORMATS.MONTH}/${FORMATS.DAY}/${FORMATS.YEAR}`,
-        `${FORMATS.DAY}.${FORMATS.MONTH}.${FORMATS.YEAR}`,
-        `${FORMATS.MONTH}-${FORMATS.DAY}`,
-        `${FORMATS.FULL_MONTH_NAME}`,
-        `${FORMATS.YEAR}/${FORMATS.MONTH}`,
-        `${FORMATS.YEAR}`,
-      ].reduce((prev, curr) => {
-        return { ...prev, [curr]: curr };
-      }, {}),
-      `${FORMATS.MONTH}/${FORMATS.DAY}/${FORMATS.YEAR}`,
-      {
-        display: "inline-radio",
-      }
-    )
-  );
-
-  //
-  // timeFormat
-  //
-  const timeFormat = parseString(
-    options(
-      "timeFormat",
-      [
-        `undefined`,
-        `false`,
-        `${FORMATS.HOUR}:${FORMATS.MINUTE} ${FORMATS.AM_PM}`,
-        `${FORMATS.MILITARY_HOUR}:${FORMATS.MINUTE}:${FORMATS.SECOND}`,
-        `${FORMATS.MILITARY_HOUR}:${FORMATS.MINUTE}:${FORMATS.SECOND}.${FORMATS.MILLISECOND}`,
-        `${FORMATS.HOUR}:${FORMATS.MINUTE}:${FORMATS.SECOND}.${FORMATS.MILLISECOND} ${FORMATS.AM_PM}`,
-        `${FORMATS.HOUR}${FORMATS.MINUTE}`,
-        `${FORMATS.MILITARY_HOUR}:${FORMATS.MINUTE}xxx`,
-      ].reduce((prev, curr) => {
-        return { ...prev, [curr]: curr };
-      }, {}),
-      `${FORMATS.HOUR}:${FORMATS.MINUTE} ${FORMATS.AM_PM}`,
-      {
-        display: "inline-radio",
-      }
-    )
-  );
-
-  //
-  // dateTypeMode
-  //
-  const dateTypeMode = parseString(
-    options(
-      "dateTypeMode",
-      [`undefined`, `utc-ms-timestamp`, `input-format`, `Date`].reduce(
-        (prev, curr) => ({ ...prev, [curr]: curr }),
-        {}
-      ),
-      "undefined",
-      {
-        display: "inline-radio",
-      }
-    )
-  ) as unknown as DateTypeMode | undefined;
-
-  //
-  // isValidDate
-  //
-  const isValidDateOptions = {
-    "default - undefined": undefined,
-    "All Valid": () => true,
-    "All Invalid": () => false,
-    "Only Mondays": (date: Date) => isMonday(date),
-    "Only Weekdays": (date: Date) => !isWeekend(date),
-    "Only Weekends": (date: Date) => isWeekend(date),
-    "Days Before The 18th": (date: Date) =>
-      isBefore(date, startOfDay(new Date(2019, 7, 18, 11, 25))),
-    "Just March": (date: Date) => isSameMonth(date, new Date(2019, 2, 16)),
-    "Just 2012": (date: Date) => isSameYear(date, new Date(2012, 2, 16)),
-  };
-
-  const isValidDateName = options(
-    "isValidDate",
-    Object.keys(isValidDateOptions).reduce(
-      (prev, curr) => ({ ...prev, [curr]: curr }),
-      {}
-    ),
-    "default - undefined",
-    {
-      display: "inline-radio",
-    }
-  );
-  const isValidDate = isValidDateName && isValidDateOptions[isValidDateName];
 
   return (
     <div className="form-horizontal">
       <h2>Customization props</h2>
       <p>
-        Try out various configuration options (via <strong>knobs</strong>) and
-        see how they affect the component.
+        Try out various configuration options (via <strong>controls</strong>)
+        and see how they affect the component.
       </p>
 
       <div>
@@ -347,19 +217,151 @@ export function CustomizableExample(): JSX.Element {
       >
         <React.StrictMode>
           <DateTime
-            shouldHideInput={shouldHideInput}
+            {...props}
             value={value}
             onChange={(newValue) => {
               setValue(newValue);
             }}
-            dateFormat={dateFormat}
-            timeFormat={timeFormat}
-            dateTypeMode={dateTypeMode}
-            locale={currentLocale}
-            isValidDate={isValidDate}
           />
         </React.StrictMode>
       </form>
     </div>
   );
 }
+
+const localeOptions = {
+  "EN - undefined": undefined,
+  "NL - nl": nl,
+  "ES - es": es,
+  "FR - fr": fr,
+};
+
+const dateFormatOptions = [
+  undefined,
+  false,
+  `${FORMATS.YEAR}-${FORMATS.MONTH}-${FORMATS.DAY}`,
+  `${FORMATS.MONTH}/${FORMATS.DAY}/${FORMATS.YEAR}`,
+  `${FORMATS.DAY}.${FORMATS.MONTH}.${FORMATS.YEAR}`,
+  `${FORMATS.MONTH}-${FORMATS.DAY}`,
+  `${FORMATS.FULL_MONTH_NAME}`,
+  `${FORMATS.YEAR}/${FORMATS.MONTH}`,
+  `${FORMATS.YEAR}`,
+].reduce((prev, curr) => {
+  return { ...prev, [`${curr}`]: curr };
+}, {});
+
+const timeFormatOptions = [
+  undefined,
+  false,
+  `${FORMATS.HOUR}:${FORMATS.MINUTE} ${FORMATS.AM_PM}`,
+  `${FORMATS.MILITARY_HOUR}:${FORMATS.MINUTE}:${FORMATS.SECOND}`,
+  `${FORMATS.MILITARY_HOUR}:${FORMATS.MINUTE}:${FORMATS.SECOND}.${FORMATS.MILLISECOND}`,
+  `${FORMATS.HOUR}:${FORMATS.MINUTE}:${FORMATS.SECOND}.${FORMATS.MILLISECOND} ${FORMATS.AM_PM}`,
+  `${FORMATS.HOUR}${FORMATS.MINUTE}`,
+  `${FORMATS.MILITARY_HOUR}:${FORMATS.MINUTE}xxx`,
+].reduce((prev, curr) => {
+  return { ...prev, [`${curr}`]: curr };
+}, {});
+
+const isValidDateOptions = {
+  "default - undefined": undefined,
+  "All Valid": () => true,
+  "All Invalid": () => false,
+  "Only Mondays": (date: Date) => isMonday(date),
+  "Only Weekdays": (date: Date) => !isWeekend(date),
+  "Only Weekends": (date: Date) => isWeekend(date),
+  "Days Before The 18th": (date: Date) =>
+    isBefore(date, startOfDay(new Date(2019, 7, 18, 11, 25))),
+  "Just March": (date: Date) => isSameMonth(date, new Date(2019, 2, 16)),
+  "Just 2012": (date: Date) => isSameYear(date, new Date(2012, 2, 16)),
+};
+
+const weekStartsOnOptions = {
+  "default - undefined": undefined,
+  "0 - Sunday": 0,
+  "1 - Monday": 1,
+  "2 - Tuesday": 2,
+  "3 - Wednesday": 3,
+  "4 - Thursday": 4,
+};
+
+const timeConstraintsOptions = {
+  "default - undefined": undefined,
+  "Step 1": {
+    hours: {
+      step: 1,
+    },
+    minutes: {
+      step: 1,
+    },
+    seconds: {
+      step: 1,
+    },
+    milliseconds: {
+      step: 1,
+    },
+  },
+  "15 Minutes": {
+    minutes: {
+      step: 15,
+    },
+  },
+};
+
+export const CustomizableExample = {
+  render: (args) => <CustomizableExampleComponent {...args} />,
+
+  args: {
+    shouldHideInput: true,
+    locale: undefined,
+    weekStartsOn: undefined,
+    dateFormat: `${FORMATS.MONTH}/${FORMATS.DAY}/${FORMATS.YEAR}`,
+    timeFormat: `${FORMATS.HOUR}:${FORMATS.MINUTE} ${FORMATS.AM_PM}`,
+    isValidDate: undefined,
+    timeConstraints: undefined,
+  },
+  argTypes: {
+    shouldHideInput: {
+      control: "boolean",
+    },
+    locale: {
+      control: "inline-radio",
+      options: Object.keys(localeOptions),
+      mapping: localeOptions,
+    },
+    dateFormat: {
+      control: "inline-radio",
+      options: Object.keys(dateFormatOptions),
+      mapping: dateFormatOptions,
+    },
+    timeFormat: {
+      control: "inline-radio",
+      options: Object.keys(timeFormatOptions),
+      mapping: timeFormatOptions,
+    },
+    dateTypeMode: {
+      control: "inline-radio",
+      options: ["utc-ms-timestamp", "input-format", "Date"],
+    },
+    isValidDate: {
+      control: "inline-radio",
+      options: Object.keys(isValidDateOptions),
+      mapping: isValidDateOptions,
+    },
+    weekStartsOn: {
+      control: "inline-radio",
+      options: Object.keys(weekStartsOnOptions),
+      mapping: weekStartsOnOptions,
+    },
+    timeConstraints: {
+      control: "inline-radio",
+      options: Object.keys(timeConstraintsOptions),
+      mapping: timeConstraintsOptions,
+    },
+  },
+  parameters: {
+    controls: {
+      exclude: ["value", "onChange", "onFocus", "onBlur"],
+    },
+  },
+} satisfies StoryObj<typeof meta>;

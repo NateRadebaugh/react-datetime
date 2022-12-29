@@ -90,6 +90,7 @@ function parse(
 
 export interface FormatOptions {
   locale: Locale | undefined;
+  weekStartsOn: WeekStartsOn | undefined;
 }
 
 export interface TimeConstraint {
@@ -154,8 +155,11 @@ function getDateTypeMode(
 }
 
 export type DateTypeMode = "utc-ms-timestamp" | "input-format" | "Date";
+export type WeekStartsOn = 0 | 1 | 2 | 3 | 4 | 5 | 6;
 
-export interface Props
+export type Props = DateTimeProps;
+
+export interface DateTimeProps
   extends Omit<
     React.HTMLProps<HTMLInputElement>,
     "onFocus" | "onBlur" | "onChange" | "value"
@@ -172,6 +176,7 @@ export interface Props
   timeFormat?: string | boolean;
 
   locale?: Locale;
+  weekStartsOn?: WeekStartsOn;
 
   shouldHideInput?: boolean;
   timeConstraints?: TimeConstraints;
@@ -190,6 +195,7 @@ export const DateTime: FC<Props> = (props): JSX.Element => {
     dateFormat: rawDateFormat = true,
     timeFormat: rawTimeFormat = true,
     locale,
+    weekStartsOn,
     shouldHideInput = false,
     timeConstraints,
     ...rest
@@ -224,8 +230,12 @@ export const DateTime: FC<Props> = (props): JSX.Element => {
   const formatOptions = useMemo<FormatOptions>(
     () => ({
       locale,
+      weekStartsOn:
+        typeof weekStartsOn === "number"
+          ? ((weekStartsOn % 7) as WeekStartsOn)
+          : weekStartsOn,
     }),
-    [locale]
+    [locale, weekStartsOn]
   );
 
   const valueAsDate = parse(value, fullFormat, formatOptions);

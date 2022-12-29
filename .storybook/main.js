@@ -1,14 +1,15 @@
 module.exports = {
-  stories: ["../src/**/*.stories.@(js|jsx|ts|tsx|mdx)"],
+  stories: ["../src/**/*.mdx", "../src/**/*.stories.@(js|jsx|ts|tsx)"],
   addons: [
-    "@storybook/preset-scss",
-    "@storybook/addon-knobs",
-    "@storybook/addon-actions",
     "@storybook/addon-links",
-    "@storybook/addon-docs",
+    "@storybook/addon-essentials",
+    "@storybook/addon-interactions",
   ],
-  framework: "@storybook/react",
-  core: {
-    builder: "webpack5",
+  framework: {
+    name: "@storybook/react-vite",
+    options: {},
+  },
+  docs: {
+    autodocs: "tag",
   },
 };
