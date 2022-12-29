@@ -314,7 +314,7 @@ export const CustomizableExample = {
   args: {
     shouldHideInput: true,
     locale: undefined,
-    weekStartsOn: 1,
+    weekStartsOn: undefined,
     dateFormat: `${FORMATS.MONTH}/${FORMATS.DAY}/${FORMATS.YEAR}`,
     timeFormat: `${FORMATS.HOUR}:${FORMATS.MINUTE} ${FORMATS.AM_PM}`,
     isValidDate: undefined,
