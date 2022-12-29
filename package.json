@@ -55,7 +55,7 @@
     "datetime"
   ],
   "scripts": {
-    "now-build": "build-storybook",
+    "now-build": "storybook build -c .storybook -o public",
     "build": "tsdx build --format=umd,esm,cjs&&npm run sass",
     "sass": "sass scss/styles.scss dist/css/styles.css",
     "bundlesize": "bundlesize",
@@ -71,7 +71,7 @@
     "lint:fix": "npm run lint --fix",
     "format": "prettier --write . --cache",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build",
+    "build-storybook": "storybook build -c .storybook -o public",
     "chromatic": "chromatic",
     "prepack": "npm run build",
     "prepare": "husky install",
