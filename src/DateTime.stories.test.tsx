@@ -4,11 +4,23 @@ import { render } from "@testing-library/react";
 import * as stories from "./DateTime.stories";
 
 test.each(
+  Object.keys(stories).filter((name) => {
+    // @ts-ignore
+    const StoryComponent = stories[name];
+
+    if (
+      typeof StoryComponent === "function" ||
+      ("render" in StoryComponent &&
+        typeof StoryComponent.render === "function")
+    ) {
+      return true;
+    }
+
+    return false;
+  })
+)("should render %s story", (name) => {
   // @ts-ignore
-  Object.keys(stories).filter((name) => typeof stories[name] === "function")
-)("should render %s story", (story) => {
-  // @ts-ignore
-  const StoryComponent = stories[story];
+  const StoryComponent = stories[name];
 
   if (
     "render" in StoryComponent &&

@@ -1,6 +1,6 @@
 import { Meta, StoryObj } from "@storybook/react";
 import * as React from "react";
-import { DateTime, Props as DateTimeProps, FORMATS } from ".";
+import { DateTime, DateTimeProps, FORMATS } from ".";
 import "../scss/styles.scss";
 
 import isBefore from "date-fns/isBefore";
@@ -86,6 +86,10 @@ export const SimpleExamples: () => JSX.Element = () => {
     </div>
   );
 };
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+(SimpleExamples as any).parameters = {
+  controls: { hideNoControlsWarning: true },
+};
 
 export function InlineExamples(): JSX.Element {
   function UncontrolledDateTime({
@@ -170,6 +174,10 @@ export function InlineExamples(): JSX.Element {
     </div>
   );
 }
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+(InlineExamples as any).parameters = {
+  controls: { hideNoControlsWarning: true },
+};
 
 type CustomizableExampleComponentProps = Pick<
   DateTimeProps,
@@ -177,6 +185,7 @@ type CustomizableExampleComponentProps = Pick<
   | "dateFormat"
   | "timeFormat"
   | "locale"
+  | "weekStartsOn"
   | "dateTypeMode"
   | "isValidDate"
   | "timeConstraints"
@@ -185,7 +194,7 @@ function CustomizableExampleComponent(
   props: CustomizableExampleComponentProps
 ): JSX.Element {
   const [value, setValue] = useState<string | number | Date | undefined>(
-    new Date(2019, 7, 2, 11, 25)
+    new Date(2022, 11, 29, 11, 25)
   );
 
   return (
@@ -267,6 +276,15 @@ const isValidDateOptions = {
   "Just 2012": (date: Date) => isSameYear(date, new Date(2012, 2, 16)),
 };
 
+const weekStartsOnOptions = {
+  "default - undefined": undefined,
+  "0 - Sunday": 0,
+  "1 - Monday": 1,
+  "2 - Tuesday": 2,
+  "3 - Wednesday": 3,
+  "4 - Thursday": 4,
+};
+
 const timeConstraintsOptions = {
   "default - undefined": undefined,
   "Step 1": {
@@ -296,6 +314,7 @@ export const CustomizableExample = {
   args: {
     shouldHideInput: true,
     locale: undefined,
+    weekStartsOn: 1,
     dateFormat: `${FORMATS.MONTH}/${FORMATS.DAY}/${FORMATS.YEAR}`,
     timeFormat: `${FORMATS.HOUR}:${FORMATS.MINUTE} ${FORMATS.AM_PM}`,
     isValidDate: undefined,
@@ -328,6 +347,11 @@ export const CustomizableExample = {
       control: "inline-radio",
       options: Object.keys(isValidDateOptions),
       mapping: isValidDateOptions,
+    },
+    weekStartsOn: {
+      control: "inline-radio",
+      options: Object.keys(weekStartsOnOptions),
+      mapping: weekStartsOnOptions,
     },
     timeConstraints: {
       control: "inline-radio",

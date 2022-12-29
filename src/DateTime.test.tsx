@@ -230,6 +230,243 @@ describe("DateTime", () => {
       expect(picker).toBeVisible();
     });
 
+    describe("should configure which day weekStartsOn", () => {
+      it("should start on Sun by default", async () => {
+        mockDate(new Date(2019, 0, 1, 12, 1, 12, 34));
+        const weekStartsOn = 1;
+        const expectedDowRow = "MoTuWeThFrSaSu";
+
+        // Arrange
+        render(
+          <>
+            <label htmlFor="some-id">Some Field</label>
+            <DateTime id="some-id" weekStartsOn={weekStartsOn} />
+          </>
+        );
+
+        // Act
+        const element = await screen.findByLabelText("Some Field");
+        await userEvent.click(element);
+
+        // Assert
+        expect(await screen.findByTestId("day-picker")).toBeVisible();
+
+        const rows = await screen.findAllByRole("row");
+        const [headerRow, dowRow] = rows;
+
+        expect(dowRow).toHaveTextContent(expectedDowRow);
+      });
+
+      it("should start on Sun when starts on 0", async () => {
+        mockDate(new Date(2019, 0, 1, 12, 1, 12, 34));
+        const weekStartsOn = 1;
+        const expectedDowRow = "MoTuWeThFrSaSu";
+
+        // Arrange
+        render(
+          <>
+            <label htmlFor="some-id">Some Field</label>
+            <DateTime id="some-id" weekStartsOn={weekStartsOn} />
+          </>
+        );
+
+        // Act
+        const element = await screen.findByLabelText("Some Field");
+        await userEvent.click(element);
+
+        // Assert
+        expect(await screen.findByTestId("day-picker")).toBeVisible();
+
+        const rows = await screen.findAllByRole("row");
+        const [headerRow, dowRow] = rows;
+
+        expect(dowRow).toHaveTextContent(expectedDowRow);
+      });
+
+      it("should start on Mon when starts on 1", async () => {
+        mockDate(new Date(2019, 0, 1, 12, 1, 12, 34));
+        const weekStartsOn = 1;
+        const expectedDowRow = "MoTuWeThFrSaSu";
+
+        // Arrange
+        render(
+          <>
+            <label htmlFor="some-id">Some Field</label>
+            <DateTime id="some-id" weekStartsOn={weekStartsOn} />
+          </>
+        );
+
+        // Act
+        const element = await screen.findByLabelText("Some Field");
+        await userEvent.click(element);
+
+        // Assert
+        expect(await screen.findByTestId("day-picker")).toBeVisible();
+
+        const rows = await screen.findAllByRole("row");
+        const [headerRow, dowRow] = rows;
+
+        expect(dowRow).toHaveTextContent(expectedDowRow);
+      });
+
+      it("should start on Tue when starts on 2", async () => {
+        mockDate(new Date(2019, 0, 1, 12, 1, 12, 34));
+        const weekStartsOn = 2;
+        const expectedDowRow = "TuWeThFrSaSuMo";
+
+        // Arrange
+        render(
+          <>
+            <label htmlFor="some-id">Some Field</label>
+            <DateTime id="some-id" weekStartsOn={weekStartsOn} />
+          </>
+        );
+
+        // Act
+        const element = await screen.findByLabelText("Some Field");
+        await userEvent.click(element);
+
+        // Assert
+        expect(await screen.findByTestId("day-picker")).toBeVisible();
+
+        const rows = await screen.findAllByRole("row");
+        const [headerRow, dowRow] = rows;
+
+        expect(dowRow).toHaveTextContent(expectedDowRow);
+      });
+
+      it("should start on Wed when starts on 3", async () => {
+        mockDate(new Date(2019, 0, 1, 12, 1, 12, 34));
+        const weekStartsOn = 3;
+        const expectedDowRow = "WeThFrSaSuMoTu";
+
+        // Arrange
+        render(
+          <>
+            <label htmlFor="some-id">Some Field</label>
+            <DateTime id="some-id" weekStartsOn={weekStartsOn} />
+          </>
+        );
+
+        // Act
+        const element = await screen.findByLabelText("Some Field");
+        await userEvent.click(element);
+
+        // Assert
+        expect(await screen.findByTestId("day-picker")).toBeVisible();
+
+        const rows = await screen.findAllByRole("row");
+        const [headerRow, dowRow] = rows;
+
+        expect(dowRow).toHaveTextContent(expectedDowRow);
+      });
+
+      it("should start on Thu when starts on 4", async () => {
+        mockDate(new Date(2019, 0, 1, 12, 1, 12, 34));
+        const weekStartsOn = 4;
+        const expectedDowRow = "ThFrSaSuMoTuWe";
+
+        // Arrange
+        render(
+          <>
+            <label htmlFor="some-id">Some Field</label>
+            <DateTime id="some-id" weekStartsOn={weekStartsOn} />
+          </>
+        );
+
+        // Act
+        const element = await screen.findByLabelText("Some Field");
+        await userEvent.click(element);
+
+        // Assert
+        expect(await screen.findByTestId("day-picker")).toBeVisible();
+
+        const rows = await screen.findAllByRole("row");
+        const [headerRow, dowRow] = rows;
+
+        expect(dowRow).toHaveTextContent(expectedDowRow);
+      });
+
+      it("should start on Fri when starts on 5", async () => {
+        mockDate(new Date(2019, 0, 1, 12, 1, 12, 34));
+        const weekStartsOn = 5;
+        const expectedDowRow = "FrSaSuMoTuWeTh";
+
+        // Arrange
+        render(
+          <>
+            <label htmlFor="some-id">Some Field</label>
+            <DateTime id="some-id" weekStartsOn={weekStartsOn} />
+          </>
+        );
+
+        // Act
+        const element = await screen.findByLabelText("Some Field");
+        await userEvent.click(element);
+
+        // Assert
+        expect(await screen.findByTestId("day-picker")).toBeVisible();
+
+        const rows = await screen.findAllByRole("row");
+        const [headerRow, dowRow] = rows;
+
+        expect(dowRow).toHaveTextContent(expectedDowRow);
+      });
+
+      it("should start on Sat when starts on 6", async () => {
+        mockDate(new Date(2019, 0, 1, 12, 1, 12, 34));
+        const weekStartsOn = 6;
+        const expectedDowRow = "SaSuMoTuWeThFr";
+
+        // Arrange
+        render(
+          <>
+            <label htmlFor="some-id">Some Field</label>
+            <DateTime id="some-id" weekStartsOn={weekStartsOn} />
+          </>
+        );
+
+        // Act
+        const element = await screen.findByLabelText("Some Field");
+        await userEvent.click(element);
+
+        // Assert
+        expect(await screen.findByTestId("day-picker")).toBeVisible();
+
+        const rows = await screen.findAllByRole("row");
+        const [headerRow, dowRow] = rows;
+
+        expect(dowRow).toHaveTextContent(expectedDowRow);
+      });
+
+      it("should start on Sun when starts on 7", async () => {
+        mockDate(new Date(2019, 0, 1, 12, 1, 12, 34));
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const weekStartsOn: any = 7;
+        const expectedDowRow = "SuMoTuWeThFrSa";
+
+        // Arrange
+        render(
+          <>
+            <label htmlFor="some-id">Some Field</label>
+            <DateTime id="some-id" weekStartsOn={weekStartsOn} />
+          </>
+        );
+
+        // Act
+        const element = await screen.findByLabelText("Some Field");
+        await userEvent.click(element);
+
+        // Assert
+        expect(await screen.findByTestId("day-picker")).toBeVisible();
+
+        const rows = await screen.findAllByRole("row");
+        const [headerRow, dowRow] = rows;
+
+        expect(dowRow).toHaveTextContent(expectedDowRow);
+      });
+    });
+
     describe("should open various months based on current date", () => {
       it("should open january day picker when clicking", async () => {
         mockDate(new Date(2019, 0, 1, 12, 1, 12, 34));
@@ -253,7 +490,6 @@ describe("DateTime", () => {
         const [headerRow, dowRow] = rows;
 
         expect(headerRow).toHaveTextContent("January");
-        expect(dowRow).toHaveTextContent("SuMoTuWeThFrSa");
       });
 
       it("should open february day picker when clicking", async () => {
@@ -278,7 +514,6 @@ describe("DateTime", () => {
         const [headerRow, dowRow] = rows;
 
         expect(headerRow).toHaveTextContent("February");
-        expect(dowRow).toHaveTextContent("SuMoTuWeThFrSa");
       });
 
       it("should open march day picker when clicking", async () => {
@@ -303,7 +538,6 @@ describe("DateTime", () => {
         const [headerRow, dowRow] = rows;
 
         expect(headerRow).toHaveTextContent("March");
-        expect(dowRow).toHaveTextContent("SuMoTuWeThFrSa");
       });
 
       it("should open april day picker when clicking", async () => {
@@ -328,7 +562,6 @@ describe("DateTime", () => {
         const [headerRow, dowRow] = rows;
 
         expect(headerRow).toHaveTextContent("April");
-        expect(dowRow).toHaveTextContent("SuMoTuWeThFrSa");
       });
 
       it("should open may day picker when clicking", async () => {
@@ -353,7 +586,6 @@ describe("DateTime", () => {
         const [headerRow, dowRow] = rows;
 
         expect(headerRow).toHaveTextContent("May");
-        expect(dowRow).toHaveTextContent("SuMoTuWeThFrSa");
       });
 
       it("should open june day picker when clicking", async () => {
@@ -378,7 +610,6 @@ describe("DateTime", () => {
         const [headerRow, dowRow] = rows;
 
         expect(headerRow).toHaveTextContent("June");
-        expect(dowRow).toHaveTextContent("SuMoTuWeThFrSa");
       });
 
       it("should open july day picker when clicking", async () => {
@@ -403,7 +634,6 @@ describe("DateTime", () => {
         const [headerRow, dowRow] = rows;
 
         expect(headerRow).toHaveTextContent("July");
-        expect(dowRow).toHaveTextContent("SuMoTuWeThFrSa");
       });
 
       it("should open august day picker when clicking", async () => {
@@ -428,7 +658,6 @@ describe("DateTime", () => {
         const [headerRow, dowRow] = rows;
 
         expect(headerRow).toHaveTextContent("August");
-        expect(dowRow).toHaveTextContent("SuMoTuWeThFrSa");
       });
 
       it("should open september day picker when clicking", async () => {
@@ -453,7 +682,6 @@ describe("DateTime", () => {
         const [headerRow, dowRow] = rows;
 
         expect(headerRow).toHaveTextContent("September");
-        expect(dowRow).toHaveTextContent("SuMoTuWeThFrSa");
       });
 
       it("should open october day picker when clicking", async () => {
@@ -478,7 +706,6 @@ describe("DateTime", () => {
         const [headerRow, dowRow] = rows;
 
         expect(headerRow).toHaveTextContent("October");
-        expect(dowRow).toHaveTextContent("SuMoTuWeThFrSa");
       });
 
       it("should open november day picker when clicking", async () => {
@@ -503,7 +730,6 @@ describe("DateTime", () => {
         const [headerRow, dowRow] = rows;
 
         expect(headerRow).toHaveTextContent("November");
-        expect(dowRow).toHaveTextContent("SuMoTuWeThFrSa");
       });
 
       it("should open december day picker when clicking", async () => {
@@ -528,7 +754,6 @@ describe("DateTime", () => {
         const [headerRow, dowRow] = rows;
 
         expect(headerRow).toHaveTextContent("December");
-        expect(dowRow).toHaveTextContent("SuMoTuWeThFrSa");
       });
     });
 

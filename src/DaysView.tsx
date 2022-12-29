@@ -36,11 +36,11 @@ function DaysView(props: DaysViewProps): JSX.Element {
     isValidDate,
   } = props;
 
-  const sunday = startOfWeek(viewDate);
+  const weekStart = startOfWeek(viewDate, formatOptions);
 
   const prevMonth = addMonths(viewDate, -1);
   const daysSincePrevMonthLastWeekStart = differenceInDays(
-    startOfWeek(endOfMonth(prevMonth)),
+    startOfWeek(endOfMonth(prevMonth), formatOptions),
     viewDate
   );
   const prevMonthLastWeekStart = addDays(
@@ -82,7 +82,7 @@ function DaysView(props: DaysViewProps): JSX.Element {
             {[0, 1, 2, 3, 4, 5, 6].map((colNum) => (
               <th key={colNum} className="dow">
                 {format(
-                  addDays(sunday, colNum),
+                  addDays(weekStart, colNum),
                   FORMATS.SHORT_DAY_OF_WEEK,
                   formatOptions
                 )}
