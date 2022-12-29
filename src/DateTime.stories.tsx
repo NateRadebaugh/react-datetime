@@ -194,7 +194,7 @@ function CustomizableExampleComponent(
   props: CustomizableExampleComponentProps
 ): JSX.Element {
   const [value, setValue] = useState<string | number | Date | undefined>(
-    new Date(2022, 11, 29, 11, 25)
+    new Date(2019, 7, 2, 11, 25)
   );
 
   return (
